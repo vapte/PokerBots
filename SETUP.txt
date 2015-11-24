@@ -1,0 +1,10 @@
+SETUP:
+
+
+1) Open Terminal. Index into the project directory (pokerAI). 
+2) Repeat step 1, but with a different window
+3) In first window, enter “./runjar.sh”
+4) When engine asks you to start up a player, navigate to second terminal window and enter 
+“./runbot.sh”
+
+

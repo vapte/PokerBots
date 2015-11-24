@@ -1,0 +1,1427 @@
+6.176 MIT Pokerbots - playa vs player2 vs player3 (stack=200, bb=2)
+Hand #1, playa (200), player2 (200), player3 (200)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [5d Qs]
+Dealt to player2 [2s 2h]
+Dealt to player3 [7h 9d]
+playa folds
+player2 folds
+player3 wins the pot (3)
+
+Hand #2, player3 (201), playa (200), player2 (199)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [Qd Td]
+Dealt to playa [7c 8s]
+Dealt to player2 [4h 3h]
+player3 raises to 4
+playa folds
+player2 raises to 7
+player3 folds
+player2 wins the pot (12)
+
+Hand #3, player2 (204), player3 (197), playa (199)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [2h 4s]
+Dealt to player3 [4d 9s]
+Dealt to playa [5h 3c]
+player2 folds
+player3 folds
+playa wins the pot (3)
+
+Hand #4, playa (200), player2 (204), player3 (196)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [9h Jh]
+Dealt to player2 [4c Kh]
+Dealt to player3 [6h As]
+playa folds
+player2 folds
+player3 wins the pot (3)
+
+Hand #5, player3 (197), playa (200), player2 (203)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [7s Kc]
+Dealt to playa [As 3s]
+Dealt to player2 [6c Qs]
+player3 folds
+playa folds
+player2 wins the pot (3)
+
+Hand #6, player2 (204), player3 (197), playa (199)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [6h 7d]
+Dealt to player3 [4d 9c]
+Dealt to playa [Qd 5d]
+player2 folds
+player3 raises to 5
+playa folds
+player3 wins the pot (7)
+
+Hand #7, playa (197), player2 (204), player3 (199)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Jc Ts]
+Dealt to player2 [Tc Js]
+Dealt to player3 [Qs 2h]
+playa folds
+player2 raises to 5
+player3 calls 5
+*** FLOP *** (10) [As 8h 3s]
+player2 bets 9
+player3 folds
+player2 wins the pot (19)
+
+Hand #8, player3 (194), playa (197), player2 (209)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [Ad Jc]
+Dealt to playa [7c Kd]
+Dealt to player2 [Jh As]
+player3 raises to 5
+playa folds
+player2 folds
+player3 wins the pot (8)
+
+Hand #9, player2 (207), player3 (197), playa (196)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [3s 6h]
+Dealt to player3 [Qd Qh]
+Dealt to playa [2c As]
+player2 folds
+player3 folds
+playa wins the pot (3)
+
+Hand #10, playa (197), player2 (207), player3 (196)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Jc Ts]
+Dealt to player2 [6d 4c]
+Dealt to player3 [8s 9d]
+playa folds
+player2 raises to 5
+player3 folds
+player2 wins the pot (7)
+
+Hand #11, player3 (194), playa (197), player2 (209)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [Kd As]
+Dealt to playa [Kc 7d]
+Dealt to player2 [9c 7h]
+player3 calls 2
+playa folds
+player2 raises to 4
+player3 calls 4
+*** FLOP *** (9) [4s 8d 4c]
+player2 checks
+player3 checks
+*** TURN *** (9) [4s 8d 4c] [6c]
+player2 bets 8
+player3 folds
+player2 wins the pot (17)
+
+Hand #12, player2 (214), player3 (190), playa (196)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Jd 9d]
+Dealt to player3 [Ac Qh]
+Dealt to playa [4s Ts]
+player2 raises to 4
+player3 folds
+playa folds
+player2 wins the pot (7)
+
+Hand #13, playa (194), player2 (217), player3 (189)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Js 9d]
+Dealt to player2 [As Kd]
+Dealt to player3 [9h Ts]
+playa folds
+player2 folds
+player3 wins the pot (3)
+
+Hand #14, player3 (190), playa (194), player2 (216)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [Tc 3d]
+Dealt to playa [8d 9h]
+Dealt to player2 [5h 7d]
+player3 calls 2
+playa folds
+player2 raises to 5
+player3 raises to 13
+player2 raises to 35
+player3 raises to 99
+player2 folds
+player3 wins the pot (135)
+
+Hand #15, player2 (181), player3 (226), playa (193)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Qc Td]
+Dealt to player3 [Ac 9d]
+Dealt to playa [6h 3s]
+player2 folds
+player3 calls 2
+playa checks
+*** FLOP *** (4) [4s 5h Jd]
+player3 bets 3
+playa folds
+player3 wins the pot (7)
+
+Hand #16, playa (191), player2 (181), player3 (228)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [6c Tc]
+Dealt to player2 [7c 6s]
+Dealt to player3 [9s 8d]
+playa folds
+player2 raises to 4
+player3 raises to 7
+player2 folds
+player3 wins the pot (11)
+
+Hand #17, player3 (232), playa (191), player2 (177)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [Ac 3s]
+Dealt to playa [3d 4h]
+Dealt to player2 [5s As]
+player3 raises to 4
+playa folds
+player2 calls 4
+*** FLOP *** (9) [Jh Td 7s]
+player2 bets 2
+player3 calls 2
+*** TURN *** (13) [Jh Td 7s] [5c]
+player2 checks
+player3 checks
+*** RIVER *** (13) [Jh Td 7s 5c] [Ts]
+player2 checks
+player3 checks
+player3 shows [Ac 3s]
+player2 shows [5s As]
+player2 wins the pot (13)
+
+Hand #18, player2 (184), player3 (226), playa (190)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [9s 7d]
+Dealt to player3 [6h 6s]
+Dealt to playa [6d Qh]
+player2 calls 2
+player3 folds
+playa checks
+*** FLOP *** (5) [Jd 3c 8c]
+playa checks
+player2 bets 4
+playa folds
+player2 wins the pot (9)
+
+Hand #19, playa (188), player2 (187), player3 (225)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [3c 9s]
+Dealt to player2 [7c Ts]
+Dealt to player3 [4h 5c]
+playa folds
+player2 folds
+player3 wins the pot (3)
+
+Hand #20, player3 (226), playa (188), player2 (186)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [7s Ts]
+Dealt to playa [Jd 5s]
+Dealt to player2 [Kh Tc]
+player3 calls 2
+playa folds
+player2 raises to 5
+player3 calls 5
+*** FLOP *** (11) [Ad Ah 5d]
+player2 bets 7
+player3 raises to 26
+player2 folds
+player3 wins the pot (44)
+
+Hand #21, player2 (174), player3 (239), playa (187)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [6c 5s]
+Dealt to player3 [Qc 4d]
+Dealt to playa [Kc 2c]
+player2 folds
+player3 calls 2
+playa checks
+*** FLOP *** (4) [4c 7s Jh]
+player3 bets 2
+playa folds
+player3 wins the pot (6)
+
+Hand #22, playa (185), player2 (174), player3 (241)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Jh Jc]
+Dealt to player2 [4s 6c]
+Dealt to player3 [Js 2s]
+playa folds
+player2 calls 2
+player3 raises to 4
+player2 folds
+player3 wins the pot (6)
+
+Hand #23, player3 (243), playa (185), player2 (172)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [Jc 7s]
+Dealt to playa [2c 9c]
+Dealt to player2 [8c 5h]
+player3 calls 2
+playa folds
+player2 raises to 5
+player3 raises to 12
+player2 folds
+player3 wins the pot (18)
+
+Hand #24, player2 (167), player3 (249), playa (184)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [3c 4c]
+Dealt to player3 [7h 3h]
+Dealt to playa [9h 9d]
+player2 folds
+player3 raises to 5
+playa folds
+player3 wins the pot (7)
+
+Hand #25, playa (182), player2 (167), player3 (251)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [5d Td]
+Dealt to player2 [Kh 3d]
+Dealt to player3 [Kc Qs]
+playa folds
+player2 raises to 5
+player3 folds
+player2 wins the pot (7)
+
+Hand #26, player3 (249), playa (182), player2 (169)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [7s 4s]
+Dealt to playa [Jc 7c]
+Dealt to player2 [Qd 2h]
+player3 folds
+playa folds
+player2 wins the pot (3)
+
+Hand #27, player2 (170), player3 (249), playa (181)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Qc 4h]
+Dealt to player3 [2c Qs]
+Dealt to playa [6s 9c]
+player2 folds
+player3 raises to 5
+playa folds
+player3 wins the pot (7)
+
+Hand #28, playa (179), player2 (170), player3 (251)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [7d 8d]
+Dealt to player2 [4s Tc]
+Dealt to player3 [Td 4h]
+playa folds
+player2 folds
+player3 wins the pot (3)
+
+Hand #29, player3 (252), playa (179), player2 (169)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [Ac 3h]
+Dealt to playa [5h Ah]
+Dealt to player2 [Qh Kd]
+player3 raises to 4
+playa folds
+player2 raises to 8
+player3 raises to 23
+player2 raises to 39
+player3 calls 39
+*** FLOP *** (79) [9s Td Jd]
+player2 bets 57
+player3 calls 57
+*** TURN *** (193) [9s Td Jd] [6s]
+player2 checks
+player3 bets 72
+player2 raises to 73
+player3 calls 73
+*** RIVER *** (339) [9s Td Jd 6s] [3d]
+player3 shows [Ac 3h]
+player2 shows [Qh Kd]
+player2 wins the pot (339)
+
+Hand #30, player2 (339), player3 (83), playa (178)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Th Ah]
+Dealt to player3 [6c Kh]
+Dealt to playa [Td 8h]
+player2 raises to 6
+player3 raises to 19
+playa folds
+player2 raises to 56
+player3 calls 56
+*** FLOP *** (114) [Ts Ac 2h]
+player3 bets 11
+player2 calls 11
+*** TURN *** (136) [Ts Ac 2h] [Js]
+player3 bets 13
+player2 calls 13
+*** RIVER *** (162) [Ts Ac 2h Js] [Qd]
+player3 bets 2
+player2 folds
+player3 wins the pot (164)
+
+Hand #31, playa (176), player2 (259), player3 (165)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [3d 8c]
+Dealt to player2 [7d 6d]
+Dealt to player3 [Jh 5s]
+playa folds
+player2 calls 2
+player3 checks
+*** FLOP *** (4) [2d Ad Qd]
+player2 checks
+player3 bets 2
+player2 raises to 9
+player3 raises to 27
+player2 folds
+player3 wins the pot (40)
+
+Hand #32, player3 (176), playa (176), player2 (248)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [6h Ks]
+Dealt to playa [Tc 5d]
+Dealt to player2 [9c 3c]
+player3 calls 2
+playa folds
+player2 raises to 6
+player3 calls 6
+*** FLOP *** (13) [Qc Js Td]
+player2 bets 11
+player3 folds
+player2 wins the pot (24)
+
+Hand #33, player2 (255), player3 (170), playa (175)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [9s Kh]
+Dealt to player3 [Th 6c]
+Dealt to playa [Ks 4s]
+player2 folds
+player3 calls 2
+playa checks
+*** FLOP *** (4) [Jc Qh Tc]
+player3 bets 3
+playa folds
+player3 wins the pot (7)
+
+Hand #34, playa (173), player2 (255), player3 (172)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [3d 3s]
+Dealt to player2 [7c 4h]
+Dealt to player3 [Qd Js]
+playa folds
+player2 raises to 5
+player3 calls 5
+*** FLOP *** (10) [8s Jd 7h]
+player2 checks
+player3 checks
+*** TURN *** (10) [8s Jd 7h] [Tc]
+player2 bets 3
+player3 calls 3
+*** RIVER *** (16) [8s Jd 7h Tc] [6c]
+player2 bets 10
+player3 folds
+player2 wins the pot (26)
+
+Hand #35, player3 (164), playa (173), player2 (263)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [6s 3c]
+Dealt to playa [Qs Js]
+Dealt to player2 [Ts Jc]
+player3 calls 2
+playa folds
+player2 checks
+*** FLOP *** (5) [Ac 3s Td]
+player2 bets 3
+player3 folds
+player2 wins the pot (8)
+
+Hand #36, player2 (266), player3 (162), playa (172)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [7h 2c]
+Dealt to player3 [Th 3d]
+Dealt to playa [6s Kd]
+player2 folds
+player3 raises to 5
+playa folds
+player3 wins the pot (7)
+
+Hand #37, playa (170), player2 (266), player3 (164)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Th 9d]
+Dealt to player2 [Kc Jh]
+Dealt to player3 [Qd 8s]
+playa folds
+player2 raises to 5
+player3 folds
+player2 wins the pot (7)
+
+Hand #38, player3 (162), playa (170), player2 (268)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [Kc 2d]
+Dealt to playa [8c 5c]
+Dealt to player2 [Qd 8h]
+player3 folds
+playa folds
+player2 wins the pot (3)
+
+Hand #39, player2 (269), player3 (162), playa (169)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Kd 5d]
+Dealt to player3 [8h 7d]
+Dealt to playa [Qh 8c]
+player2 calls 2
+player3 folds
+playa checks
+*** FLOP *** (5) [Kc 9c 4c]
+playa checks
+player2 checks
+*** TURN *** (5) [Kc 9c 4c] [Qc]
+playa checks
+player2 bets 2
+playa folds
+player2 wins the pot (7)
+
+Hand #40, playa (167), player2 (272), player3 (161)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Jh Ah]
+Dealt to player2 [3h Tc]
+Dealt to player3 [9s 8c]
+playa folds
+player2 calls 2
+player3 raises to 4
+player2 calls 4
+*** FLOP *** (8) [2s 6c Qs]
+player2 checks
+player3 bets 5
+player2 raises to 18
+player3 raises to 48
+player2 raises to 100
+player3 calls 100
+*** TURN *** (208) [2s 6c Qs] [5c]
+player2 checks
+player3 bets 53
+player2 folds
+player3 wins the pot (261)
+
+Hand #41, player3 (265), playa (167), player2 (168)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [5c 4s]
+Dealt to playa [Kh 4d]
+Dealt to player2 [5s Qc]
+player3 raises to 6
+playa folds
+player2 calls 6
+*** FLOP *** (13) [Qd 4c 7d]
+player2 checks
+player3 bets 3
+player2 folds
+player3 wins the pot (16)
+
+Hand #42, player2 (162), player3 (272), playa (166)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [5c 3h]
+Dealt to player3 [3s Td]
+Dealt to playa [Ts Ks]
+player2 folds
+player3 folds
+playa wins the pot (3)
+
+Hand #43, playa (167), player2 (162), player3 (271)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Td 3h]
+Dealt to player2 [Qd 3c]
+Dealt to player3 [Jh Qc]
+playa folds
+player2 calls 2
+player3 checks
+*** FLOP *** (4) [3d 3s Js]
+player2 bets 2
+player3 folds
+player2 wins the pot (6)
+
+Hand #44, player3 (269), playa (167), player2 (164)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [9d 2c]
+Dealt to playa [4s 4c]
+Dealt to player2 [4h Td]
+player3 folds
+playa folds
+player2 wins the pot (3)
+
+Hand #45, player2 (165), player3 (269), playa (166)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [8d 5d]
+Dealt to player3 [9h 5c]
+Dealt to playa [Jc Ts]
+player2 raises to 5
+player3 raises to 11
+playa folds
+player2 calls 11
+*** FLOP *** (24) [Js Jd Kc]
+player3 checks
+player2 bets 11
+player3 calls 11
+*** TURN *** (46) [Js Jd Kc] [7h]
+player3 checks
+player2 checks
+*** RIVER *** (46) [Js Jd Kc 7h] [Jh]
+player3 checks
+player2 bets 34
+player3 folds
+player2 wins the pot (80)
+
+Hand #46, playa (164), player2 (189), player3 (247)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Ah 7c]
+Dealt to player2 [Jc 2s]
+Dealt to player3 [9d Th]
+playa folds
+player2 folds
+player3 wins the pot (3)
+
+Hand #47, player3 (248), playa (164), player2 (188)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [4c 7d]
+Dealt to playa [5d 7h]
+Dealt to player2 [8h 2s]
+player3 raises to 4
+playa folds
+player2 folds
+player3 wins the pot (7)
+
+Hand #48, player2 (186), player3 (251), playa (163)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [9s Kh]
+Dealt to player3 [Ad Th]
+Dealt to playa [Ah 5s]
+player2 raises to 4
+player3 raises to 11
+playa folds
+player2 raises to 22
+player3 calls 22
+*** FLOP *** (46) [3c Ts 4s]
+player3 checks
+player2 bets 39
+player3 raises to 142
+player2 folds
+player3 wins the pot (227)
+
+Hand #49, playa (161), player2 (125), player3 (314)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Tc Qc]
+Dealt to player2 [Qh 3c]
+Dealt to player3 [Ah 6s]
+playa folds
+player2 calls 2
+player3 checks
+*** FLOP *** (4) [5d 6c Qs]
+player2 bets 3
+player3 raises to 7
+player2 folds
+player3 wins the pot (14)
+
+Hand #50, player3 (319), playa (161), player2 (120)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [3h Tc]
+Dealt to playa [3c 2d]
+Dealt to player2 [5h 4s]
+player3 folds
+playa folds
+player2 wins the pot (3)
+
+Hand #51, player2 (121), player3 (319), playa (160)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [8s 2s]
+Dealt to player3 [5h 4h]
+Dealt to playa [4s 8d]
+player2 calls 2
+player3 folds
+playa checks
+*** FLOP *** (5) [Jd As 6c]
+playa checks
+player2 bets 2
+playa folds
+player2 wins the pot (7)
+
+Hand #52, playa (158), player2 (124), player3 (318)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [2s Js]
+Dealt to player2 [6s 4d]
+Dealt to player3 [6c 5d]
+playa folds
+player2 calls 2
+player3 checks
+*** FLOP *** (4) [6h Td Ah]
+player2 bets 2
+player3 folds
+player2 wins the pot (6)
+
+Hand #53, player3 (316), playa (158), player2 (126)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [7d 3c]
+Dealt to playa [5h 9s]
+Dealt to player2 [2d Tc]
+player3 raises to 5
+playa folds
+player2 calls 5
+*** FLOP *** (11) [Js 9d Kd]
+player2 bets 4
+player3 calls 4
+*** TURN *** (19) [Js 9d Kd] [8d]
+player2 checks
+player3 bets 17
+player2 calls 17
+*** RIVER *** (53) [Js 9d Kd 8d] [4c]
+player2 checks
+player3 checks
+player3 shows [7d 3c]
+player2 shows [2d Tc]
+player2 wins the pot (53)
+
+Hand #54, player2 (153), player3 (290), playa (157)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [9d 8h]
+Dealt to player3 [Qc Jd]
+Dealt to playa [7s 3h]
+player2 calls 2
+player3 folds
+playa checks
+*** FLOP *** (5) [Qd Td 3c]
+playa checks
+player2 bets 4
+playa folds
+player2 wins the pot (9)
+
+Hand #55, playa (155), player2 (156), player3 (289)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Jh 6s]
+Dealt to player2 [2s 3h]
+Dealt to player3 [Qs 6d]
+playa folds
+player2 folds
+player3 wins the pot (3)
+
+Hand #56, player3 (290), playa (155), player2 (155)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [4d 5c]
+Dealt to playa [2d 8h]
+Dealt to player2 [2s 2h]
+player3 calls 2
+playa folds
+player2 checks
+*** FLOP *** (5) [7c 7s 3s]
+player2 checks
+player3 checks
+*** TURN *** (5) [7c 7s 3s] [Qh]
+player2 bets 4
+player3 calls 4
+*** RIVER *** (13) [7c 7s 3s Qh] [4s]
+player2 checks
+player3 checks
+player3 shows [4d 5c]
+player2 shows [2s 2h]
+player3 wins the pot (13)
+
+Hand #57, player2 (149), player3 (297), playa (154)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [5c 7h]
+Dealt to player3 [4s Qd]
+Dealt to playa [8s Qh]
+player2 calls 2
+player3 folds
+playa checks
+*** FLOP *** (5) [Kd 6h Jh]
+playa checks
+player2 bets 4
+playa folds
+player2 wins the pot (9)
+
+Hand #58, playa (152), player2 (152), player3 (296)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [4c 8s]
+Dealt to player2 [Jh Qc]
+Dealt to player3 [9h Qd]
+playa folds
+player2 calls 2
+player3 raises to 4
+player2 raises to 11
+player3 folds
+player2 wins the pot (15)
+
+Hand #59, player3 (292), playa (152), player2 (156)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [9s 6d]
+Dealt to playa [3c As]
+Dealt to player2 [3d 4d]
+player3 calls 2
+playa folds
+player2 checks
+*** FLOP *** (5) [8c 7d 5d]
+player2 bets 4
+player3 calls 4
+*** TURN *** (13) [8c 7d 5d] [Kh]
+player2 bets 6
+player3 raises to 19
+player2 raises to 39
+player3 raises to 98
+player2 raises to 150
+player3 folds
+player2 wins the pot (261)
+
+Hand #60, player2 (261), player3 (188), playa (151)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [8h Ad]
+Dealt to player3 [Td 7d]
+Dealt to playa [Ks 5d]
+player2 raises to 5
+player3 folds
+playa folds
+player2 wins the pot (8)
+
+Hand #61, playa (149), player2 (264), player3 (187)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Ac 7c]
+Dealt to player2 [4s 7h]
+Dealt to player3 [5h Js]
+playa folds
+player2 raises to 4
+player3 calls 4
+*** FLOP *** (8) [8s 4c 8c]
+player2 checks
+player3 bets 4
+player2 folds
+player3 wins the pot (12)
+
+Hand #62, player3 (191), playa (149), player2 (260)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [8d Td]
+Dealt to playa [Ah 7s]
+Dealt to player2 [7c 6c]
+player3 folds
+playa folds
+player2 wins the pot (3)
+
+Hand #63, player2 (261), player3 (191), playa (148)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Ah 9d]
+Dealt to player3 [As Ks]
+Dealt to playa [8c 9h]
+player2 folds
+player3 folds
+playa wins the pot (3)
+
+Hand #64, playa (149), player2 (261), player3 (190)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [5s As]
+Dealt to player2 [8c 9c]
+Dealt to player3 [Kc 3c]
+playa folds
+player2 raises to 4
+player3 folds
+player2 wins the pot (6)
+
+Hand #65, player3 (188), playa (149), player2 (263)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [8s Jc]
+Dealt to playa [8h 9c]
+Dealt to player2 [Ac 7c]
+player3 calls 2
+playa folds
+player2 raises to 4
+player3 folds
+player2 wins the pot (7)
+
+Hand #66, player2 (266), player3 (186), playa (148)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Ah 9h]
+Dealt to player3 [Jh 7s]
+Dealt to playa [Qh 9s]
+player2 folds
+player3 calls 2
+playa checks
+*** FLOP *** (4) [8c 4h Ac]
+player3 bets 2
+playa folds
+player3 wins the pot (6)
+
+Hand #67, playa (146), player2 (266), player3 (188)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [6h 4s]
+Dealt to player2 [Th 8h]
+Dealt to player3 [2d 9s]
+playa folds
+player2 raises to 4
+player3 raises to 8
+player2 raises to 16
+player3 calls 16
+*** FLOP *** (32) [Jc 8s Ac]
+player2 checks
+player3 checks
+*** TURN *** (32) [Jc 8s Ac] [Jh]
+player2 bets 27
+player3 folds
+player2 wins the pot (59)
+
+Hand #68, player3 (172), playa (146), player2 (282)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [9d 4d]
+Dealt to playa [5d 6s]
+Dealt to player2 [Js Td]
+player3 calls 2
+playa folds
+player2 checks
+*** FLOP *** (5) [6d Ad 8c]
+player2 bets 3
+player3 calls 3
+*** TURN *** (11) [6d Ad 8c] [Ks]
+player2 bets 6
+player3 raises to 21
+player2 raises to 65
+player3 calls 65
+*** RIVER *** (141) [6d Ad 8c Ks] [As]
+player2 checks
+player3 checks
+player3 shows [9d 4d]
+player2 shows [Js Td]
+player2 wins the pot (141)
+
+Hand #69, player2 (353), player3 (102), playa (145)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [As 6s]
+Dealt to player3 [8h 4d]
+Dealt to playa [Qd 9d]
+player2 calls 2
+player3 calls 2
+playa checks
+*** FLOP *** (6) [Tc 5s 8d]
+player3 bets 2
+playa folds
+player2 folds
+player3 wins the pot (8)
+
+Hand #70, playa (143), player2 (351), player3 (106)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Kc 3c]
+Dealt to player2 [9c 2s]
+Dealt to player3 [5h 5d]
+playa folds
+player2 folds
+player3 wins the pot (3)
+
+Hand #71, player3 (107), playa (143), player2 (350)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [8c Ks]
+Dealt to playa [4c 5c]
+Dealt to player2 [7h 3c]
+player3 raises to 6
+playa folds
+player2 calls 6
+*** FLOP *** (13) [8s 3h Tc]
+player2 checks
+player3 bets 8
+player2 folds
+player3 wins the pot (21)
+
+Hand #72, player2 (344), player3 (114), playa (142)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [As Tc]
+Dealt to player3 [6c Jc]
+Dealt to playa [3d 6d]
+player2 folds
+player3 folds
+playa wins the pot (3)
+
+Hand #73, playa (143), player2 (344), player3 (113)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Js 5c]
+Dealt to player2 [Kc 2d]
+Dealt to player3 [9s Ac]
+playa folds
+player2 raises to 5
+player3 calls 5
+*** FLOP *** (10) [2h Qs 2c]
+player2 checks
+player3 bets 5
+player2 folds
+player3 wins the pot (15)
+
+Hand #74, player3 (118), playa (143), player2 (339)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [5s 9d]
+Dealt to playa [4h 8h]
+Dealt to player2 [Ts 5c]
+player3 calls 2
+playa folds
+player2 checks
+*** FLOP *** (5) [Tc 7c Qh]
+player2 checks
+player3 checks
+*** TURN *** (5) [Tc 7c Qh] [7s]
+player2 bets 4
+player3 raises to 13
+player2 raises to 37
+player3 raises to 109
+player2 folds
+player3 wins the pot (151)
+
+Hand #75, player2 (300), player3 (158), playa (142)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Qs Td]
+Dealt to player3 [7h 4d]
+Dealt to playa [Jc Jh]
+player2 raises to 4
+player3 calls 4
+playa folds
+*** FLOP *** (10) [6h 2d 9s]
+player3 checks
+player2 bets 6
+player3 raises to 23
+player2 calls 23
+*** TURN *** (56) [6h 2d 9s] [Tc]
+player3 bets 22
+player2 calls 22
+*** RIVER *** (100) [6h 2d 9s Tc] [As]
+player3 checks
+player2 checks
+player2 shows [Qs Td]
+player3 shows [7h 4d]
+player2 wins the pot (100)
+
+Hand #76, playa (140), player2 (351), player3 (109)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [5d 6d]
+Dealt to player2 [3h Ks]
+Dealt to player3 [8h Qd]
+playa folds
+player2 raises to 4
+player3 folds
+player2 wins the pot (6)
+
+Hand #77, player3 (107), playa (140), player2 (353)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [7h 2s]
+Dealt to playa [Kh 2h]
+Dealt to player2 [Kc 5h]
+player3 calls 2
+playa folds
+player2 checks
+*** FLOP *** (5) [Tc Ts 4d]
+player2 checks
+player3 bets 2
+player2 calls 2
+*** TURN *** (9) [Tc Ts 4d] [Jh]
+player2 checks
+player3 bets 7
+player2 folds
+player3 wins the pot (16)
+
+Hand #78, player2 (349), player3 (112), playa (139)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Js Qd]
+Dealt to player3 [2c 4h]
+Dealt to playa [Ah Tc]
+player2 calls 2
+player3 raises to 4
+playa folds
+player2 folds
+player3 wins the pot (8)
+
+Hand #79, playa (137), player2 (347), player3 (116)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Jh Kd]
+Dealt to player2 [8h 6c]
+Dealt to player3 [4c 6h]
+playa folds
+player2 folds
+player3 wins the pot (3)
+
+Hand #80, player3 (117), playa (137), player2 (346)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [9d 9c]
+Dealt to playa [6d 4d]
+Dealt to player2 [5d Td]
+player3 calls 2
+playa folds
+player2 checks
+*** FLOP *** (5) [Qc Kd 8h]
+player2 bets 4
+player3 raises to 9
+player2 folds
+player3 wins the pot (18)
+
+Hand #81, player2 (340), player3 (124), playa (136)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [7s 8d]
+Dealt to player3 [Qh 9h]
+Dealt to playa [Ah 3d]
+player2 calls 2
+player3 calls 2
+playa checks
+*** FLOP *** (6) [4h 2h 7d]
+player3 bets 4
+playa folds
+player2 raises to 9
+player3 folds
+player2 wins the pot (19)
+
+Hand #82, playa (134), player2 (348), player3 (118)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [5h Ad]
+Dealt to player2 [2h 7c]
+Dealt to player3 [4c 2s]
+playa folds
+player2 raises to 4
+player3 folds
+player2 wins the pot (6)
+
+Hand #83, player3 (116), playa (134), player2 (350)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [9c 5s]
+Dealt to playa [3c Qd]
+Dealt to player2 [2s Js]
+player3 folds
+playa folds
+player2 wins the pot (3)
+
+Hand #84, player2 (351), player3 (116), playa (133)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [2c 3d]
+Dealt to player3 [2s 7h]
+Dealt to playa [6s 2h]
+player2 folds
+player3 calls 2
+playa checks
+*** FLOP *** (4) [Qs Qd Ad]
+player3 bets 3
+playa folds
+player3 wins the pot (7)
+
+Hand #85, playa (131), player2 (351), player3 (118)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [7h 9d]
+Dealt to player2 [As Qh]
+Dealt to player3 [6h Ad]
+playa folds
+player2 raises to 4
+player3 folds
+player2 wins the pot (6)
+
+Hand #86, player3 (116), playa (131), player2 (353)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [7s Jh]
+Dealt to playa [As 5d]
+Dealt to player2 [6c Ad]
+player3 calls 2
+playa folds
+player2 raises to 6
+player3 calls 6
+*** FLOP *** (13) [9c 6h Qc]
+player2 bets 5
+player3 raises to 13
+player2 raises to 29
+player3 folds
+player2 wins the pot (55)
+
+Hand #87, player2 (373), player3 (97), playa (130)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Kc Ah]
+Dealt to player3 [Qs 2d]
+Dealt to playa [Ks 4h]
+player2 calls 2
+player3 calls 2
+playa checks
+*** FLOP *** (6) [Ts 5h Ac]
+player3 bets 3
+playa folds
+player2 raises to 8
+player3 raises to 20
+player2 calls 20
+*** TURN *** (46) [Ts 5h Ac] [3d]
+player3 bets 17
+player2 folds
+player3 wins the pot (63)
+
+Hand #88, playa (128), player2 (351), player3 (121)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Js 2d]
+Dealt to player2 [3d 3s]
+Dealt to player3 [4h Ts]
+playa folds
+player2 folds
+player3 wins the pot (3)
+
+Hand #89, player3 (122), playa (128), player2 (350)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [As 7d]
+Dealt to playa [9s Th]
+Dealt to player2 [4h Jd]
+player3 calls 2
+playa folds
+player2 raises to 5
+player3 raises to 9
+player2 calls 9
+*** FLOP *** (19) [Ad 3h Qd]
+player2 checks
+player3 checks
+*** TURN *** (19) [Ad 3h Qd] [9d]
+player2 checks
+player3 bets 7
+player2 folds
+player3 wins the pot (26)
+
+Hand #90, player2 (341), player3 (132), playa (127)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [8s 5d]
+Dealt to player3 [Qc 9d]
+Dealt to playa [2d 6c]
+player2 calls 2
+player3 calls 2
+playa checks
+*** FLOP *** (6) [Qd Ts 3s]
+player3 checks
+playa checks
+player2 checks
+*** TURN *** (6) [Qd Ts 3s] [Jh]
+player3 checks
+playa checks
+player2 checks
+*** RIVER *** (6) [Qd Ts 3s Jh] [Js]
+player3 checks
+playa checks
+player2 bets 4
+player3 calls 4
+playa folds
+player2 shows [8s 5d]
+player3 shows [Qc 9d]
+player3 wins the pot (14)
+
+Hand #91, playa (125), player2 (335), player3 (140)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Ac Qc]
+Dealt to player2 [5d 6h]
+Dealt to player3 [Kh 9s]
+playa folds
+player2 raises to 4
+player3 calls 4
+*** FLOP *** (8) [8d 2s 5c]
+player2 checks
+player3 checks
+*** TURN *** (8) [8d 2s 5c] [8h]
+player2 bets 5
+player3 folds
+player2 wins the pot (13)
+
+Hand #92, player3 (136), playa (125), player2 (339)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [4h Qd]
+Dealt to playa [9h 5h]
+Dealt to player2 [5s 5d]
+player3 folds
+playa folds
+player2 wins the pot (3)
+
+Hand #93, player2 (340), player3 (136), playa (124)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Jc 8s]
+Dealt to player3 [Kc Ad]
+Dealt to playa [Jd 9c]
+player2 calls 2
+player3 raises to 6
+playa folds
+player2 raises to 13
+player3 folds
+player2 wins the pot (21)
+
+Hand #94, playa (122), player2 (348), player3 (130)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [2c 5h]
+Dealt to player2 [3s Jc]
+Dealt to player3 [Ad 7s]
+playa folds
+player2 calls 2
+player3 checks
+*** FLOP *** (4) [5s Js 8h]
+player2 bets 2
+player3 folds
+player2 wins the pot (6)
+
+Hand #95, player3 (128), playa (122), player2 (350)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [4d 4h]
+Dealt to playa [Qs Ac]
+Dealt to player2 [As 7c]
+player3 calls 2
+playa folds
+player2 raises to 4
+player3 raises to 11
+player2 folds
+player3 wins the pot (16)
+
+Hand #96, player2 (346), player3 (133), playa (121)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [2c 7h]
+Dealt to player3 [Js 5h]
+Dealt to playa [4d Ad]
+player2 raises to 4
+player3 calls 4
+playa folds
+*** FLOP *** (10) [2d Ks Jd]
+player3 bets 4
+player2 raises to 9
+player3 calls 9
+*** TURN *** (28) [2d Ks Jd] [3d]
+player3 bets 3
+player2 raises to 14
+player3 folds
+player2 wins the pot (45)
+
+Hand #97, playa (119), player2 (364), player3 (117)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [Kc 4d]
+Dealt to player2 [3s 5c]
+Dealt to player3 [2c 3c]
+playa folds
+player2 calls 2
+player3 raises to 4
+player2 raises to 11
+player3 folds
+player2 wins the pot (15)
+
+Hand #98, player3 (113), playa (119), player2 (368)
+playa posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [Kd 7h]
+Dealt to playa [Qh 8s]
+Dealt to player2 [2c Ah]
+player3 folds
+playa folds
+player2 wins the pot (3)
+
+Hand #99, player2 (369), player3 (113), playa (118)
+player3 posts the blind of 1
+playa posts the blind of 2
+Dealt to player2 [Qc Kc]
+Dealt to player3 [7c 8s]
+Dealt to playa [3h 7h]
+player2 folds
+player3 calls 2
+playa checks
+*** FLOP *** (4) [Qh 3d 2s]
+player3 bets 3
+playa folds
+player3 wins the pot (7)
+
+Hand #100, playa (116), player2 (369), player3 (115)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to playa [2s Tc]
+Dealt to player2 [8h 9d]
+Dealt to player3 [5s Qh]
+playa folds
+player2 raises to 5
+player3 calls 5
+*** FLOP *** (10) [Kc 2d 9c]
+player2 bets 7
+player3 calls 7
+*** TURN *** (24) [Kc 2d 9c] [Jh]
+player2 bets 9
+player3 folds
+player2 wins the pot (33)
+
