@@ -5,13 +5,6 @@ import itertools as it
 import random
 import copy
 
-"""
-Simple example pokerbot, written in python.
-
-This is an example of a bare bones pokerbot. It only sets up the socket
-necessary to connect with the engine and then always returns the same action.
-It is meant as an example of how a pokerbot should communicate with the engine.
-"""
 class Player(object):
     values = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'] #ordered lo to hi
     handOrder = ['highcard', '1pair', '2pair', '3ofakind', 'straight', 
