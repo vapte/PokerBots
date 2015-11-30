@@ -5,6 +5,10 @@ import itertools as it
 import random
 import copy
 
+
+#The skeleton for this bot is from the MIT PokerBots course website 
+#The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
+
 class Player(object):
     values = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'] #ordered lo to hi
     handOrder = ['highcard', '1pair', '2pair', '3ofakind', 'straight', 
@@ -22,6 +26,7 @@ class Player(object):
         self.board = []
         self.potSize = 0
         self.numCards = 0
+        self.actions = []
 
     def run(self, inputSocket):
         # Get a file-object for reading packets from the socket.
@@ -38,12 +43,12 @@ class Player(object):
             # the engine and act on it. We are just printing it instead.
 
             packetValues = data.split(' ')
+            print(packetValues)
             if packetValues[0] == 'GETACTION':
                 potSize = packetValues[1]
                 numCards = int(packetValues[2])
                 if numCards > 0:
                     board = packetValues[3:3+numCards]
-                    print(board)
                 stackSizes = packetValues[3+numCards:6+numCards] 
 
             # When appropriate, reply to the engine with a legal action.
@@ -52,11 +57,15 @@ class Player(object):
             # illegal action.
             # When sending responses, terminate each response with a newline
             # character (\n) or your bot will hang!
-            word = data.split()[0]
+            word = packetValues[0]
             if word=='NEWHAND':
-                self.hole = [word[3],word[4]]
+                self.hole = (packetValues[3],packetValues[4])
+                print(self.hole)
             if word == "GETACTION":
-                # Currently CHECK on every move. You'll want to change this.
+                self.actions = packetValues[-4:-1]
+                if self.actions[0]!='FOLD':
+                    self.actions.pop(0)
+                print('HI', self.actions)
                 s.send("CHECK\n")
             elif word == "REQUESTKEYVALUES":
                 # At the end, the engine will allow your bot save key/value pairs.
@@ -64,6 +73,8 @@ class Player(object):
                 s.send("FINISH\n")
         # Clean up the socket.
         s.close()
+
+
 
     def raiseChoose(self):
         #minRaise = last bet
@@ -85,28 +96,26 @@ class Player(object):
 
     @classmethod
     def monteCarloTest(Player,allCards):
-        '''
-        runs a Monte Carlo sim to test probability next community card
-        is an out (i.e., best hand with out better current best hand)
-        '''
+        #runs Monte Carlo sim to get average best hand if cards are added
+        #to community
+
         simNum = 5000
         simCount = 0
         cumePower = 0
-        adjustedFullDeck = copy.copy(Player.fullDeck)  #Player.fullDeck-allCards
+        adjustedFullDeck = copy.copy(Player.fullDeck) 
 
         assert(len(allCards)<=6) 
 
+        #removing hole cards
         for card in adjustedFullDeck:
             if card in allCards:
                 adjustedFullDeck.remove(card)
         initAdjustedFullDeck = copy.copy(adjustedFullDeck)
 
-
         while simCount<=simNum:
             adjustedFullDeck = copy.copy(initAdjustedFullDeck)
-            print(adjustedFullDeck)
             currCards = copy.copy(allCards)
-            if len(allCards)<=6:    #post-flop
+            if len(allCards)<=6:    #river
                 nextCard = random.choice(adjustedFullDeck)
                 currCards+=[nextCard]
                 adjustedFullDeck.remove(nextCard)
@@ -114,10 +123,9 @@ class Player(object):
                     nextCard2 = random.choice(adjustedFullDeck)
                     currCards+=[nextCard2]
                     adjustedFullDeck.remove(nextCard2)
-                    if len(allCards)==2:
+                    if len(allCards)==2: #flop
                         nextCard3 = random.choice(adjustedFullDeck)
                         currCards+=[nextCard3]
-            print(currCards)
             cumePower+=Player.bestHand(currCards)
             simCount+=1
         return cumePower/simNum
@@ -127,7 +135,6 @@ class Player(object):
     def powerRatio(Player,allCards):
         currBest = Player.bestHand(allCards)
         predictedBest = Player.monteCarloTest(allCards)
-
         #my own definition of pot odds
         return predictedBest/currBest
 
@@ -174,21 +181,10 @@ class Player(object):
         else:
             handType =  'highcard'
 
+        #particular power within hand family
+        #subPower =  handPower(hand,handStrVals,handType)
         return (handType, Player.handOrder.index(handType)+1)
-        #offset by 1 because monte carlo
-
-        '''
-        TODO
-        write handPower function to give granularity between hands of same type
-        '''
-
-    def handPower(hand,handStrVals,handType):
-        #returns index of highest card in Player.values
-        maxPower = 0
-        for i in handStr:
-            if Player.values.index(i)>=maxPower:
-                maxPower = Player.values.index(i)
-        return maxPower
+        #offset handOrder.index(handType) by 1 because list index starts at 0
 
 
 if __name__ == '__main__':
