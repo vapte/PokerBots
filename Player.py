@@ -25,8 +25,12 @@ class Player(object):
         self.hole = []
         self.board = []
         self.potSize = 0
-        self.numCards = 0
         self.actions = []
+        self.playerNames = []
+        self.histories = dict()
+        self.stackSizes = []
+        self.potOdds = 0
+
 
     def run(self, inputSocket):
         # Get a file-object for reading packets from the socket.
@@ -44,12 +48,7 @@ class Player(object):
 
             packetValues = data.split(' ')
             print(packetValues)
-            if packetValues[0] == 'GETACTION':
-                potSize = packetValues[1]
-                numCards = int(packetValues[2])
-                if numCards > 0:
-                    board = packetValues[3:3+numCards]
-                stackSizes = packetValues[3+numCards:6+numCards] 
+                
 
             # When appropriate, reply to the engine with a legal action.
             # The engine will ignore all spurious responses.
@@ -58,15 +57,53 @@ class Player(object):
             # When sending responses, terminate each response with a newline
             # character (\n) or your bot will hang!
             word = packetValues[0]
+
             if word=='NEWHAND':
                 self.hole = (packetValues[3],packetValues[4])
-                print(self.hole)
-            if word == "GETACTION":
+
+            elif word == 'NEWGAME':
+                self.playerNames = []
+                for piece in packetValues[1:]:
+                    if not piece.split('.')[0].isdigit():
+                        self.playerNames += [piece]
+
+                #reset history at each newgame
+                for player in self.playerNames:
+                    self.histories[player] = []
+
+            elif word == "GETACTION":
+
+                #get player actions
                 self.actions = packetValues[-4:-1]
-                if self.actions[0]!='FOLD':
+                if self.actions[0].isdigit():
                     self.actions.pop(0)
-                print('HI', self.actions)
-                s.send("CHECK\n")
+
+
+                #update potSize, board, stacksizes
+                self.potSize = int(packetValues[1])
+                numCards = int(packetValues[2])
+                if numCards > 0:
+                    self.board = packetValues[3:3+numCards]
+                self.stackSizes = packetValues[3+numCards:6+numCards] 
+
+
+                #update histories
+                #historyUpdate(packetValues)
+
+
+                #compute pot odds
+                for action in self.actions:
+                    if "CALL" in action:
+                        callSize = int(action.split(':')[1])
+                        self.potOdds = callSize/self.potSize
+
+
+                print('\n READOUT',vars(bot))
+
+
+                s.send("RAISE:5\n")
+
+
             elif word == "REQUESTKEYVALUES":
                 # At the end, the engine will allow your bot save key/value pairs.
                 # Send FINISH to indicate you're done.
@@ -75,6 +112,19 @@ class Player(object):
         s.close()
 
 
+    def expectedValue(self):
+        outProb = Player.monteCarloTest(self.hole+self.board, True)
+        return outProb-self.potOdds
+
+    def historyUpdate(self, packetValues):
+        for value in packetValues:
+            for player in self.playerNames:
+                if player in value: 
+                    self.histories[player] == self.histories[player]+[value]
+
+    '''
+    aggregate hand histories for all players
+    '''
 
     def raiseChoose(self):
         #minRaise = last bet
@@ -95,7 +145,7 @@ class Player(object):
         return best
 
     @classmethod
-    def monteCarloTest(Player,allCards):
+    def monteCarloTest(Player,allCards,returnProb = False):
         #runs Monte Carlo sim to get average best hand if cards are added
         #to community
 
@@ -105,6 +155,10 @@ class Player(object):
         adjustedFullDeck = copy.copy(Player.fullDeck) 
 
         assert(len(allCards)<=6) 
+
+        if returnProb:
+            beatCount = 0
+            currBest = Player.bestHand(allCards)
 
         #removing hole cards
         for card in adjustedFullDeck:
@@ -126,9 +180,16 @@ class Player(object):
                     if len(allCards)==2: #flop
                         nextCard3 = random.choice(adjustedFullDeck)
                         currCards+=[nextCard3]
+            if Player.bestHand(currCards)>currBest:
+                beatCount+=1
             cumePower+=Player.bestHand(currCards)
             simCount+=1
-        return cumePower/simNum
+        if returnProb:
+            return beatCount/simNum #probabilty of getting a better hand than currBest
+        else:
+            return cumePower/simNum
+     
+
 
     
     @classmethod
@@ -156,7 +217,7 @@ class Player(object):
                 counts+=handStrVals.count(i)
             if sorted(counts)==[1,2,2]:
                 return True
-        assert(len(hand)==5)    #hold'em hands have 5 cards
+        assert(len(hand)==5)    #texas hold'em hands have 5 cards
         handStr = ''.join(hand)
         handStrVals = ''.join(sorted([x[:-1] for x in hand])) #just values
         handStrSuits = ''.join([x[-1] for x in hand]) #just suits

@@ -3,4 +3,5 @@
 11/21 - 4 hours - figured out sockets/packet handling
 11/23 - 4 hours - learned itertools and monte carlo, implemented monte carlo
 11/25 - 2 hours - read about poker strategies 
-11/29 - 6 hours - started smart bot
+11/29 - 2 hours - hand histories, packet-handling debugging, read about implied pot odds
+11/30 - X hours - 
