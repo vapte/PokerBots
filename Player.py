@@ -4,10 +4,11 @@ import sys
 import itertools as it 
 import random
 import copy
-
+import os
 
 #The skeleton for this bot is from the MIT PokerBots course website 
 #The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
+
 
 class Player(object):
     values = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'] #ordered lo to hi
@@ -31,6 +32,7 @@ class Player(object):
         self.stackSizes = []
         self.potOdds = 0
 
+    
 
     def run(self, inputSocket):
         # Get a file-object for reading packets from the socket.
@@ -59,7 +61,7 @@ class Player(object):
             word = packetValues[0]
 
             if word=='NEWHAND':
-                self.hole = (packetValues[3],packetValues[4])
+                self.hole = [packetValues[3],packetValues[4]]
 
             elif word == 'NEWGAME':
                 self.playerNames = []
@@ -95,22 +97,24 @@ class Player(object):
                 for action in self.actions:
                     if "CALL" in action:
                         callSize = int(action.split(':')[1])
-                        self.potOdds = callSize/self.potSize
+                print(callSize/self.potSize, callSize,self.potSize)
+                self.potOdds = callSize/self.potSize
+
+                print('READOUT',vars(bot))
+                print('EV', self.expectedValue())
 
 
-                print('\n READOUT',vars(bot))
-
-
-                s.send("RAISE:5\n")
+                s.send(b'CHECK\n')
 
 
             elif word == "REQUESTKEYVALUES":
                 # At the end, the engine will allow your bot save key/value pairs.
                 # Send FINISH to indicate you're done.
-                s.send("FINISH\n")
+                s.send(b"FINISH\n")
         # Clean up the socket.
         s.close()
 
+     
 
     def expectedValue(self):
         outProb = Player.monteCarloTest(self.hole+self.board, True)
@@ -126,10 +130,17 @@ class Player(object):
     aggregate hand histories for all players
     '''
 
-    def raiseChoose(self):
-        #minRaise = last bet
-        #maxRaise = potSize
-        pass
+    @staticmethod
+    def readFile(path):
+        with open(path, "rt") as f:
+            return f.read()
+
+    def getBlind(self):
+        path = os.getcwd()
+        config = Player.readFile(path+os.sep+'config.txt')
+
+
+
 
     @classmethod
     def bestHand(Player,cards):
@@ -149,7 +160,7 @@ class Player(object):
         #runs Monte Carlo sim to get average best hand if cards are added
         #to community
 
-        simNum = 5000
+        simNum = 100
         simCount = 0
         cumePower = 0
         adjustedFullDeck = copy.copy(Player.fullDeck) 
