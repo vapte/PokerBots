@@ -37,7 +37,9 @@ class Player(object):
         self.name = name
         self.playerStats = dict()
         self.stack = 0
-        self.opponents = []
+        self.opponents = dict()
+        self.numHandsPlayed = 0
+        self.winRate = 0
 
     def run(self, inputSocket):
         
@@ -80,9 +82,11 @@ class Player(object):
                 if self.histories == {}:
                     for player in self.playerNames:
                         self.histories[player] = []
-                        self.opponents[player] = Opponent(player)
-
-
+                if self.opponents == {}:
+                    for player in self.playerNames:
+                        if player!=self.name:
+                            self.opponents[player] = Opponent(player,self.histories)
+                self.numHandsPlayed+=1
 
 
             elif word == "GETACTION":
@@ -123,12 +127,18 @@ class Player(object):
             if word == "GETACTION" or word=="HANDOVER":
                 self.historyUpdate(packetValues)
 
-            self.statUpdate()
+            if self.histories!={}:
+                self.statUpdate()
+
+                for opponent in self.opponents:
+                    currOpp = self.opponents[opponent]
+                    currOpp.historyUpdate(self.histories)
+                    print('opponent',currOpp.name,currOpp.histories, self.histories)
+
+                self.oppUpdate()
 
 
-            print('!!!!READOUT',vars(bot))
-
-            
+                print('!!!!READOUT',vars(bot))
 
 
         # Clean up the socket.
@@ -141,8 +151,10 @@ class Player(object):
     def oppUpdate(self):
         #self.opponents initialized in run()
         for opponent in self.opponents:
-            opponent.statUpdate()
-            print(vars(opponent))
+            currOpp = self.opponents[opponent]
+            if currOpp.name!=self.name:
+                currOpp.statUpdate()
+                print(currOpp.name, '\n', vars(currOpp))
 
     #top level function for computing all stats
     def statUpdate(self):
@@ -156,6 +168,15 @@ class Player(object):
             pass
         
         self.blindsLeft  = int(self.stack/self.blind)
+
+    #stat/history computation functions (must work for opponents with only histories as input)
+
+    def getWinRate(self):
+        wins = 0
+        for event in self.histories[self.name]:
+            if "WIN" in event:
+                wins+=1
+        self.winRate = wins/self.numHandsPlayed
 
     def expectedValue(self):
         if len(self.hole+self.board)<=6:
@@ -173,12 +194,13 @@ class Player(object):
         #set both to 1 b/c divide by zero
         downs = 1 #calls or folds
         ups = 1 #bets or raises
-        for event in self.histories:
+        for event in self.histories[self.name]:
             if 'CALL' in event or 'FOLD' in event:
-                call+=1
+                downs+=1
             elif 'BET' in event or 'RAISE' in event:
                 ups+=1
-        self.af = ups/downs
+        print('AFAF', ups, downs)
+        self.AF = ups/downs
 
 
     #class/static methods
@@ -311,18 +333,24 @@ class Player(object):
 
 #Player will have a list of Opponent instances
 class Opponent(Player):
-    def __init__(self, name):
+    def __init__(self, name,histories):
         super().__init__(name)
-        self.history = self.histories[name]
+        self.histories = histories[self.name]
+
+    #update history on each iteration
+    def historyUpdate(self,histories):
+        self.histories = {self.name: histories[self.name]}
 
     #inherit all methods that compute stats
-
     def getAggressionFactor(self):
         super().getAggressionFactor()
 
     #top level function for all stats
     def statUpdate(self):
         super().statUpdate()
+
+    def getWinRate(self):
+        super().getWinRate()
 
 
 if __name__ == '__main__':

@@ -1,7 +1,19 @@
 
-11/20 - 3 hours - learned how to play poker from scratch, set up MIT PokerBots Engine
+11/20 - 3 hours - learned poker, set up MIT PokerBots Engine
 11/21 - 4 hours - figured out sockets/packet handling
 11/23 - 4 hours - learned itertools and monte carlo, implemented monte carlo
+
+- TP 1 Deliverable -
+
 11/25 - 2 hours - read about poker strategies 
-11/29 - 2 hours - hand histories, packet-handling debugging, read about implied pot odds
-11/30 - X hours - 
+11/29 - 2 hours - hand histories, packet parser debugging, read about implied pot odds
+11/30 - 8 hours - opponent class, expected value, Player data debugging (not handling stackSizes well), wrote up aggression factor strategy
+
+12/1 - X hours - 
+
+12/2 - Y hours - 
+
+
+- TP 2 Deliverable - 
+
+
