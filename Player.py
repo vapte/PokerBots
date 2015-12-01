@@ -10,6 +10,15 @@ import os
 #The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
 
 
+'''
+class Opponent(Player):
+    def __init__(self, name):
+        super().__init__()
+        self.name = name
+        self.history = self.histories[name]
+'''
+
+
 class Player(object):
     values = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'] #ordered lo to hi
     handOrder = ['highcard', '1pair', '2pair', '3ofakind', 'straight', 
@@ -22,7 +31,7 @@ class Player(object):
         fullDeck[i] = hand[0]+hand[1] #tuple>>str
     assert(len(fullDeck)==52)
 
-    def __init__(self):
+    def __init__(self,name):    #must set name to name in config.txt
         self.hole = []
         self.board = []
         self.potSize = 0
@@ -31,14 +40,23 @@ class Player(object):
         self.histories = dict()
         self.stackSizes = []
         self.potOdds = 0
+        self.blind = Player.getBlind()
+        self.blindsLeft = self.potSize/self.blind
+        self.ev = 0
+        self.AF = 0
+        self.name = name
+        self.stack = 0
 
     
 
     def run(self, inputSocket):
+        
+
         # Get a file-object for reading packets from the socket.
         # Using this ensures that you get exactly one packet per read.
         f_in = inputSocket.makefile()
         while True:
+            print("BLIND", self.blind)
             # Block until the engine sends us a packet.
             data = f_in.readline().strip()
             # If data is None, connection has closed.
@@ -58,6 +76,8 @@ class Player(object):
             # illegal action.
             # When sending responses, terminate each response with a newline
             # character (\n) or your bot will hang!
+
+
             word = packetValues[0]
 
             if word=='NEWHAND':
@@ -71,7 +91,7 @@ class Player(object):
 
                 #reset history at each newgame
                 for player in self.playerNames:
-                    self.histories[player] = []
+                    self.histories[player] = []  #chrono order, and raises/bets
 
             elif word == "GETACTION":
 
@@ -88,20 +108,13 @@ class Player(object):
                     self.board = packetValues[3:3+numCards]
                 self.stackSizes = packetValues[3+numCards:6+numCards] 
 
-
-                #update histories
-                #historyUpdate(packetValues)
-
-
                 #compute pot odds
                 for action in self.actions:
                     if "CALL" in action:
                         callSize = int(action.split(':')[1])
-                print(callSize/self.potSize, callSize,self.potSize)
                 self.potOdds = callSize/self.potSize
 
                 print('READOUT',vars(bot))
-                print('EV', self.expectedValue())
 
 
                 s.send(b'CHECK\n')
@@ -111,35 +124,65 @@ class Player(object):
                 # At the end, the engine will allow your bot save key/value pairs.
                 # Send FINISH to indicate you're done.
                 s.send(b"FINISH\n")
+
+            #update histories
+            if word == "GETACTION" or word=="HANDOVER":
+                self.historyUpdate(packetValues)
+
+
+            #update EV, blinds left, aggro factor
+            self.expectedValue()
+            try:
+                self.stack = self.stackSizes(self.playerNames.index(self.name))
+            except:
+                pass
+            print(self.stack,self.blind,self.stack/self.blind)
+
+            self.blindsLeft  = self.stack/self.blind
+
+
+            self.getAggressionFactor()
+
+
         # Clean up the socket.
         s.close()
 
      
-
     def expectedValue(self):
         outProb = Player.monteCarloTest(self.hole+self.board, True)
-        return outProb-self.potOdds
+        self.ev =  outProb-self.potOdds
 
     def historyUpdate(self, packetValues):
         for value in packetValues:
-            for player in self.playerNames:
-                if player in value: 
-                    self.histories[player] == self.histories[player]+[value]
+            if value.count(':')==2: #all prior actions have 2 colons
+                for player in self.playerNames:
+                    if player in value:
+                        self. histories[player].append(value)
 
-    '''
-    aggregate hand histories for all players
-    '''
+    def getAggressionFactor(self):
+        #set both to 1 b/c divide by zero
+        downs = 1 #calls or folds
+        ups = 1 #bets or raises
+        for event in self.histories:
+            if 'CALL' in event or 'FOLD' in event:
+                call+=1
+            elif 'BET' in event or 'RAISE' in event:
+                ups+=1
+        self.af = ups/downs
+
+
+
 
     @staticmethod
     def readFile(path):
         with open(path, "rt") as f:
             return f.read()
 
+    @classmethod
     def getBlind(self):
         path = os.getcwd()
         config = Player.readFile(path+os.sep+'config.txt')
-
-
+        return int(config.split('\n')[0][-1])
 
 
     @classmethod
@@ -275,5 +318,5 @@ if __name__ == '__main__':
 
 
 
-    bot = Player()
+    bot = Player('playa')
     bot.run(s)
