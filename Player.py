@@ -9,16 +9,6 @@ import os
 #The skeleton for this bot is from the MIT PokerBots course website 
 #The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
 
-
-'''
-class Opponent(Player):
-    def __init__(self, name):
-        super().__init__()
-        self.name = name
-        self.history = self.histories[name]
-'''
-
-
 class Player(object):
     values = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'] #ordered lo to hi
     handOrder = ['highcard', '1pair', '2pair', '3ofakind', 'straight', 
@@ -45,9 +35,9 @@ class Player(object):
         self.ev = 0
         self.AF = 0
         self.name = name
+        self.playerStats = dict()
         self.stack = 0
-
-    
+        self.opponents = []
 
     def run(self, inputSocket):
         
@@ -56,7 +46,6 @@ class Player(object):
         # Using this ensures that you get exactly one packet per read.
         f_in = inputSocket.makefile()
         while True:
-            print("BLIND", self.blind)
             # Block until the engine sends us a packet.
             data = f_in.readline().strip()
             # If data is None, connection has closed.
@@ -82,16 +71,19 @@ class Player(object):
 
             if word=='NEWHAND':
                 self.hole = [packetValues[3],packetValues[4]]
-
-            elif word == 'NEWGAME':
                 self.playerNames = []
-                for piece in packetValues[1:]:
-                    if not piece.split('.')[0].isdigit():
-                        self.playerNames += [piece]
+                for piece in packetValues[5:-5]:
+                    if not piece.isdigit():
+                        self.playerNames+=[piece]
 
-                #reset history at each newgame
-                for player in self.playerNames:
-                    self.histories[player] = []  #chrono order, and raises/bets
+                #need to initialize histories/opponents on first hand
+                if self.histories == {}:
+                    for player in self.playerNames:
+                        self.histories[player] = []
+                        self.opponents[player] = Opponent(player)
+
+
+
 
             elif word == "GETACTION":
 
@@ -114,10 +106,12 @@ class Player(object):
                         callSize = int(action.split(':')[1])
                 self.potOdds = callSize/self.potSize
 
-                print('READOUT',vars(bot))
 
 
                 s.send(b'CHECK\n')
+
+            elif word == 'HANDOVER':
+                self.stackSizes = packetValues[1:4]
 
 
             elif word == "REQUESTKEYVALUES":
@@ -129,35 +123,51 @@ class Player(object):
             if word == "GETACTION" or word=="HANDOVER":
                 self.historyUpdate(packetValues)
 
-
-            #update EV, blinds left, aggro factor
-            self.expectedValue()
-            try:
-                self.stack = self.stackSizes(self.playerNames.index(self.name))
-            except:
-                pass
-            print(self.stack,self.blind,self.stack/self.blind)
-
-            self.blindsLeft  = self.stack/self.blind
+            self.statUpdate()
 
 
-            self.getAggressionFactor()
+            print('!!!!READOUT',vars(bot))
+
+            
 
 
         # Clean up the socket.
         s.close()
 
-     
+
+    #instance methods
+
+    #manage opponent data
+    def oppUpdate(self):
+        #self.opponents initialized in run()
+        for opponent in self.opponents:
+            opponent.statUpdate()
+            print(vars(opponent))
+
+    #top level function for computing all stats
+    def statUpdate(self):
+        self.getAggressionFactor()
+        #update EV, blinds left, aggro factor
+        self.expectedValue()
+        try:
+            self.stack = int(self.stackSizes[self.playerNames.index(self.name)])
+            print('????????',self.playerNames,self.stackSizes,self.playerNames.index(self.name))
+        except:
+            pass
+        
+        self.blindsLeft  = int(self.stack/self.blind)
+
     def expectedValue(self):
-        outProb = Player.monteCarloTest(self.hole+self.board, True)
-        self.ev =  outProb-self.potOdds
+        if len(self.hole+self.board)<=6:
+            outProb = Player.monteCarloTest(self.hole+self.board, True)
+            self.ev =  outProb-self.potOdds
 
     def historyUpdate(self, packetValues):
         for value in packetValues:
             if value.count(':')==2: #all prior actions have 2 colons
                 for player in self.playerNames:
                     if player in value:
-                        self. histories[player].append(value)
+                        self.histories[player].append(value)
 
     def getAggressionFactor(self):
         #set both to 1 b/c divide by zero
@@ -171,7 +181,7 @@ class Player(object):
         self.af = ups/downs
 
 
-
+    #class/static methods
 
     @staticmethod
     def readFile(path):
@@ -242,9 +252,6 @@ class Player(object):
             return beatCount/simNum #probabilty of getting a better hand than currBest
         else:
             return cumePower/simNum
-     
-
-
     
     @classmethod
     def powerRatio(Player,allCards):
@@ -300,6 +307,22 @@ class Player(object):
         #subPower =  handPower(hand,handStrVals,handType)
         return (handType, Player.handOrder.index(handType)+1)
         #offset handOrder.index(handType) by 1 because list index starts at 0
+
+
+#Player will have a list of Opponent instances
+class Opponent(Player):
+    def __init__(self, name):
+        super().__init__(name)
+        self.history = self.histories[name]
+
+    #inherit all methods that compute stats
+
+    def getAggressionFactor(self):
+        super().getAggressionFactor()
+
+    #top level function for all stats
+    def statUpdate(self):
+        super().statUpdate()
 
 
 if __name__ == '__main__':
