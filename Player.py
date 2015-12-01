@@ -4,6 +4,7 @@ import sys
 import itertools as it 
 import random
 import copy
+import numpy as np
 import os
 
 #The skeleton for this bot is from the MIT PokerBots course website 
@@ -31,15 +32,19 @@ class Player(object):
         self.stackSizes = []
         self.potOdds = 0
         self.blind = Player.getBlind()
-        self.blindsLeft = self.potSize/self.blind
-        self.ev = 0
-        self.AF = 0
+        self.blindsLeft = 0
+        self.EV = 0
+        self.AF = 0       
+        self.AFtype = None
         self.name = name
-        self.playerStats = dict()
         self.stack = 0
         self.opponents = dict()
         self.numHandsPlayed = 0
         self.winRate = 0
+        #index in histories where all entries with index>self.flop are post-flop
+        self.flop = 0
+        self.gameState = None
+        self.impliedPotOdds = 0
 
     def run(self, inputSocket):
         
@@ -82,12 +87,15 @@ class Player(object):
                 if self.histories == {}:
                     for player in self.playerNames:
                         self.histories[player] = []
+                    assert(len(self.playerNames)<=3) #engine allows 3 players max
                 if self.opponents == {}:
                     for player in self.playerNames:
                         if player!=self.name:
-                            self.opponents[player] = Opponent(player,self.histories)
+                            self.opponents[player] = Opponent(player,vars(bot))
+
                 self.numHandsPlayed+=1
 
+                self.gameState = 'preflop'
 
             elif word == "GETACTION":
 
@@ -103,6 +111,7 @@ class Player(object):
                 if numCards > 0:
                     self.board = packetValues[3:3+numCards]
                 self.stackSizes = packetValues[3+numCards:6+numCards] 
+
 
                 #compute pot odds
                 for action in self.actions:
@@ -123,22 +132,38 @@ class Player(object):
                 # Send FINISH to indicate you're done.
                 s.send(b"FINISH\n")
 
-            #update histories
+            #update histories and stats
             if word == "GETACTION" or word=="HANDOVER":
+
+                
+                #gameState, self.flop
+                for event in packetValues:
+                    if 'FLOP' in event:
+                        self.gameState = 'flop'
+                        self.flop = len(self.histories)
+                        for opponent in self.opponents:
+                            curOpp = self.opponents[opponent]
+                            curOpp.flop = len(curOpp.histories)
+                    elif 'TURN' in event:
+                        self.gameState = 'turn'
+                    elif 'RIVER' in event:
+                        self.gameState = 'river'
+
                 self.historyUpdate(packetValues)
 
             if self.histories!={}:
+
                 self.statUpdate()
 
+                #opponent attributes update
                 for opponent in self.opponents:
                     currOpp = self.opponents[opponent]
-                    currOpp.historyUpdate(self.histories)
-                    print('opponent',currOpp.name,currOpp.histories, self.histories)
+                    currOpp.attrsUpdate(vars(bot))
 
+                #opponent stats update
                 self.oppUpdate()
 
-
-                print('!!!!READOUT',vars(bot))
+                print('READOUT',vars(bot),'\n\n')
 
 
         # Clean up the socket.
@@ -147,6 +172,34 @@ class Player(object):
 
     #instance methods
 
+
+
+    '''Bot logic
+
+    always fold preflop with really bad EV
+    '''
+
+
+    #implied  pot odds
+
+    #if opponent.AF>threshold, expectPot+=call. compute implied pot odds
+    def getImpliedPotOdds(self):
+        impliedPot = self.potSize
+        for action in self.actions:
+            if "CALL" in action:
+                callSize = int(action.split(':')[1])
+            elif "RAISE" in action:
+                minRaise = int(action.split(':')[1])
+                maxRaise = int(action.split(':')[2])
+                enumRaises = list(range(minRaise,maxRaise+1))
+        enumRaises = [0]+[callSize]+enumRaises  #fold,call,raise
+        for opponent in self.opponents:
+            expectedAction = None
+            curOpp = self.opponents[opponent]
+            if curOpp.AF<0.5
+
+
+
     #manage opponent data
     def oppUpdate(self):
         #self.opponents initialized in run()
@@ -154,16 +207,15 @@ class Player(object):
             currOpp = self.opponents[opponent]
             if currOpp.name!=self.name:
                 currOpp.statUpdate()
-                print(currOpp.name, '\n', vars(currOpp))
+                print(currOpp.name, '\n', vars(currOpp),'\n\n')
 
     #top level function for computing all stats
     def statUpdate(self):
         self.getAggressionFactor()
-        #update EV, blinds left, aggro factor
-        self.expectedValue()
+        self.getExpectedValue()
+        self.getWinRate()
         try:
             self.stack = int(self.stackSizes[self.playerNames.index(self.name)])
-            print('????????',self.playerNames,self.stackSizes,self.playerNames.index(self.name))
         except:
             pass
         
@@ -176,12 +228,14 @@ class Player(object):
         for event in self.histories[self.name]:
             if "WIN" in event:
                 wins+=1
+        print("WINRATE",wins,self.numHandsPlayed)
         self.winRate = wins/self.numHandsPlayed
 
-    def expectedValue(self):
+    def getExpectedValue(self):
         if len(self.hole+self.board)<=6:
             outProb = Player.monteCarloTest(self.hole+self.board, True)
-            self.ev =  outProb-self.potOdds
+            self.EV =  outProb-self.potOdds
+            self.impliedEV  = outProb-self.impliedPotOdds
 
     def historyUpdate(self, packetValues):
         for value in packetValues:
@@ -190,6 +244,18 @@ class Player(object):
                     if player in value:
                         self.histories[player].append(value)
 
+
+    '''
+    AF benchmark values: 
+    http://poker.gamblefaces.com/understanding-hud/post-flop-aggression-factor/
+
+AF Value       Category
+
+0<AF<1         Passive
+1<AF<1.5       Neutral
+AF>1.5        Aggressive
+
+    '''
     def getAggressionFactor(self):
         #set both to 1 b/c divide by zero
         downs = 1 #calls or folds
@@ -199,8 +265,13 @@ class Player(object):
                 downs+=1
             elif 'BET' in event or 'RAISE' in event:
                 ups+=1
-        print('AFAF', ups, downs)
         self.AF = ups/downs
+        if self.AF<1:
+            self.AFtype = 'passive'
+        elif self.AF>=1 and self.AF<1.5:
+            self.AFtype = 'neutral'
+        elif self.AF>=1.5:
+            self.AFtype = 'aggressive'
 
 
     #class/static methods
@@ -333,24 +404,29 @@ class Player(object):
 
 #Player will have a list of Opponent instances
 class Opponent(Player):
-    def __init__(self, name,histories):
+    def __init__(self, name, playerDict):
         super().__init__(name)
-        self.histories = histories[self.name]
+        self.histories = playerDict['histories'][self.name]
 
     #update history on each iteration
-    def historyUpdate(self,histories):
-        self.histories = {self.name: histories[self.name]}
-
-    #inherit all methods that compute stats
-    def getAggressionFactor(self):
-        super().getAggressionFactor()
+    def attrsUpdate(self,playerDict):
+        self.histories = {self.name: playerDict['histories'][self.name]}
+        self.numHandsPlayed = playerDict['numHandsPlayed']
 
     #top level function for all stats
     def statUpdate(self):
         super().statUpdate()
 
+    #inherit all methods that compute stats
+    def getAggressionFactor(self):
+        super().getAggressionFactor()
+
     def getWinRate(self):
         super().getWinRate()
+
+    def getExpectedValue(self):
+        super().getExpectedValue()
+
 
 
 if __name__ == '__main__':

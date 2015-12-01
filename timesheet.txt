@@ -17,3 +17,6 @@
 - TP 2 Deliverable - 
 
 
+$ virtualenv-3.3 testenv
+$ cd testenv
+$ bin/pip install numpy
