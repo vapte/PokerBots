@@ -4,7 +4,7 @@ import sys
 import itertools as it 
 import random
 import copy
-import numpy as np
+from numpy.random import logistic
 import os
 
 #The skeleton for this bot is from the MIT PokerBots course website 
@@ -142,8 +142,8 @@ class Player(object):
                         self.gameState = 'flop'
                         self.flop = len(self.histories)
                         for opponent in self.opponents:
-                            curOpp = self.opponents[opponent]
-                            curOpp.flop = len(curOpp.histories)
+                            currOpp = self.opponents[opponent]
+                            currOpp.flop = len(currOpp.histories)
                     elif 'TURN' in event:
                         self.gameState = 'turn'
                     elif 'RIVER' in event:
@@ -170,7 +170,6 @@ class Player(object):
         s.close()
 
 
-    #instance methods
 
 
 
@@ -182,21 +181,52 @@ class Player(object):
 
     #implied  pot odds
 
-    #if opponent.AF>threshold, expectPot+=call. compute implied pot odds
     def getImpliedPotOdds(self):
         impliedPot = self.potSize
         for action in self.actions:
             if "CALL" in action:
                 callSize = int(action.split(':')[1])
-            elif "RAISE" in action:
+            elif "RAISE" in action or "BET" in action:
                 minRaise = int(action.split(':')[1])
-                maxRaise = int(action.split(':')[2])
-                enumRaises = list(range(minRaise,maxRaise+1))
-        enumRaises = [0]+[callSize]+enumRaises  #fold,call,raise
-        for opponent in self.opponents:
-            expectedAction = None
-            curOpp = self.opponents[opponent]
-            if curOpp.AF<0.5
+                maxRaise = int(action.split(':')[2])+minRaise #if we raise
+                enumRaises = [0]+list(range(minRaise,maxRaise+1))
+        try:
+            #enumRaises = [0]+[callSize]+enumRaises  fold,call,raise
+            enumRaises.append(callSize)
+        except:
+            pass
+
+        try:
+            if len(enumRaises)>1: #not just the zero
+                expectedActions = dict()
+                for opponent in self.opponents:
+                    currOpp = self.opponents[opponent]
+                    randomAction = int(abs(logistic(currOpp.AF*maxRaise,1)))
+                    expectedActions[currOpp.name] = Player.closestInt(enumRaises,randomAction)
+                for oppAction in expectedActions:
+                    impliedPot+=expectedActions[oppAction]
+
+                self.impliedPotOdds = callSize/impliedPot
+            else:
+                pass
+        except:
+            #no CALL or RAISE in histories
+            pass
+
+    @staticmethod
+    def closestInt(L,num):
+        minDiff = currDiff = 0
+        minElem = 0
+        for i in range(len(L)):
+            element = L[i]
+            currDiff = abs(num-element)
+            if currDiff<=minDiff: #break ties downwards
+                minDiff = currDiff
+                minElem = element
+        return minElem
+
+
+
 
 
 
@@ -214,6 +244,7 @@ class Player(object):
         self.getAggressionFactor()
         self.getExpectedValue()
         self.getWinRate()
+        self.getImpliedPotOdds()
         try:
             self.stack = int(self.stackSizes[self.playerNames.index(self.name)])
         except:
