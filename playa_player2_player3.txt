@@ -2,59 +2,67 @@
 Hand #1, playa (200), player2 (200), player3 (200)
 player2 posts the blind of 1
 player3 posts the blind of 2
-Dealt to playa [6c 5c]
-Dealt to player2 [9s 9d]
-Dealt to player3 [7h 2h]
-playa folds
+Dealt to playa [Tc 6d]
+Dealt to player2 [5c 5h]
+Dealt to player3 [Ad Jd]
+playa raises to 6
+player2 calls 6
+player3 raises to 13
+playa raises to 22
 player2 folds
-player3 wins the pot (3)
+player3 folds
+playa wins the pot (41)
 
-Hand #2, player3 (201), playa (200), player2 (199)
+Hand #2, player3 (187), playa (219), player2 (194)
 playa posts the blind of 1
 player2 posts the blind of 2
-Dealt to player3 [9d Th]
-Dealt to playa [4d 6d]
-Dealt to player2 [Ts 4h]
+Dealt to player3 [4h 6d]
+Dealt to playa [5s 7c]
+Dealt to player2 [Qc Qh]
 player3 raises to 6
-playa folds
-player2 calls 6
-*** FLOP *** (13) [Jd 5h Qd]
+playa raises to 12
+player2 calls 12
+player3 raises to 19
+playa raises to 28
+player2 calls 28
+player3 raises to 88
+playa raises to 150
+player2 calls 150
+player3 folds
+*** FLOP *** (388) [4c 2h 9d]
+playa checks
 player2 checks
-player3 checks
-*** TURN *** (13) [Jd 5h Qd] [9c]
+*** TURN *** (388) [4c 2h 9d] [8h]
+playa checks
 player2 checks
-player3 bets 7
-player2 calls 7
-*** RIVER *** (27) [Jd 5h Qd 9c] [3s]
-player2 bets 22
-player3 calls 22
-player3 shows [9d Th]
-player2 shows [Ts 4h]
-player3 wins the pot (71)
+*** RIVER *** (388) [4c 2h 9d 8h] [Qd]
+playa checks
+player2 checks
+playa shows [5s 7c]
+player2 shows [Qc Qh]
+player2 wins the pot (388)
 
-Hand #3, player2 (164), player3 (237), playa (199)
+Hand #3, player2 (432), player3 (99), playa (69)
 player3 posts the blind of 1
 playa posts the blind of 2
-Dealt to player2 [Jh 5c]
-Dealt to player3 [As 7s]
-Dealt to playa [4s 3h]
+Dealt to player2 [2c Jc]
+Dealt to player3 [As Jd]
+Dealt to playa [Kc Kd]
 player2 calls 2
-player3 calls 2
+player3 folds
 playa checks
-*** FLOP *** (6) [Jc Th 2h]
-player3 checks
+*** FLOP *** (5) [3d Ah 2d]
+playa checks
+player2 bets 2
+playa calls 2
+*** TURN *** (9) [3d Ah 2d] [2s]
+playa checks
+player2 bets 3
+playa calls 3
+*** RIVER *** (15) [3d Ah 2d 2s] [6s]
 playa checks
 player2 checks
-*** TURN *** (6) [Jc Th 2h] [5d]
-player3 checks
-playa checks
-player2 bets 5
-player3 calls 5
-playa folds
-*** RIVER *** (16) [Jc Th 2h 5d] [Qh]
-player3 bets 7
-player2 calls 7
-player2 shows [Jh 5c]
-player3 shows [As 7s]
-player2 wins the pot (30)
+player2 shows [2c Jc]
+playa shows [Kc Kd]
+player2 wins the pot (15)
 

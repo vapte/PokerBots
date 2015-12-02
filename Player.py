@@ -109,7 +109,6 @@ class Player(object):
                 self.actions = packetValues[-4:-1]
                 if self.actions[0].isdigit():
                     self.actions.pop(0)
-                print('actionsParse', self.actionsParse())
 
                 #update potSize, board, stacksizes
                 self.potSize = int(packetValues[1])
@@ -187,7 +186,6 @@ class Player(object):
     always fold preflop with really bad EV
     '''
 
-    @classmethod
     def botLogic(self): #top level function for bot logic
         pass
 
@@ -518,9 +516,19 @@ class AfExploit(Player):
     def __init__(self, name):
         super().__init__(name)
 
-    @classmethod
     def botLogic(self):
         super().botLogic()
+        actionsDict = self.actionsParse()
+        if actionsDict.get('check',False):
+            return ('check', 0)
+        elif actionsDict.get('fold',False):
+            if self.impliedEV<0 and self.EV<0:
+                return ('fold',0)
+            elif self.impliedEV>0 and self.EV<0:
+                return ('call',actionsDict['call'])
+            elif self.impliedEV>0 and self.EV>0:
+                return ('raise',actionsDict['raise'][2])    #test value
+
 
 
 
