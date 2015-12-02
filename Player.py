@@ -11,8 +11,6 @@ import os
 #The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
 
 
- 
-
 class Player(object):
     values = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'] #ordered lo to hi
     handOrder = ['highcard', '1pair', '2pair', '3ofakind', 'straight', 
@@ -179,13 +177,6 @@ class Player(object):
         # Clean up the socket.
         s.close()
 
-
-
-    '''Bot logic
-
-    always fold preflop with really bad EV
-    '''
-
     def botLogic(self): #top level function for bot logic
         pass
 
@@ -214,11 +205,14 @@ class Player(object):
                 fold = True
 
         if minBet!=None and maxBet!=None: 
-            actionsDict['bet'] = list(range(minBet,maxBet+1))
+            actionsDict['bet']=True
+            actionsDict['betVals'] = list(range(minBet,maxBet+1))
         if minRaise!=None and maxRaise!=None:
-            actionsDict['raise'] = list(range(minRaise,maxRaise+1))
+            actionsDict['raiseVals'] = list(range(minRaise,maxRaise+1))
+            actionsDict['raise'] = True
         if callSize!=None:
-            actionsDict['call'] = callSize
+            actionsDict['callVals'] = callSize
+            actionsDict['call'] = True
         if check:
             actionsDict['check'] = True
         if fold:
@@ -228,7 +222,6 @@ class Player(object):
 
     @classmethod
     def botResponse(self, logicTuple = ('check',0)):  #formats output of botLogic
-        print(logicTuple)
         possibleActions = ['check','fold','bet','raise','call']
         responseType = logicTuple[0]
         quantity = logicTuple[1]
@@ -317,10 +310,11 @@ class Player(object):
                 minDiff = currDiff
                 minElem = L[i]
         return minElem
+
     def getWinRate(self):
         wins = 0
         for event in self.histories[self.name]:
-            if "WIN" in event:
+            if "WIN" in event and self.name in event:
                 wins+=1
         self.winRate = wins/self.numHands
 
@@ -336,7 +330,6 @@ class Player(object):
                 for player in self.playerNames:
                     if player in value:
                         self.histories[player].append(value)
-
 
     '''
     AF benchmark values: 
@@ -524,19 +517,50 @@ class AfExploit(Player):
         elif actionsDict.get('fold',False):
             if self.impliedEV<0 and self.EV<0:
                 return ('fold',0)
-            elif self.impliedEV>0 and self.EV<0:
-                return ('call',actionsDict['call'])
-            elif self.impliedEV>0 and self.EV>0:
-                return ('raise',actionsDict['raise'][2])    #test value
-
-
-
-
-
-
+            elif self.impliedEV>0 and self.EV<0 and actionsDict.get('call',False):
+                return ('call',actionsDict['callVals'])
+            elif self.impliedEV>0 and self.EV>0 and actionsDict.get('raise',False):
+                return ('raise',actionsDict['raiseVals'][0])    #test value
 
 
 if __name__ == '__main__':
+    #botTester
+    def readFile(path):
+        with open(path, "rt") as f:
+            return f.read()
+
+    def writeFile(path, contents):
+        with open(path, "wt") as f:
+            f.write(contents)
+
+    def getBlind():
+        path = os.getcwd()
+        config = readFile(path+os.sep+'config.txt')
+        return int(config.split('\n')[0][-1])
+
+    def setHands(handNum):
+        path = os.getcwd()
+        fullPath = path+os.sep+'config.txt'
+        config = readFile(fullPath)
+        config = config.split('\n')
+        handsIndex = 0
+        stackIndex = 0
+        for i in range(len(config)):
+            line = config[i]
+            if 'NUMBER_OF_HANDS' in line:
+                handsIndex = i
+            if 'STARTING_STACK' in line:
+                stackIndex = i
+        new = handNum*getBlind()
+        newStackLine = ' STARTING_STACK = %s' % new
+        newLine = ' NUMBER_OF_HANDS = %s' % handNum
+        config[handsIndex] = newLine
+        config[stackIndex] = newStackLine
+        newConfig = '\n'.join(config)    
+        writeFile(fullPath,newConfig)
+
+    setHands(1000)
+
     parser = argparse.ArgumentParser(description='A Pokerbot.', add_help=False, prog='pokerbot')
     parser.add_argument('-h', dest='host', type=str, default='localhost', help='Host to connect to, defaults to localhost')
     parser.add_argument('port', metavar='PORT', type=int, help='Port on host to connect to')
