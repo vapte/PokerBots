@@ -35,6 +35,7 @@ class Player(object):
         self.blind = Player.getBlind()
         self.blindsLeft = 0
         self.EV = 0
+        self.impliedEV = 0
         self.AF = 0       
         self.AFtype = None
         self.name = name
@@ -171,7 +172,10 @@ class Player(object):
                 #opponent stats update
                 self.oppUpdate()
 
-                print('READOUT',vars(bot),'\n\n')
+                #print('READOUT',vars(bot),'\n\n')
+                varsBotCopy = copy.deepcopy(vars(bot))
+                varsBotCopy.pop('histories')
+                print('SNAPSHOT',varsBotCopy)
 
 
         # Clean up the socket.
@@ -239,7 +243,9 @@ class Player(object):
             currOpp = self.opponents[opponent]
             if currOpp.name!=self.name:
                 currOpp.statUpdate()
-                print(currOpp.name, '\n', vars(currOpp),'\n\n')
+                varsOppCopy = copy.deepcopy(vars(currOpp))
+                varsOppCopy.pop('histories')
+                print(currOpp.name, '\n', varsOppCopy,'\n\n')
 
     #top level function for computing all stats
     def statUpdate(self):
@@ -517,10 +523,10 @@ class AfExploit(Player):
         elif actionsDict.get('fold',False):
             if self.impliedEV<0 and self.EV<0:
                 return ('fold',0)
-            elif self.impliedEV>0 and self.EV<0 and actionsDict.get('call',False):
-                return ('call',actionsDict['callVals'])
+            elif self.impliedEV>0 and self.EV<0 and actionsDict.get('fold',False):
+                return ('fold',0)
             elif self.impliedEV>0 and self.EV>0 and actionsDict.get('raise',False):
-                return ('raise',actionsDict['raiseVals'][0])    #test value
+                return ('raise',actionsDict['raiseVals'][len(actionsDict['raiseVals'])-1])    #test value
 
 
 if __name__ == '__main__':
@@ -559,7 +565,7 @@ if __name__ == '__main__':
         newConfig = '\n'.join(config)    
         writeFile(fullPath,newConfig)
 
-    setHands(1000)
+    setHands(50)
 
     parser = argparse.ArgumentParser(description='A Pokerbot.', add_help=False, prog='pokerbot')
     parser.add_argument('-h', dest='host', type=str, default='localhost', help='Host to connect to, defaults to localhost')

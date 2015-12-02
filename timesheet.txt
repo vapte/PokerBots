@@ -9,9 +9,7 @@
 11/29 - 2 hours - hand histories, packet parser debugging, read about implied pot odds
 11/30 - 8 hours - opponent class, expected value, Player data debugging (not handling stackSizes well), wrote up aggression factor strategy
 
-12/1 - X hours - installed numpy, wrote implied pot odds, aggression frequency strategy
-
-12/2 - Y hours - 
+12/1 - 10 hours - installed numpy, wrote implied pot odds and implied EV, aggression frequency strategy, bot testing and packet parsing functions, live testing
 
 
 - TP 2 Deliverable - 
