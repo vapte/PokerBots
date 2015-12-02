@@ -10,6 +10,9 @@ import os
 #The skeleton for this bot is from the MIT PokerBots course website 
 #The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
 
+
+ 
+
 class Player(object):
     values = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'] #ordered lo to hi
     handOrder = ['highcard', '1pair', '2pair', '3ofakind', 'straight', 
@@ -47,6 +50,9 @@ class Player(object):
         self.impliedPotOdds = 0
 
     def run(self, inputSocket):
+
+        #game separator
+        print([[0 for i in range(30)] for j in range(30)])
         
 
         # Get a file-object for reading packets from the socket.
@@ -63,7 +69,7 @@ class Player(object):
             # the engine and act on it. We are just printing it instead.
 
             packetValues = data.split(' ')
-            print(packetValues)
+            print(packetValues,'\n\n')
                 
 
             # When appropriate, reply to the engine with a legal action.
@@ -120,8 +126,13 @@ class Player(object):
                 self.potOdds = callSize/self.potSize
 
 
-
-                s.send(b'CHECK\n')
+                #run logic and send message
+                rawBotResponse = self.botLogic()
+                if rawBotResponse!=None:
+                    response = Player.botResponse(rawBotResponse)
+                else:
+                    response = Player.botResponse()
+                s.send(response)
 
             elif word == 'HANDOVER':
                 self.stackSizes = packetValues[1:4]
@@ -171,64 +182,33 @@ class Player(object):
 
 
 
-
-
     '''Bot logic
 
     always fold preflop with really bad EV
     '''
 
+    @classmethod
+    def botLogic(self): #top level function for bot logic
+        pass
 
-    #implied  pot odds
-
-    def getImpliedPotOdds(self):
-        impliedPot = self.potSize
-        for action in self.actions:
-            if "CALL" in action:
-                callSize = int(action.split(':')[1])
-            elif "RAISE" in action or "BET" in action:
-                minRaise = int(action.split(':')[1])
-                maxRaise = int(action.split(':')[2])+minRaise #if we raise
-                enumRaises = [0]+list(range(minRaise,maxRaise+1))
-        try:
-            #enumRaises = [0]+[callSize]+enumRaises  fold,call,raise
-            enumRaises.append(callSize)
-        except:
-            pass
-
-        try:
-            if len(enumRaises)>1: #not just the zero
-                expectedActions = dict()
-                for opponent in self.opponents:
-                    currOpp = self.opponents[opponent]
-                    randomAction = int(abs(logistic(currOpp.AF*maxRaise,1)))
-                    expectedActions[currOpp.name] = Player.closestInt(enumRaises,randomAction)
-                for oppAction in expectedActions:
-                    impliedPot+=expectedActions[oppAction]
-
-                self.impliedPotOdds = callSize/impliedPot
-            else:
-                pass
-        except:
-            #no CALL or RAISE in histories
-            pass
-
-    @staticmethod
-    def closestInt(L,num):
-        minDiff = currDiff = 0
-        minElem = 0
-        for i in range(len(L)):
-            element = L[i]
-            currDiff = abs(num-element)
-            if currDiff<=minDiff: #break ties downwards
-                minDiff = currDiff
-                minElem = element
-        return minElem
+    #override in subclasses 
+    #should return (action, quantity)
+    #actions = 'check','fold','bet','raise','call'
+    #quantity is needed for all (0 if check or fold)
 
 
-
-
-
+    @classmethod
+    def botResponse(self, logicTuple = ('check',0)):  #formats output of botLogic
+        print(logicTuple)
+        possibleActions = ['check','fold','bet','raise','call']
+        responseType = logicTuple[0]
+        quantity = logicTuple[1]
+        assert(responseType in possibleActions)
+        if responseType=='check' or responseType=='fold':
+            response = str.encode(responseType.upper()+'\n')
+        else:
+            response = str.encode(responseType.upper()+':'+str(quantity)+'\n')
+        return response
 
     #manage opponent data
     def oppUpdate(self):
@@ -254,12 +234,65 @@ class Player(object):
 
     #stat/history computation functions (must work for opponents with only histories as input)
 
+    #implied  pot odds
+
+    def getImpliedPotOdds(self):
+        impliedPot = self.potSize
+        for action in self.actions:
+            if "CALL" in action:
+                callSize = int(action.split(':')[1])
+            elif "RAISE" in action or "BET" in action:
+                minRaise = int(action.split(':')[1])
+                maxRaise = int(action.split(':')[2])+minRaise #if we raise
+                enumRaises = list(range(minRaise,maxRaise+1))
+        try:
+            #enumRaises = [0]+[callSize]+enumRaises  fold,call,raise
+            #we shift 0->callSize-1 because statistics
+            enumRaises = [callSize-1]+[callSize]+enumRaises
+
+        except:
+            pass
+
+        try:
+            if len(enumRaises)>1: #not just callSize-1
+                expectedActions = dict()
+                for opponent in self.opponents:
+                    currOpp = self.opponents[opponent]
+                    randomAction  = 0 
+                    samples = 1000
+                    for i in range(samples):
+                        #scale chosen by inspection
+                        randomAction +=int(abs(logistic(currOpp.AF*maxRaise,1)))
+                    randomAction /= samples
+                    expectedActions[currOpp.name] = Player.closestInt(enumRaises,randomAction)
+                for oppAction in expectedActions:
+                    if expectedActions[oppAction]==callSize-1:
+                        continue
+                    else:
+                        impliedPot+=expectedActions[oppAction]
+                self.impliedPotOdds = callSize/impliedPot
+            else:
+                pass
+        except:
+            #no CALL or RAISE in histories
+            pass
+
+    @staticmethod
+    def closestInt(L,num):
+        minDiff = currDiff = None
+        minElem = None
+        for i in range(len(L)):
+            currDiff = abs(L[i]-num)
+            if minDiff == None: minDiff=currDiff
+            if currDiff<=minDiff: #break ties downwards
+                minDiff = currDiff
+                minElem = L[i]
+        return minElem
     def getWinRate(self):
         wins = 0
         for event in self.histories[self.name]:
             if "WIN" in event:
                 wins+=1
-        print("WINRATE",wins,self.numHandsPlayed)
         self.winRate = wins/self.numHandsPlayed
 
     def getExpectedValue(self):
@@ -292,7 +325,7 @@ AF>1.5        Aggressive
         downs = 1 #calls or folds
         ups = 1 #bets or raises
         for event in self.histories[self.name]:
-            if 'CALL' in event or 'FOLD' in event:
+            if 'CALL' in event: #or 'FOLD' in event:
                 downs+=1
             elif 'BET' in event or 'RAISE' in event:
                 ups+=1
@@ -312,6 +345,7 @@ AF>1.5        Aggressive
         with open(path, "rt") as f:
             return f.read()
 
+    #get blind size from config.txt
     @classmethod
     def getBlind(self):
         path = os.getcwd()
@@ -460,6 +494,10 @@ class Opponent(Player):
 
 
 
+
+
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='A Pokerbot.', add_help=False, prog='pokerbot')
     parser.add_argument('-h', dest='host', type=str, default='localhost', help='Host to connect to, defaults to localhost')
@@ -473,6 +511,7 @@ if __name__ == '__main__':
     except socket.error as e:
         print('Error connecting! Aborting')
         exit()
+
 
 
 
