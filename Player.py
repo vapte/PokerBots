@@ -175,7 +175,7 @@ class Player(object):
                 #print('READOUT',vars(bot),'\n\n')
                 varsBotCopy = copy.deepcopy(vars(bot))
                 varsBotCopy.pop('histories')
-                print('SNAPSHOT',varsBotCopy)
+                print('SNAPSHOT',varsBotCopy,'\n\n')
 
 
         # Clean up the socket.
@@ -245,7 +245,7 @@ class Player(object):
                 currOpp.statUpdate()
                 varsOppCopy = copy.deepcopy(vars(currOpp))
                 varsOppCopy.pop('histories')
-                print(currOpp.name, '\n', varsOppCopy,'\n\n')
+                #print(currOpp.name, '\n', varsOppCopy,'\n\n')
 
     #top level function for computing all stats
     def statUpdate(self):
@@ -521,12 +521,51 @@ class AfExploit(Player):
         if actionsDict.get('check',False):
             return ('check', 0)
         elif actionsDict.get('fold',False):
-            if self.impliedEV<0 and self.EV<0:
-                return ('fold',0)
-            elif self.impliedEV>0 and self.EV<0 and actionsDict.get('fold',False):
-                return ('fold',0)
+            if self.impliedEV>0 and self.EV<0 and actionsDict.get('call',False):
+                pass
+                return ('call',actionsDict['callVals'])
+            elif self.impliedEV>0.8 and self.EV>0 and actionsDict.get('bet',False):
+                return ('bet', actionsDict['betVals'][0])
             elif self.impliedEV>0 and self.EV>0 and actionsDict.get('raise',False):
-                return ('raise',actionsDict['raiseVals'][len(actionsDict['raiseVals'])-1])    #test value
+                maxRaiseIndex = len(actionsDict['raiseVals'])-1
+                if self.impliedEV>0.8:
+                    specRaise = maxRaiseIndex
+                elif self.impliedEV>0.5:
+                    specRaise = maxRaiseIndex//2
+                try:
+                    return ('raise',actionsDict['raiseVals'][specRaise])    #test value
+                except:
+                    #sometime we don't set a raise value
+                    pass
+            else:
+                return ('fold',0)
+
+class evBasic(Player):
+    def __init__(self,name):
+        super().__init__(name)
+
+    def botLogic(self):
+        super().botLogic()
+        actionsDict = self.actionsParse()
+        if actionsDict.get('check',False):
+            return ('check', 0)
+        elif actionsDict.get('fold',False):
+            if self.EV>0 and actionsDict.get('raise',False):
+                maxRaiseIndex = len(actionsDict['raiseVals'])-1
+                if self.EV>0.2:
+                    specRaise = maxRaiseIndex//2
+                try:
+                    return ('raise',actionsDict['raiseVals'][specRaise])    #test value
+                except:
+                    #sometime we don't set a raise value
+                    if self.EV>0.1:
+                        return ('call', actionsDict['callVals'])
+                    return ('fold',0)
+            else:
+                return ('fold',0)
+                
+
+
 
 
 if __name__ == '__main__':
@@ -565,7 +604,7 @@ if __name__ == '__main__':
         newConfig = '\n'.join(config)    
         writeFile(fullPath,newConfig)
 
-    setHands(50)
+    setHands(100)
 
     parser = argparse.ArgumentParser(description='A Pokerbot.', add_help=False, prog='pokerbot')
     parser.add_argument('-h', dest='host', type=str, default='localhost', help='Host to connect to, defaults to localhost')
@@ -583,5 +622,5 @@ if __name__ == '__main__':
 
 
 
-    bot = AfExploit('playa')
+    bot = evBasic('playa')
     bot.run(s)
