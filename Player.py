@@ -42,7 +42,7 @@ class Player(object):
         self.name = name
         self.stack = 0
         self.opponents = dict()
-        self.numHandsPlayed = 0
+        self.numHands = 0
         self.winRate = 0
         #index in histories where all entries with index>self.flop are post-flop
         self.flop = 0
@@ -99,7 +99,7 @@ class Player(object):
                         if player!=self.name:
                             self.opponents[player] = Opponent(player,vars(bot))
 
-                self.numHandsPlayed+=1
+                self.numHands+=1
 
                 self.gameState = 'preflop'
 
@@ -109,7 +109,7 @@ class Player(object):
                 self.actions = packetValues[-4:-1]
                 if self.actions[0].isdigit():
                     self.actions.pop(0)
-
+                print('actionsParse', self.actionsParse())
 
                 #update potSize, board, stacksizes
                 self.potSize = int(packetValues[1])
@@ -196,6 +196,37 @@ class Player(object):
     #actions = 'check','fold','bet','raise','call'
     #quantity is needed for all (0 if check or fold)
 
+    def actionsParse(self): #parses self.actions
+        check = fold = False
+        actionsDict = dict()
+        minRaise = maxRaise = minBet = maxBet = callSize = None
+
+        for value in self.actions:
+            if 'RAISE' in value:
+                minRaise = int(value.split(':')[1])
+                maxRaise = int(value.split(':')[2])
+            elif 'BET' in value:
+                minBet = int(value.split(':')[1])
+                maxBet = int(value.split(':')[2])
+            elif 'CALL' in value:
+                callSize = int(value.split(':')[1])
+            elif 'CHECK' in value:
+                check = True
+            elif 'FOLD' in value:
+                fold = True
+
+        if minBet!=None and maxBet!=None: 
+            actionsDict['bet'] = list(range(minBet,maxBet+1))
+        if minRaise!=None and maxRaise!=None:
+            actionsDict['raise'] = list(range(minRaise,maxRaise+1))
+        if callSize!=None:
+            actionsDict['call'] = callSize
+        if check:
+            actionsDict['check'] = True
+        if fold:
+            actionsDict['fold'] = True
+
+        return actionsDict
 
     @classmethod
     def botResponse(self, logicTuple = ('check',0)):  #formats output of botLogic
@@ -293,7 +324,7 @@ class Player(object):
         for event in self.histories[self.name]:
             if "WIN" in event:
                 wins+=1
-        self.winRate = wins/self.numHandsPlayed
+        self.winRate = wins/self.numHands
 
     def getExpectedValue(self):
         if len(self.hole+self.board)<=6:
@@ -473,24 +504,23 @@ class Opponent(Player):
         super().__init__(name)
         self.histories = playerDict['histories'][self.name]
 
-    #update history on each iteration
+    #update attributes on each packet
     def attrsUpdate(self,playerDict):
         self.histories = {self.name: playerDict['histories'][self.name]}
-        self.numHandsPlayed = playerDict['numHandsPlayed']
+        self.numHands = playerDict['numHands']
 
-    #top level function for all stats
-    def statUpdate(self):
-        super().statUpdate()
 
-    #inherit all methods that compute stats
-    def getAggressionFactor(self):
-        super().getAggressionFactor()
 
-    def getWinRate(self):
-        super().getWinRate()
+#AF Exploit Bot
+#   exploits AF of other bots conditional on implied EV premium 
+#   checks all to get data on other players
+class AfExploit(Player):
+    def __init__(self, name):
+        super().__init__(name)
 
-    def getExpectedValue(self):
-        super().getExpectedValue()
+    @classmethod
+    def botLogic(self):
+        super().botLogic()
 
 
 
@@ -515,5 +545,5 @@ if __name__ == '__main__':
 
 
 
-    bot = Player('playa')
+    bot = AfExploit('playa')
     bot.run(s)
