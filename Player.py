@@ -13,6 +13,8 @@ import time
 #The skeleton for this bot is from the MIT PokerBots course website 
 #The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
 
+handsToPlay = 20
+allHistories = []
 
 class Player(object):
     values = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'] #ordered lo to hi
@@ -53,7 +55,7 @@ class Player(object):
 
     def run(self, inputSocket):
         #game separator
-        print([[0 for i in range(30)] for j in range(30)])
+        print([[0 for i in range(10)] for j in range(10)])
         
 
         # Get a file-object for reading packets from the socket.
@@ -70,7 +72,7 @@ class Player(object):
             # the engine and act on it. We are just printing it instead.
 
             packetValues = data.split(' ')
-            print(packetValues,'\n\n')
+            print(self.name, packetValues,'\n\n')
                 
 
             # When appropriate, reply to the engine with a legal action.
@@ -106,6 +108,8 @@ class Player(object):
 
             elif word == "GETACTION":
 
+                self.historyUpdate(packetValues)
+
                 #get player actions
                 self.actions = packetValues[-4:-1]
                 if self.actions[0].isdigit():
@@ -136,7 +140,8 @@ class Player(object):
 
             elif word == 'HANDOVER':
                 self.stackSizes = packetValues[1:4]
-
+                self.historyUpdate(packetValues,True)
+                
 
             elif word == "REQUESTKEYVALUES":
                 # At the end, the engine will allow your bot save key/value pairs.
@@ -160,8 +165,6 @@ class Player(object):
                     elif 'RIVER' in event:
                         self.gameState = 'river'
 
-                self.historyUpdate(packetValues)
-
             if self.histories!={}:
 
                 self.statUpdate()
@@ -175,12 +178,15 @@ class Player(object):
                 self.oppUpdate()
 
                 varsBotCopy = copy.deepcopy(self.__dict__)
-                varsBotCopy.pop('histories')
+                #varsBotCopy.pop('histories')
                 print('SNAPSHOT',self.name, varsBotCopy,'\n\n')
 
 
         # Clean up the socket.
         inputSocket.close()
+        if self.name=='player1':
+            print(allHistories)
+
 
     def botLogic(self): #top level function for bot logic
         pass
@@ -321,7 +327,7 @@ class Player(object):
     def getWinRate(self):
         wins = 0
         for event in self.histories[self.name]:
-            if "WIN" in event and self.name in event:
+            if ("WIN" in event or 'TIE' in event) and self.name in event:
                 wins+=1
         self.winRate = wins/self.numHands
 
@@ -331,12 +337,23 @@ class Player(object):
             self.EV =  outProb-self.potOdds
             self.impliedEV  = outProb-self.impliedPotOdds
 
-    def historyUpdate(self, packetValues):
-        for value in packetValues:
-            if value.count(':')==2: #all prior actions have 2 colons
-                for player in self.playerNames:
-                    if player in value:
-                        self.histories[player].append(value)
+    def historyUpdate(self, packetValues, handOver=False):
+        if not handOver:
+            for value in packetValues:
+                if value.count(':')==2: #raise,bets,calls have 2 colons
+                    for player in self.playerNames:
+                        if player in value:
+                            self.histories[player].append(value)
+        elif handOver:
+            for value in packetValues:
+                #only needs to compute winrate for self
+                if ('WIN' in value or 'TIE' in value) and self.name in value:
+                    self.histories[self.name].append(value)
+        if self.name=='player1':
+            for value in packetValues:
+                if ':' in value and 'player' in value:
+                    allHistories.append(value)
+
 
     '''
     AF benchmark values: 
@@ -664,9 +681,13 @@ def startBot(num,args,botType):  #bot number, args
         if botType=='evbasic':
             bot = EvBasic('player%d' % numPlusOne)
             bot.run(s)
+            bot.export()
         elif botType == 'afexploit':
             bot = AfExploit('player%d' % numPlusOne)
             bot.run(s)
+            #export(bot.__dict__)
+
+
 
 def initThreads(botTuple,args):
         processes = []
@@ -686,8 +707,8 @@ def initThreads(botTuple,args):
 
 if __name__ == '__main__':
     
-    setHands(1000)
-    botTuple = setBotTypes('evbasic','afexploit','checkfold')
+    setHands(handsToPlay)
+    botTuple = setBotTypes('afexploit','afexploit','afexploit')
 
     assert(len(botTuple)==3)
 
@@ -698,6 +719,10 @@ if __name__ == '__main__':
 
 
     initThreads(botTuple,args)
+
+    time.sleep(8)
+
+    print('doodle',allHistories)
 
 
 

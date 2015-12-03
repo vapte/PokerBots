@@ -1,0 +1,248 @@
+6.176 MIT Pokerbots - player1 vs player2 vs player3 (stack=40, bb=2)
+Hand #1, player1 (40), player2 (40), player3 (40)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player1 [6c 8d]
+Dealt to player2 [3h Ah]
+Dealt to player3 [Qs Td]
+player1 raises to 7
+player2 raises to 23
+player3 raises to 40
+player1 folds
+player2 folds
+player3 wins the pot (70)
+
+Hand #2, player3 (70), player1 (33), player2 (17)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [Qh 7c]
+Dealt to player1 [2d Kd]
+Dealt to player2 [Kh 8c]
+player3 raises to 7
+player1 raises to 23
+player2 folds
+player3 raises to 33
+player1 folds
+player3 wins the pot (58)
+
+Hand #3, player2 (15), player3 (95), player1 (10)
+player3 posts the blind of 1
+player1 posts the blind of 2
+Dealt to player2 [3d 8d]
+Dealt to player3 [6d Ac]
+Dealt to player1 [Ts 4c]
+player2 raises to 7
+player3 raises to 15
+player1 folds
+player2 folds
+player3 wins the pot (24)
+
+Hand #4, player1 (8), player2 (8), player3 (104)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player1 [2c Ts]
+Dealt to player2 [9h Qc]
+Dealt to player3 [8c 7c]
+player1 raises to 7
+player2 raises to 8
+player3 folds
+player1 folds
+player2 wins the pot (17)
+
+Hand #5, player3 (102), player1 (1), player2 (17)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [2s 8d]
+Dealt to player1 [Qh 9s]
+Dealt to player2 [7d 8c]
+player3 raises to 7
+player2 raises to 17
+player3 folds
+Uncalled bet of 16 returned to player2
+*** FLOP *** (9) [9d 4c Qc]
+*** TURN *** (9) [9d 4c Qc] [Tc]
+*** RIVER *** (9) [9d 4c Qc Tc] [6d]
+player1 shows [Qh 9s]
+player2 shows [7d 8c]
+player2 wins the pot (9)
+
+Hand #6, player2 (25), player3 (95), player1 (0)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player2 [7s Ac]
+Dealt to player3 [6h 6s]
+Dealt to player1 [Kh 9h]
+player2 raises to 6
+player3 raises to 18
+player2 raises to 25
+player3 folds
+player2 wins the pot (43)
+
+Hand #7, player3 (77), player2 (43), player1 (0)
+player3 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player1 [Td Kc]
+Dealt to player2 [8s Tc]
+Dealt to player3 [8h 7c]
+player3 raises to 6
+player2 raises to 18
+player3 raises to 43
+player2 folds
+player3 wins the pot (61)
+
+Hand #8, player2 (25), player3 (95), player1 (0)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player3 [4c 4h]
+Dealt to player1 [5c 9h]
+Dealt to player2 [6c Jd]
+player2 raises to 6
+player3 raises to 18
+player2 raises to 25
+player3 folds
+player2 wins the pot (43)
+
+Hand #9, player3 (77), player2 (43), player1 (0)
+player3 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player2 [9h 3c]
+Dealt to player3 [8c Jh]
+Dealt to player1 [Td Jc]
+player3 raises to 6
+player2 raises to 18
+player3 raises to 43
+player2 folds
+player3 wins the pot (61)
+
+Hand #10, player2 (25), player3 (95), player1 (0)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player1 [8c Ts]
+Dealt to player2 [7s Js]
+Dealt to player3 [3s Qc]
+player2 raises to 6
+player3 raises to 18
+player2 raises to 25
+player3 folds
+player2 wins the pot (43)
+
+Hand #11, player3 (77), player2 (43), player1 (0)
+player3 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [9h Kh]
+Dealt to player1 [4h 5h]
+Dealt to player2 [3s 7d]
+player3 raises to 6
+player2 raises to 18
+player3 raises to 43
+player2 folds
+player3 wins the pot (61)
+
+Hand #12, player2 (25), player3 (95), player1 (0)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player2 [2s Ks]
+Dealt to player3 [Jc 8s]
+Dealt to player1 [Js Kd]
+player2 raises to 6
+player3 raises to 18
+player2 raises to 25
+player3 folds
+player2 wins the pot (43)
+
+Hand #13, player3 (77), player2 (43), player1 (0)
+player3 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player1 [7d 4s]
+Dealt to player2 [5h Td]
+Dealt to player3 [Jd 4h]
+player3 raises to 6
+player2 raises to 18
+player3 raises to 43
+player2 folds
+player3 wins the pot (61)
+
+Hand #14, player2 (25), player3 (95), player1 (0)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player3 [3c 4s]
+Dealt to player1 [Ad Ac]
+Dealt to player2 [Ts Kd]
+player2 raises to 6
+player3 raises to 18
+player2 raises to 25
+player3 folds
+player2 wins the pot (43)
+
+Hand #15, player3 (77), player2 (43), player1 (0)
+player3 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player2 [Tc Js]
+Dealt to player3 [6h 3h]
+Dealt to player1 [5s 4h]
+player3 raises to 6
+player2 raises to 18
+player3 raises to 43
+player2 folds
+player3 wins the pot (61)
+
+Hand #16, player2 (25), player3 (95), player1 (0)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player1 [Td 3h]
+Dealt to player2 [4d 9d]
+Dealt to player3 [Kc 3c]
+player2 raises to 6
+player3 raises to 18
+player2 raises to 25
+player3 folds
+player2 wins the pot (43)
+
+Hand #17, player3 (77), player2 (43), player1 (0)
+player3 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [3s 2h]
+Dealt to player1 [Jd 9h]
+Dealt to player2 [2c 4h]
+player3 raises to 6
+player2 raises to 18
+player3 raises to 43
+player2 folds
+player3 wins the pot (61)
+
+Hand #18, player2 (25), player3 (95), player1 (0)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player2 [3h Kh]
+Dealt to player3 [Qs Ts]
+Dealt to player1 [9c Qc]
+player2 raises to 6
+player3 raises to 18
+player2 raises to 25
+player3 folds
+player2 wins the pot (43)
+
+Hand #19, player3 (77), player2 (43), player1 (0)
+player3 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player1 [Ah 9c]
+Dealt to player2 [9d Ad]
+Dealt to player3 [7s 3h]
+player3 raises to 6
+player2 raises to 18
+player3 raises to 43
+player2 folds
+player3 wins the pot (61)
+
+Hand #20, player2 (25), player3 (95), player1 (0)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player3 [Th Ad]
+Dealt to player1 [6c Jc]
+Dealt to player2 [8h 9c]
+player2 raises to 6
+player3 raises to 18
+player2 raises to 25
+player3 folds
+player2 wins the pot (43)
+
