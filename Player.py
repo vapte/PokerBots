@@ -6,6 +6,9 @@ import random
 import copy
 from numpy.random import logistic
 import os
+import multiprocessing
+import time
+
 
 #The skeleton for this bot is from the MIT PokerBots course website 
 #The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
@@ -49,7 +52,6 @@ class Player(object):
         self.impliedPotOdds = 0
 
     def run(self, inputSocket):
-
         #game separator
         print([[0 for i in range(30)] for j in range(30)])
         
@@ -96,7 +98,7 @@ class Player(object):
                 if self.opponents == {}:
                     for player in self.playerNames:
                         if player!=self.name:
-                            self.opponents[player] = Opponent(player,vars(bot))
+                            self.opponents[player] = Opponent(player,self.__dict__)
 
                 self.numHands+=1
 
@@ -130,7 +132,7 @@ class Player(object):
                     response = Player.botResponse(rawBotResponse)
                 else:
                     response = Player.botResponse()
-                s.send(response)
+                inputSocket.send(response)
 
             elif word == 'HANDOVER':
                 self.stackSizes = packetValues[1:4]
@@ -139,7 +141,7 @@ class Player(object):
             elif word == "REQUESTKEYVALUES":
                 # At the end, the engine will allow your bot save key/value pairs.
                 # Send FINISH to indicate you're done.
-                s.send(b"FINISH\n")
+                inputSocket.send(b"FINISH\n")
 
             #update histories and stats
             if word == "GETACTION" or word=="HANDOVER":
@@ -167,13 +169,13 @@ class Player(object):
                 #opponent attributes update
                 for opponent in self.opponents:
                     currOpp = self.opponents[opponent]
-                    currOpp.attrsUpdate(vars(bot))
+                    currOpp.attrsUpdate(self.__dict__)
 
                 #opponent stats update
                 self.oppUpdate()
 
-                #print('READOUT',vars(bot),'\n\n')
-                varsBotCopy = copy.deepcopy(vars(bot))
+                #print('READOUT',self.__dict__,'\n\n')
+                varsBotCopy = copy.deepcopy(self.__dict__)
                 varsBotCopy.pop('histories')
                 print('SNAPSHOT',varsBotCopy,'\n\n')
 
@@ -540,7 +542,7 @@ class AfExploit(Player):
             else:
                 return ('fold',0)
 
-class evBasic(Player):
+class EvBasic(Player):
     def __init__(self,name):
         super().__init__(name)
 
@@ -566,61 +568,77 @@ class evBasic(Player):
                 
 
 
+#botTester
+def readFile(path):
+    with open(path, "rt") as f:
+        return f.read()
+
+def writeFile(path, contents):
+    with open(path, "wt") as f:
+        f.write(contents)
+
+def getBlind():
+    path = os.getcwd()
+    config = readFile(path+os.sep+'config.txt')
+    return int(config.split('\n')[0][-1])
+
+def setHands(handNum):
+    path = os.getcwd()
+    fullPath = path+os.sep+'config.txt'
+    config = readFile(fullPath)
+    config = config.split('\n')
+    handsIndex = 0
+    stackIndex = 0
+    for i in range(len(config)):
+        line = config[i]
+        if 'NUMBER_OF_HANDS' in line:
+            handsIndex = i
+        if 'STARTING_STACK' in line:
+            stackIndex = i
+    new = handNum*getBlind()
+    newStackLine = ' STARTING_STACK = %s' % new
+    newLine = ' NUMBER_OF_HANDS = %s' % handNum
+    config[handsIndex] = newLine
+    config[stackIndex] = newStackLine
+    newConfig = '\n'.join(config)    
+    writeFile(fullPath,newConfig)
+
 
 
 if __name__ == '__main__':
-    #botTester
-    def readFile(path):
-        with open(path, "rt") as f:
-            return f.read()
-
-    def writeFile(path, contents):
-        with open(path, "wt") as f:
-            f.write(contents)
-
-    def getBlind():
-        path = os.getcwd()
-        config = readFile(path+os.sep+'config.txt')
-        return int(config.split('\n')[0][-1])
-
-    def setHands(handNum):
-        path = os.getcwd()
-        fullPath = path+os.sep+'config.txt'
-        config = readFile(fullPath)
-        config = config.split('\n')
-        handsIndex = 0
-        stackIndex = 0
-        for i in range(len(config)):
-            line = config[i]
-            if 'NUMBER_OF_HANDS' in line:
-                handsIndex = i
-            if 'STARTING_STACK' in line:
-                stackIndex = i
-        new = handNum*getBlind()
-        newStackLine = ' STARTING_STACK = %s' % new
-        newLine = ' NUMBER_OF_HANDS = %s' % handNum
-        config[handsIndex] = newLine
-        config[stackIndex] = newStackLine
-        newConfig = '\n'.join(config)    
-        writeFile(fullPath,newConfig)
-
-    setHands(100)
 
     parser = argparse.ArgumentParser(description='A Pokerbot.', add_help=False, prog='pokerbot')
     parser.add_argument('-h', dest='host', type=str, default='localhost', help='Host to connect to, defaults to localhost')
     parser.add_argument('port', metavar='PORT', type=int, help='Port on host to connect to')
     args = parser.parse_args()
 
-    # Create a socket connection to the engine.
-    print('Connecting to %s:%d' % (args.host, args.port))
-    try:
-        s = socket.create_connection((args.host, args.port))
-    except socket.error as e:
-        print('Error connecting! Aborting')
-        exit()
+    def startBot(num,args):  #bot number, args
+        print(args)
+        # Create a socket connection to the engine.
+        print('Connecting to %s:%d' % (args.host, args.port+num))
+        try:
+            s = socket.create_connection((args.host, args.port+num))
+        except socket.error as e:
+            print('Error connecting! Aborting')
+            exit()
+
+        bot = EvBasic('playa%d' % num)
+        bot.run(s)
+        
+
+    setHands(100)
+
+    thread0 = multiprocessing.Process(target=startBot, args = (0,args))
+    thread1 = multiprocessing.Process(target=startBot, args = (1,args))
+
+    thread0.start()
+    time.sleep(0.2)
+    thread1.start()
 
 
+    
 
 
-    bot = evBasic('playa')
-    bot.run(s)
+    
+
+
