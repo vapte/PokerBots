@@ -181,7 +181,7 @@ class Player(object):
 
 
         # Clean up the socket.
-        s.close()
+        inputSocket.close()
 
     def botLogic(self): #top level function for bot logic
         pass
@@ -603,6 +603,56 @@ def setHands(handNum):
     newConfig = '\n'.join(config)    
     writeFile(fullPath,newConfig)
 
+def setBotTypes(bot1 = None,bot2 = None,bot3 = None): #max 3 bots allowed
+    availBotTypes = ['evbasic','random','afexploit','checkfold']
+    inputTypes = ['CHECKFOLD', 'RANDOM', 'SOCKET']
+
+    botTuple = (bot1,bot2,bot3)
+    inputList = list()
+
+    for bot in botTuple:
+        if bot==None: 
+            bot = 'checkfold'
+        bot = bot.lower()
+        if bot not in availBotTypes: #turn all bad bots in to checkfold bots
+            bot = 'checkfold'
+        if bot == 'checkfold':
+            inputList.append('CHECKFOLD')
+        elif bot=='random':
+            inputList.append('RANDOM')
+        else:
+            inputList.append('SOCKET')
+
+    path = os.getcwd()
+    fullPath = path+os.sep+'config.txt'
+    config = readFile(fullPath)
+    config = config.split('\n')
+
+    for i in range(len(config)):
+        line = config[i]
+        if 'PLAYER_1_TYPE = ' in line:
+            bot1Index = i
+        elif 'PLAYER_2_TYPE = ' in line:
+            bot2Index = i
+        elif 'PLAYER_3_TYPE = ' in line: 
+            bot3Index = i
+
+
+    bot1Line = 'PLAYER_1_TYPE = %s' % inputList[0]
+    bot2Line = 'PLAYER_2_TYPE = %s' % inputList[1]
+    bot3Line = 'PLAYER_3_TYPE = %s' % inputList[2]
+
+    config[bot1Index] = bot1Line
+    config[bot2Index] = bot2Line
+    config[bot3Index] = bot3Line
+
+    newConfig = '\n'.join(config)    
+    writeFile(fullPath,newConfig)
+
+    return botTuple
+
+
+
 
 
 if __name__ == '__main__':
@@ -612,8 +662,10 @@ if __name__ == '__main__':
     parser.add_argument('port', metavar='PORT', type=int, help='Port on host to connect to')
     args = parser.parse_args()
 
-    def startBot(num,args):  #bot number, args
-        print(args)
+
+
+    def startBot(num,args,botType):  #bot number, args
+        num = int(num)
         # Create a socket connection to the engine.
         print('Connecting to %s:%d' % (args.host, args.port+num))
         try:
@@ -622,21 +674,48 @@ if __name__ == '__main__':
             print('Error connecting! Aborting')
             exit()
 
-        bot = EvBasic('playa%d' % num)
-        bot.run(s)
+        numPlusOne = num+1
+        if botType=='evbasic':
+            bot = EvBasic('player%d' % numPlusOne)
+            bot.run(s)
+        elif botType == 'afexploit':
+            bot = AfExploit('player%d' % numPlusOne)
+            bot.run(s)
+
+    setHands(10)
+    botTuple = setBotTypes('evbasic','afexploit','random')
+
+    assert(len(botTuple)==3)
+
+    def initThreads(botTuple,args):
+        processes = []
+        print(botTuple)
+        for i in range(len(botTuple)):
+            if botTuple[i]!='random' and botTuple[i]!='checkfold':  
+                currArgs = (i,args,botTuple[i])
+                currProcess = multiprocessing.Process(target=startBot,args=currArgs)
+                processes.append(currProcess)
+            else:
+                pass
         
 
-    setHands(100)
+        for process in processes:
+            process.start()
+            time.sleep(0.1)
 
-    thread0 = multiprocessing.Process(target=startBot, args = (0,args))
-    thread1 = multiprocessing.Process(target=startBot, args = (1,args))
-
-    thread0.start()
-    time.sleep(0.2)
-    thread1.start()
+    initThreads(botTuple,args)
 
 
-    
+
+
+
+
+
+
+
+
+
+
 
 
     
