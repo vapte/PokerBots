@@ -8,12 +8,41 @@ from numpy.random import logistic
 import os
 import multiprocessing
 import time
+import tkinter 
+
+#graphics run function taken from 15-112 course notes
+from tkinter import *
+
+
+def init(data):
+    # load data.xyz as appropriate
+    pass
+
+def mousePressed(event, data):
+    # use event.x and event.y
+    pass
+
+def keyPressed(event, data):
+    # use event.char and event.keysym
+    pass
+
+def timerFired(data):
+    pass
+
+def redrawAll(canvas, data):
+    # draw in canvas
+    pass
+
+
+
+#run(400, 200)
+
 
 
 #The skeleton for this bot is from the MIT PokerBots course website 
 #The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
 
-handsToPlay = 20
+handsToPlay = 200
 allHistories = []
 
 class Player(object):
@@ -70,10 +99,10 @@ class Player(object):
                 break
             # Here is where you should implement code to parse the packets from
             # the engine and act on it. We are just printing it instead.
-
+ 
             packetValues = data.split(' ')
-            print(self.name, packetValues,'\n\n')
-                
+            print(self.name, data,'\n\n')
+       
 
             # When appropriate, reply to the engine with a legal action.
             # The engine will ignore all spurious responses.
@@ -184,8 +213,9 @@ class Player(object):
 
         # Clean up the socket.
         inputSocket.close()
+        time.sleep(2)
         if self.name=='player1':
-            print(allHistories)
+            print('hi\n\n',allHistories,'\n\n')
 
 
     def botLogic(self): #top level function for bot logic
@@ -353,7 +383,12 @@ class Player(object):
             for value in packetValues:
                 if ':' in value and 'player' in value:
                     allHistories.append(value)
+            allHistories.append(self.board)
+            allHistories.append([self.name,self.hole])
+        else:
+            allHistories.append([self.name,self.hole])
 
+#PLAYERS NOT KEEPING TRACK OF BOARD
 
     '''
     AF benchmark values: 
@@ -681,7 +716,7 @@ def startBot(num,args,botType):  #bot number, args
         if botType=='evbasic':
             bot = EvBasic('player%d' % numPlusOne)
             bot.run(s)
-            bot.export()
+            #bot.export()
         elif botType == 'afexploit':
             bot = AfExploit('player%d' % numPlusOne)
             bot.run(s)
@@ -703,12 +738,54 @@ def initThreads(botTuple,args):
             process.start()
             time.sleep(0.1)
 
+####################################
+# use the run function as-is
+####################################
 
+def run(width=300, height=300):
+    def redrawAllWrapper(canvas, data):
+        canvas.delete(ALL)
+        redrawAll(canvas, data)
+        canvas.update()    
+
+    def mousePressedWrapper(event, canvas, data):
+        mousePressed(event, data)
+        redrawAllWrapper(canvas, data)
+
+    def keyPressedWrapper(event, canvas, data):
+        keyPressed(event, data)
+        redrawAllWrapper(canvas, data)
+
+    def timerFiredWrapper(canvas, data):
+        timerFired(data)
+        redrawAllWrapper(canvas, data)
+        # pause, then call timerFired again
+        canvas.after(data.timerDelay, timerFiredWrapper, canvas, data)
+    # Set up data and call init
+    class Struct(object): pass
+    data = Struct()
+    data.width = width
+    data.height = height
+    data.timerDelay = 100 # milliseconds
+    init(data)
+    # create the root and the canvas
+    root = Tk()
+    canvas = Canvas(root, width=data.width, height=data.height)
+    canvas.pack()
+    # set up events
+    root.bind("<Button-1>", lambda event:
+                            mousePressedWrapper(event, canvas, data))
+    root.bind("<Key>", lambda event:
+                            keyPressedWrapper(event, canvas, data))
+    timerFiredWrapper(canvas, data)
+    # and launch the app
+    root.mainloop()  # blocks until window is closed
+    print("bye!")
 
 if __name__ == '__main__':
     
     setHands(handsToPlay)
-    botTuple = setBotTypes('afexploit','afexploit','afexploit')
+    botTuple = setBotTypes('afexploit','evbasic','random')
 
     assert(len(botTuple)==3)
 
@@ -720,9 +797,7 @@ if __name__ == '__main__':
 
     initThreads(botTuple,args)
 
-    time.sleep(8)
-
-    print('doodle',allHistories)
+    
 
 
 
