@@ -174,10 +174,9 @@ class Player(object):
                 #opponent stats update
                 self.oppUpdate()
 
-                #print('READOUT',self.__dict__,'\n\n')
                 varsBotCopy = copy.deepcopy(self.__dict__)
                 varsBotCopy.pop('histories')
-                print('SNAPSHOT',varsBotCopy,'\n\n')
+                print('SNAPSHOT',self.name, varsBotCopy,'\n\n')
 
 
         # Clean up the socket.
@@ -651,20 +650,7 @@ def setBotTypes(bot1 = None,bot2 = None,bot3 = None): #max 3 bots allowed
 
     return botTuple
 
-
-
-
-
-if __name__ == '__main__':
-
-    parser = argparse.ArgumentParser(description='A Pokerbot.', add_help=False, prog='pokerbot')
-    parser.add_argument('-h', dest='host', type=str, default='localhost', help='Host to connect to, defaults to localhost')
-    parser.add_argument('port', metavar='PORT', type=int, help='Port on host to connect to')
-    args = parser.parse_args()
-
-
-
-    def startBot(num,args,botType):  #bot number, args
+def startBot(num,args,botType):  #bot number, args
         num = int(num)
         # Create a socket connection to the engine.
         print('Connecting to %s:%d' % (args.host, args.port+num))
@@ -682,12 +668,7 @@ if __name__ == '__main__':
             bot = AfExploit('player%d' % numPlusOne)
             bot.run(s)
 
-    setHands(10)
-    botTuple = setBotTypes('evbasic','afexploit','random')
-
-    assert(len(botTuple)==3)
-
-    def initThreads(botTuple,args):
+def initThreads(botTuple,args):
         processes = []
         print(botTuple)
         for i in range(len(botTuple)):
@@ -697,11 +678,24 @@ if __name__ == '__main__':
                 processes.append(currProcess)
             else:
                 pass
-        
-
         for process in processes:
             process.start()
             time.sleep(0.1)
+
+
+
+if __name__ == '__main__':
+    
+    setHands(1000)
+    botTuple = setBotTypes('evbasic','afexploit','checkfold')
+
+    assert(len(botTuple)==3)
+
+    parser = argparse.ArgumentParser(description='A Pokerbot.', add_help=False, prog='pokerbot')
+    parser.add_argument('-h', dest='host', type=str, default='localhost', help='Host to connect to, defaults to localhost')
+    parser.add_argument('port', metavar='PORT', type=int, help='Port on host to connect to')
+    args = parser.parse_args()
+
 
     initThreads(botTuple,args)
 

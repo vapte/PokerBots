@@ -14,7 +14,7 @@
 
 - TP 2 Deliverable - 
 
-12/2 - X hours - tuned AF strategy
-
+12/2 - 7 hours - tuned AF strategy, enabled use of multiple native bots (multiprocess), automated multiprocess bot testing
+result: AfExploit beats EvBasic 99% of the time
 
 
