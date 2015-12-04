@@ -17,4 +17,8 @@
 12/2 - 7 hours - tuned AF strategy, enabled use of multiple native bots (multiprocess), automated multiprocess bot testing
 result: AfExploit beats EvBasic 99% of the time
 
+12/3 - 5 hours - attempted to do weird write/read from file with painful string manipulation. later discovered pickle.
+
+
+
 

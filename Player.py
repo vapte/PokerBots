@@ -9,40 +9,13 @@ import os
 import multiprocessing
 import time
 import tkinter 
-
-#graphics run function taken from 15-112 course notes
+import pickle
 from tkinter import *
-
-
-def init(data):
-    # load data.xyz as appropriate
-    pass
-
-def mousePressed(event, data):
-    # use event.x and event.y
-    pass
-
-def keyPressed(event, data):
-    # use event.char and event.keysym
-    pass
-
-def timerFired(data):
-    pass
-
-def redrawAll(canvas, data):
-    # draw in canvas
-    pass
-
-
-
-#run(400, 200)
-
-
 
 #The skeleton for this bot is from the MIT PokerBots course website 
 #The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
 
-handsToPlay = 200
+handsToPlay = 20
 allHistories = []
 
 class Player(object):
@@ -217,6 +190,11 @@ class Player(object):
         if self.name=='player1':
             print('hi\n\n',allHistories,'\n\n')
 
+        #EXPORT allHistories to text file
+        
+        Player.writeFile('filename.pickle',allHistories,True)
+        
+
 
     def botLogic(self): #top level function for bot logic
         pass
@@ -384,11 +362,11 @@ class Player(object):
                 if ':' in value and 'player' in value:
                     allHistories.append(value)
             allHistories.append(self.board)
-            allHistories.append([self.name,self.hole])
+            allHistories.append(['pot',self.potSize])
+            allHistories.append([self.name,self.hole,self.stack])
         else:
             allHistories.append([self.name,self.hole])
 
-#PLAYERS NOT KEEPING TRACK OF BOARD
 
     '''
     AF benchmark values: 
@@ -420,11 +398,26 @@ AF>1.5        Aggressive
 
 
     #class/static methods
+   
 
     @staticmethod
-    def readFile(path):
-        with open(path, "rt") as f:
-            return f.read()
+    def readFile(path, withPickle = False):
+        if withPickle:
+            with open(path, "rb") as f:
+                return pickle.load(f)
+        else:
+            with open(path, "rt") as f:
+                return f.read()
+
+    @staticmethod
+    def writeFile(path, contents, withPickle = False):
+        if withPickle:
+            with open(path, "wb") as f:
+                    pickle.dump(contents,f)
+        else:
+            with open(path, "wt") as f:
+                f.write(contents)
+
 
     #get blind size from config.txt
     @classmethod
@@ -567,6 +560,7 @@ class Opponent(Player):
 class AfExploit(Player):
     def __init__(self, name):
         super().__init__(name)
+        self.type = 'afexploit'
 
     def botLogic(self):
         super().botLogic()
@@ -596,6 +590,7 @@ class AfExploit(Player):
 class EvBasic(Player):
     def __init__(self,name):
         super().__init__(name)
+        self.type = 'evbasic'
 
     def botLogic(self):
         super().botLogic()
@@ -620,13 +615,21 @@ class EvBasic(Player):
 
 
 #botTester
-def readFile(path):
-    with open(path, "rt") as f:
-        return f.read()
+def readFile(path, withPickle = False):
+    if withPickle:
+        with open(path, "rb") as f:
+            return pickle.load(f)
+    else:
+        with open(path, "rt") as f:
+            return f.read()
 
-def writeFile(path, contents):
-    with open(path, "wt") as f:
-        f.write(contents)
+def writeFile(path, contents, withPickle = False):
+    if withPickle:
+        with open(path, "wb") as f:
+                pickle.dump(contents,f)
+    else:
+        with open(path, "wt") as f:
+            f.write(contents)
 
 def getBlind():
     path = os.getcwd()
@@ -716,13 +719,9 @@ def startBot(num,args,botType):  #bot number, args
         if botType=='evbasic':
             bot = EvBasic('player%d' % numPlusOne)
             bot.run(s)
-            #bot.export()
         elif botType == 'afexploit':
             bot = AfExploit('player%d' % numPlusOne)
             bot.run(s)
-            #export(bot.__dict__)
-
-
 
 def initThreads(botTuple,args):
         processes = []
@@ -737,10 +736,85 @@ def initThreads(botTuple,args):
         for process in processes:
             process.start()
             time.sleep(0.1)
+        return processes
 
-####################################
-# use the run function as-is
-####################################
+
+
+
+###############################
+#          GRAPHICS
+###############################
+
+
+def init(data):
+    data.playerSize = 45
+    data.player1pos = (15+data.playerSize,data.height/2)
+    data.player2pos = (data.width/2,data.height-15-data.playerSize)
+    data.player3pos = (data.width-15-data.playerSize,data.height/2)
+    data.playerPositions = [data.player1pos,data.player2pos,data.player3pos]
+    data.allHistories = allHistoriesNew
+    data.stack = 0
+    data.board = []
+    data.playerCards = []
+    data.botTuple = botTupleNew
+    loadPlayingCardImages(data) 
+    
+
+
+def mousePressed(event, data):
+    # use event.x and event.y
+    pass
+
+def keyPressed(event, data):
+    # use event.char and event.keysym
+    pass
+
+def timerFired(data):
+    pass
+
+def redrawAll(canvas, data):
+    #table
+    canvas.create_rectangle(5,5,data.width-5,data.height-5,fill = 'orange4')
+    canvas.create_rectangle(10,10,data.width-10,data.height-10,fill = 'green4')
+    canvas.create_text(10,10,text = 'Players: %s' % ' '.join(data.botTuple),anchor = 'sw')
+    drawPlayers(canvas,data)
+
+
+def drawPlayers(canvas,data):
+    playerCount = 0
+    for player in data.playerPositions:
+        d = data.playerSize
+        (x0,y0,x1,y1) = (player[0]-d,player[1]-10,player[0]+d,player[1]+10)
+        canvas.create_rectangle(x0,y0,x1,y1, fill = 'red4')
+        canvas.create_text(player[0],player[1], text = '%s' % botTupleNew[playerCount].upper())
+        playerCount+=1
+
+#loadPlayingCardImages, getPlayingCardImage, getSpecialPlayingCardImage from 15-112 graphics course notes
+
+def loadPlayingCardImages(data):
+    cards = 55 # cards 1-52, back, joker1, joker2
+    data.cardImages = [ ]
+    for card in range(cards):
+        rank = (card%13)+1
+        suit = "cdhsx"[card//13]
+        filename = "playing-card-gifs/%s%d.gif" % (suit, rank)
+        data.cardImages.append(PhotoImage(file=filename))
+
+def getPlayingCardImage(data, rank, suitName):
+    suitName = suitName[0].lower() # only car about first letter
+    suitNames = "cdhsx"
+    assert(1 <= rank <= 13)
+    assert(suitName in suitNames)
+    suit = suitNames.index(suitName)
+    return data.cardImages[13*suit + rank - 1]
+
+def getSpecialPlayingCardImage(data, name):
+    specialNames = ["back", "joker1", "joker2"]
+    return getPlayingCardImage(data, specialNames.index(name)+1, "x")
+
+
+################################
+#graphics run function taken from 15-112 course notes
 
 def run(width=300, height=300):
     def redrawAllWrapper(canvas, data):
@@ -761,15 +835,16 @@ def run(width=300, height=300):
         redrawAllWrapper(canvas, data)
         # pause, then call timerFired again
         canvas.after(data.timerDelay, timerFiredWrapper, canvas, data)
+    # Create root before calling init (so we can create images in init)
+    root = Tk()
     # Set up data and call init
     class Struct(object): pass
     data = Struct()
     data.width = width
     data.height = height
-    data.timerDelay = 100 # milliseconds
+    data.timerDelay = 250 # milliseconds
     init(data)
     # create the root and the canvas
-    root = Tk()
     canvas = Canvas(root, width=data.width, height=data.height)
     canvas.pack()
     # set up events
@@ -785,7 +860,8 @@ def run(width=300, height=300):
 if __name__ == '__main__':
     
     setHands(handsToPlay)
-    botTuple = setBotTypes('afexploit','evbasic','random')
+    botTuple = setBotTypes('afexploit','random','random')
+    writeFile('filename1.pickle', botTuple,True)
 
     assert(len(botTuple)==3)
 
@@ -795,13 +871,28 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
 
-    initThreads(botTuple,args)
+    processes = initThreads(botTuple,args)
 
+    processesDead = False
+    while not processesDead:
+        eachProcess = 0
+        for process in processes:
+            if process.is_alive():
+                eachProcess+=1
+        if eachProcess==0:
+            processesDead = True
+
+    #read and parse output log
+    if processesDead:
+        botTupleNew = readFile('filename1.pickle',True)
+        allHistoriesNew = readFile('filename.pickle',True)
+        print(allHistoriesNew)
+        run(1200, 600) 
     
 
 
 
-
+#CHANGE paths to os.getcwd() 
 
 
 

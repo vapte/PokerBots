@@ -1,2360 +1,278 @@
-6.176 MIT Pokerbots - player1 vs player2 vs player3 (stack=400, bb=2)
-Hand #1, player1 (400), player2 (400), player3 (400)
+6.176 MIT Pokerbots - player1 vs player2 vs player3 (stack=40, bb=2)
+Hand #1, player1 (40), player2 (40), player3 (40)
 player2 posts the blind of 1
 player3 posts the blind of 2
-Dealt to player1 [Jc 4c]
-Dealt to player2 [Ts 7s]
-Dealt to player3 [Qc 6h]
+Dealt to player1 [9s 4d]
+Dealt to player2 [Jc Js]
+Dealt to player3 [Td 9c]
 player1 raises to 7
-player2 raises to 17
-player3 folds
-player1 raises to 53
-player2 raises to 125
-player1 raises to 377
-player2 raises to 400
-player1 folds
-player2 wins the pot (779)
-
-Hand #2, player3 (398), player1 (23), player2 (779)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [9h 8h]
-Dealt to player1 [6d Jc]
-Dealt to player2 [Jd 9c]
-player3 raises to 5
-player1 raises to 17
-player2 raises to 42
-player3 calls 42
-player1 folds
-*** FLOP *** (101) [Js Ah Td]
-*** TURN *** (101) [Js Ah Td] [6s]
-*** RIVER *** (101) [Js Ah Td 6s] [As]
-player3 shows [9h 8h]
-player2 shows [Jd 9c]
-player2 wins the pot (101)
-
-Hand #3, player2 (838), player3 (356), player1 (6)
-player3 posts the blind of 1
-player1 posts the blind of 2
-Dealt to player2 [As Jd]
-Dealt to player3 [Ts 3d]
-Dealt to player1 [2c 5h]
-player2 raises to 5
-player3 folds
-player1 raises to 6
 player2 folds
-player1 wins the pot (12)
-
-Hand #4, player1 (12), player2 (833), player3 (355)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [2h Js]
-Dealt to player2 [6s Td]
-Dealt to player3 [8h 9s]
-player1 raises to 7
-player2 raises to 17
 player3 folds
-player1 folds
-player2 wins the pot (26)
+player1 wins the pot (10)
 
-Hand #5, player3 (353), player1 (5), player2 (842)
+Hand #2, player3 (38), player1 (43), player2 (39)
 player1 posts the blind of 1
 player2 posts the blind of 2
-Dealt to player3 [2h 7c]
-Dealt to player1 [9s Th]
-Dealt to player2 [8d Qs]
-player3 raises to 4
-player1 raises to 5
-player2 raises to 12
-player3 folds
-Uncalled bet of 6 returned to player2
-*** FLOP *** (15) [6s Qc Ts]
-*** TURN *** (15) [6s Qc Ts] [6h]
-*** RIVER *** (15) [6s Qc Ts 6h] [2c]
-player1 shows [9s Th]
-player2 shows [8d Qs]
-player2 wins the pot (15)
-
-Hand #6, player2 (845), player3 (349), player1 (6)
-player3 posts the blind of 1
-player1 posts the blind of 2
-Dealt to player2 [Kc 9h]
-Dealt to player3 [Ts 4s]
-Dealt to player1 [Jd 7d]
-player2 raises to 5
-player3 raises to 9
-player1 folds
-player2 raises to 21
-player3 raises to 58
-player2 raises to 135
-player3 calls 135
-*** FLOP *** (272) [Jh Qs 5d]
-*** TURN *** (272) [Jh Qs 5d] [6s]
-*** RIVER *** (272) [Jh Qs 5d 6s] [Kh]
-player2 shows [Kc 9h]
-player3 shows [Ts 4s]
-player2 wins the pot (272)
-
-Hand #7, player1 (4), player2 (982), player3 (214)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [8h 6d]
-Dealt to player2 [7d Jh]
-Dealt to player3 [5s 7c]
-player1 raises to 4
-player2 raises to 10
-player3 raises to 21
-player2 raises to 49
-player3 raises to 134
-player2 raises to 214
-player3 calls 214
-*** FLOP *** (420) [6c 3c 5h]
-*** TURN *** (420) [6c 3c 5h] [6h]
-*** RIVER *** (420) [6c 3c 5h 6h] [8c]
-player1 shows [8h 6d]
-player2 shows [7d Jh]
-player3 shows [5s 7c]
-player1 wins the pot (12)
-player3 wins the pot (420)
-
-Hand #8, player3 (420), player1 (12), player2 (768)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [5h Jc]
-Dealt to player1 [Jh Ad]
-Dealt to player2 [3d Kc]
-player3 raises to 6
-player1 raises to 12
-player2 raises to 30
-player3 folds
-Uncalled bet of 12 returned to player2
-*** FLOP *** (36) [4s 9s Kh]
-*** TURN *** (36) [4s 9s Kh] [6s]
-*** RIVER *** (36) [4s 9s Kh 6s] [Td]
-player1 shows [Jh Ad]
-player2 shows [3d Kc]
-player2 wins the pot (36)
-
-Hand #9, player2 (774), player3 (414), player1 (12)
-player3 posts the blind of 1
-player1 posts the blind of 2
-Dealt to player2 [8d Ad]
-Dealt to player3 [Qd 4s]
-Dealt to player1 [7c 8s]
-player2 raises to 5
-player3 raises to 15
-player1 folds
-player2 raises to 36
-player3 folds
-player2 wins the pot (53)
-
-Hand #10, player1 (10), player2 (791), player3 (399)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [4h Tc]
-Dealt to player2 [Ah Kd]
-Dealt to player3 [9h Ts]
-player1 raises to 7
-player2 raises to 17
-player3 calls 17
-player1 folds
-*** FLOP *** (41) [Ac 5s 7h]
-*** TURN *** (41) [Ac 5s 7h] [As]
-*** RIVER *** (41) [Ac 5s 7h As] [2s]
-player2 shows [Ah Kd]
-player3 shows [9h Ts]
-player2 wins the pot (41)
-
-Hand #11, player3 (382), player1 (3), player2 (815)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [6d 8h]
-Dealt to player1 [Jh Tc]
-Dealt to player2 [7s 6h]
+Dealt to player3 [3c Jc]
+Dealt to player1 [4h 9d]
+Dealt to player2 [Ks 7c]
 player3 calls 2
-player1 raises to 3
-player2 raises to 7
-player3 calls 7
-*** FLOP *** (8) [7d Td Kc]
+player1 raises to 8
+player2 calls 8
+player3 raises to 29
+player1 raises to 39
+player2 folds
+player3 folds
+player1 wins the pot (76)
+
+Hand #3, player2 (31), player3 (9), player1 (80)
+player3 posts the blind of 1
+player1 posts the blind of 2
+Dealt to player2 [6h Jc]
+Dealt to player3 [2d Tc]
+Dealt to player1 [Jh 9d]
+player2 calls 2
+player3 calls 2
+player1 checks
+*** FLOP *** (6) [Qh 2s 5h]
+player3 checks
+player1 checks
 player2 checks
-player3 bets 10
-player2 folds
-*** TURN *** (18) [7d Td Kc] [7h]
-*** RIVER *** (18) [7d Td Kc 7h] [8c]
-player3 shows [6d 8h]
-player1 shows [Jh Tc]
-player1 wins the pot (9)
-player3 wins the pot (18)
-
-Hand #12, player2 (808), player3 (383), player1 (9)
-player3 posts the blind of 1
-player1 posts the blind of 2
-Dealt to player2 [8d Tc]
-Dealt to player3 [6d 4c]
-Dealt to player1 [As Jc]
-player2 folds
-player3 calls 2
-player1 checks
-*** FLOP *** (4) [9s 3c 3h]
+*** TURN *** (6) [Qh 2s 5h] [Js]
 player3 checks
 player1 checks
-*** TURN *** (4) [9s 3c 3h] [Jd]
-player3 checks
-player1 checks
-*** RIVER *** (4) [9s 3c 3h Jd] [Th]
+player2 bets 4
+player3 calls 4
+player1 folds
+*** RIVER *** (14) [Qh 2s 5h Js] [8d]
 player3 bets 2
-player1 calls 2
-player3 shows [6d 4c]
-player1 shows [As Jc]
-player1 wins the pot (8)
-
-Hand #13, player1 (13), player2 (808), player3 (379)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [4d Qd]
-Dealt to player2 [5s 8d]
-Dealt to player3 [As Th]
-player1 calls 2
-player2 folds
-player3 checks
-*** FLOP *** (5) [9d 6d 2c]
-player3 bets 4
-player1 calls 4
-*** TURN *** (13) [9d 6d 2c] [4h]
-player3 bets 2
-player1 raises to 5
+player2 raises to 3
 player3 folds
-player1 wins the pot (20)
+player2 wins the pot (19)
 
-Hand #14, player3 (371), player1 (22), player2 (807)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Jh 2d]
-Dealt to player1 [Td Ks]
-Dealt to player2 [5h 8d]
-player3 calls 2
+Hand #4, player1 (78), player2 (41), player3 (1)
+player2 posts the blind of 1
+player3 posts the blind of 1
+Dealt to player1 [Kh 6c]
+Dealt to player2 [Td 7c]
+Dealt to player3 [Jd 9s]
 ### ILLEGAL ACTION: Check [player=player1]
 player1 folds
-player2 checks
-*** FLOP *** (5) [4c 7d 5d]
-player2 checks
-player3 checks
-*** TURN *** (5) [4c 7d 5d] [Th]
-player2 checks
-player3 checks
-*** RIVER *** (5) [4c 7d 5d Th] [7h]
-player2 checks
-player3 bets 2
-player2 folds
-player3 wins the pot (7)
+player2 raises to 4
+Uncalled bet of 3 returned to player2
+*** FLOP *** (2) [Kc 2s 6h]
+*** TURN *** (2) [Kc 2s 6h] [3c]
+*** RIVER *** (2) [Kc 2s 6h 3c] [7d]
+player2 shows [Td 7c]
+player3 shows [Jd 9s]
+player2 wins the pot (2)
 
-Hand #15, player2 (805), player3 (374), player1 (21)
-player3 posts the blind of 1
-player1 posts the blind of 2
-Dealt to player2 [8h 7c]
-Dealt to player3 [8s 9d]
-Dealt to player1 [Jd 6h]
-player2 folds
-player3 calls 2
-player1 checks
-*** FLOP *** (4) [Js Qd 5c]
-player3 bets 2
-player1 folds
-player3 wins the pot (6)
-
-Hand #16, player1 (19), player2 (805), player3 (376)
+Hand #5, player2 (42), player1 (78), player3 (0)
 player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [9s 2d]
-Dealt to player2 [Ks Tc]
-Dealt to player3 [3s 4s]
-player1 raises to 5
-player2 folds
-player3 folds
-player1 wins the pot (8)
-
-Hand #17, player3 (374), player1 (22), player2 (804)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [4s 7h]
-Dealt to player1 [7c 3s]
-Dealt to player2 [Th Jd]
-player3 raises to 5
-player1 calls 5
-player2 folds
-*** FLOP *** (12) [Kd 8d 6c]
-player1 checks
-player3 bets 10
-player1 raises to 17
-player3 calls 17
-*** TURN *** (46) [Kd 8d 6c] [Js]
-*** RIVER *** (46) [Kd 8d 6c Js] [Kh]
-player3 shows [4s 7h]
-player1 shows [7c 3s]
-player3 ties for the pot (23)
-player1 ties for the pot (23)
-
-Hand #18, player2 (802), player3 (375), player1 (23)
-player3 posts the blind of 1
 player1 posts the blind of 2
-Dealt to player2 [5s 8d]
-Dealt to player3 [4h 9d]
-Dealt to player1 [2s Ad]
-player2 folds
-player3 folds
-player1 wins the pot (3)
-
-Hand #19, player1 (24), player2 (802), player3 (374)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [Tc 2h]
-Dealt to player2 [Qs Js]
-Dealt to player3 [Th 9c]
-player1 raises to 5
-player2 folds
-player3 folds
-player1 wins the pot (8)
-
-Hand #20, player3 (372), player1 (27), player2 (801)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [4d 9c]
-Dealt to player1 [Kh Tc]
-Dealt to player2 [8h Qd]
-player3 folds
-player1 calls 2
-player2 checks
-*** FLOP *** (4) [Jc 2c Ah]
-player1 checks
-player2 checks
-*** TURN *** (4) [Jc 2c Ah] [8c]
-player1 checks
-player2 checks
-*** RIVER *** (4) [Jc 2c Ah 8c] [9d]
-player1 checks
-player2 checks
-player1 shows [Kh Tc]
-player2 shows [8h Qd]
-player2 wins the pot (4)
-
-Hand #21, player2 (803), player3 (372), player1 (25)
-player3 posts the blind of 1
-player1 posts the blind of 2
-Dealt to player2 [Kh 7s]
-Dealt to player3 [6s 8h]
-Dealt to player1 [Qc Th]
-player2 folds
-player3 folds
-player1 wins the pot (3)
-
-Hand #22, player1 (26), player2 (803), player3 (371)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [7d 3h]
-Dealt to player2 [Qd 2d]
-Dealt to player3 [2s 7s]
-player1 raises to 5
-player2 folds
-player3 calls 5
-*** FLOP *** (11) [Js 4c 3c]
-player3 bets 8
-player1 raises to 18
-player3 raises to 21
+Dealt to player3 [3h Ts]
+Dealt to player1 [5h Ks]
+Dealt to player2 [Qh Ah]
+player2 raises to 4
 player1 folds
-player3 wins the pot (50)
-
-Hand #23, player3 (395), player1 (3), player2 (802)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [6h 4d]
-Dealt to player1 [4h Ah]
-Dealt to player2 [2s 5s]
-player3 calls 2
-player1 folds
-player2 checks
-*** FLOP *** (5) [3d As Th]
-player2 checks
-player3 checks
-*** TURN *** (5) [3d As Th] [Js]
-player2 checks
-player3 bets 2
-player2 folds
-player3 wins the pot (7)
-
-Hand #24, player2 (800), player3 (398), player1 (2)
-player3 posts the blind of 1
-player1 posts the blind of 2
-Dealt to player2 [5s Ks]
-Dealt to player3 [Jc 9d]
-Dealt to player1 [Kh 6s]
-player2 raises to 5
-player3 calls 5
-*** FLOP *** (6) [4h 4s 7d]
-player3 checks
-player2 checks
-*** TURN *** (6) [4h 4s 7d] [2s]
-player3 checks
-player2 checks
-*** RIVER *** (6) [4h 4s 7d 2s] [6h]
-player3 checks
-player2 checks
-player2 shows [5s Ks]
-player3 shows [Jc 9d]
-player1 shows [Kh 6s]
-player1 wins the pot (6)
 player2 wins the pot (6)
 
-Hand #25, player1 (6), player2 (801), player3 (393)
+Hand #6, player1 (76), player2 (44), player3 (0)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player2 [7d 8d]
+Dealt to player3 [Qd Qh]
+Dealt to player1 [7h 2s]
+player1 folds
+player2 wins the pot (3)
+
+Hand #7, player2 (45), player1 (75), player3 (0)
 player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [6c Jc]
-Dealt to player2 [Js Kc]
-Dealt to player3 [Tc 4d]
+player1 posts the blind of 2
+Dealt to player1 [6s Ah]
+Dealt to player2 [9d 4h]
+Dealt to player3 [6h Ad]
+player2 calls 2
+player1 checks
+*** FLOP *** (4) [8d 7c Qs]
+player1 checks
+player2 checks
+*** TURN *** (4) [8d 7c Qs] [4d]
+player1 checks
+player2 bets 2
+player1 calls 2
+*** RIVER *** (8) [8d 7c Qs 4d] [3c]
+player1 checks
+player2 bets 6
 ### ILLEGAL ACTION: Check [player=player1]
 player1 folds
-player2 calls 2
-player3 checks
-*** FLOP *** (4) [8s 7s Ac]
-player2 checks
-player3 bets 2
-player2 calls 2
-*** TURN *** (8) [8s 7s Ac] [Qh]
-player2 checks
-player3 bets 5
-player2 calls 5
-*** RIVER *** (18) [8s 7s Ac Qh] [7d]
-player2 checks
-player3 bets 10
-player2 folds
-player3 wins the pot (28)
+player2 wins the pot (14)
 
-Hand #26, player3 (402), player1 (6), player2 (792)
+Hand #8, player1 (71), player2 (49), player3 (0)
 player1 posts the blind of 1
 player2 posts the blind of 2
-Dealt to player3 [7h Qd]
-Dealt to player1 [9h 6c]
-Dealt to player2 [6s 5h]
-player3 calls 2
+Dealt to player3 [As 4s]
+Dealt to player1 [5c Ac]
+Dealt to player2 [7h 5d]
+### ILLEGAL ACTION: Check [player=player1]
+player1 folds
+player2 wins the pot (3)
+
+Hand #9, player2 (50), player1 (70), player3 (0)
+player2 posts the blind of 1
+player1 posts the blind of 2
+Dealt to player2 [4h 4s]
+Dealt to player3 [7d Td]
+Dealt to player1 [Ah Qc]
+player2 calls 2
+player1 checks
+*** FLOP *** (4) [9h 8c Tc]
+player1 checks
+player2 checks
+*** TURN *** (4) [9h 8c Tc] [Jh]
+player1 checks
+player2 bets 3
+player1 calls 3
+*** RIVER *** (10) [9h 8c Tc Jh] [4c]
+player1 checks
+player2 checks
+player2 shows [4h 4s]
+player1 shows [Ah Qc]
+player1 wins the pot (10)
+
+Hand #10, player1 (75), player2 (45), player3 (0)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player1 [Jc Ks]
+Dealt to player2 [2c 6c]
+Dealt to player3 [Ac Js]
 player1 calls 2
+player2 raises to 5
+player1 calls 5
+*** FLOP *** (10) [5s Ts Qs]
+player2 bets 7
+player1 calls 7
+*** TURN *** (24) [5s Ts Qs] [Jd]
 player2 checks
-*** FLOP *** (6) [6d 3d 9c]
+player1 checks
+*** RIVER *** (24) [5s Ts Qs Jd] [6s]
+player2 bets 2
+player1 calls 2
+player1 shows [Jc Ks]
+player2 shows [2c 6c]
+player1 wins the pot (28)
+
+Hand #11, player2 (31), player1 (89), player3 (0)
+player2 posts the blind of 1
+player1 posts the blind of 2
+Dealt to player3 [7d 3s]
+Dealt to player1 [4h 3h]
+Dealt to player2 [9d 2d]
+player2 raises to 5
+player1 calls 5
+*** FLOP *** (10) [Tc Ac Ad]
 player1 checks
 player2 checks
-player3 checks
-*** TURN *** (6) [6d 3d 9c] [As]
+*** TURN *** (10) [Tc Ac Ad] [9h]
 player1 checks
-player2 checks
-player3 checks
-*** RIVER *** (6) [6d 3d 9c As] [2s]
-player1 checks
-player2 checks
-player3 checks
-player3 shows [7h Qd]
-player1 shows [9h 6c]
-player2 shows [6s 5h]
-player1 wins the pot (6)
+player2 bets 9
+player1 folds
+player2 wins the pot (19)
 
-Hand #27, player2 (790), player3 (400), player1 (10)
-player3 posts the blind of 1
+Hand #12, player1 (84), player2 (36), player3 (0)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player2 [Ah Ts]
+Dealt to player3 [7s 5h]
+Dealt to player1 [7d Jd]
+player1 folds
+player2 wins the pot (3)
+
+Hand #13, player2 (37), player1 (83), player3 (0)
+player2 posts the blind of 1
 player1 posts the blind of 2
-Dealt to player2 [2d Tc]
-Dealt to player3 [5d Kc]
-Dealt to player1 [Jh 3d]
-player2 folds
-player3 raises to 4
-player1 folds
-player3 wins the pot (6)
-
-Hand #28, player1 (8), player2 (790), player3 (402)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [5c 8s]
-Dealt to player2 [Jh Kc]
-Dealt to player3 [9s 2s]
-player1 folds
-player2 folds
-player3 wins the pot (3)
-
-Hand #29, player3 (403), player1 (8), player2 (789)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Ts 7d]
-Dealt to player1 [3s 2d]
-Dealt to player2 [8h 5d]
-player3 calls 2
-player1 folds
-player2 checks
-*** FLOP *** (5) [Kc Kh Qh]
-player2 checks
-player3 checks
-*** TURN *** (5) [Kc Kh Qh] [Kd]
-player2 checks
-player3 bets 2
-player2 folds
-player3 wins the pot (7)
-
-Hand #30, player2 (787), player3 (406), player1 (7)
-player3 posts the blind of 1
-player1 posts the blind of 2
-Dealt to player2 [6h 6d]
-Dealt to player3 [As 2h]
-Dealt to player1 [Jc Qs]
-player2 folds
-player3 raises to 5
-player1 folds
-player3 wins the pot (7)
-
-Hand #31, player1 (5), player2 (787), player3 (408)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [6h 2c]
-Dealt to player2 [Jh 5h]
-Dealt to player3 [Ac 9s]
-player1 folds
-player2 folds
-player3 wins the pot (3)
-
-Hand #32, player3 (409), player1 (5), player2 (786)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Tc 3c]
-Dealt to player1 [4s 4c]
-Dealt to player2 [Jd Qd]
-player3 calls 2
-player1 folds
-player2 checks
-*** FLOP *** (5) [7c 2c 9d]
-player2 checks
-player3 bets 2
-player2 calls 2
-*** TURN *** (9) [7c 2c 9d] [2s]
-player2 checks
-player3 checks
-*** RIVER *** (9) [7c 2c 9d 2s] [8c]
-player2 checks
-player3 checks
-player3 shows [Tc 3c]
-player2 shows [Jd Qd]
-player3 wins the pot (9)
-
-Hand #33, player2 (782), player3 (414), player1 (4)
-player3 posts the blind of 1
-player1 posts the blind of 2
-Dealt to player2 [3s Jd]
-Dealt to player3 [6h 3h]
-Dealt to player1 [Jc 6c]
-player2 folds
-player3 raises to 5
-player1 folds
-player3 wins the pot (7)
-
-Hand #34, player1 (2), player2 (782), player3 (416)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [9h Js]
-Dealt to player2 [9d 8s]
-Dealt to player3 [Td Jh]
-player1 folds
-player2 folds
-player3 wins the pot (3)
-
-Hand #35, player3 (417), player1 (2), player2 (781)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Ad 7d]
-Dealt to player1 [5d 3c]
-Dealt to player2 [5h 8h]
-player3 raises to 6
-player1 folds
-player2 folds
-player3 wins the pot (9)
-
-Hand #36, player2 (779), player3 (420), player1 (1)
-player3 posts the blind of 1
-player1 posts the blind of 1
-Dealt to player2 [3s 9h]
-Dealt to player3 [9d 7d]
-Dealt to player1 [Ah 2s]
-player2 folds
-player3 folds
-player1 wins the pot (2)
-
-Hand #37, player1 (2), player2 (779), player3 (419)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [5c Qd]
-Dealt to player2 [Kd 2c]
-Dealt to player3 [4c 7h]
-player1 folds
-player2 folds
-player3 wins the pot (3)
-
-Hand #38, player3 (420), player1 (2), player2 (778)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [As 6s]
-Dealt to player1 [8c 5h]
-Dealt to player2 [4s 6c]
-player3 folds
-player1 folds
-player2 wins the pot (3)
-
-Hand #39, player2 (779), player3 (420), player1 (1)
-player3 posts the blind of 1
-player1 posts the blind of 1
-Dealt to player2 [4s 2c]
-Dealt to player3 [4c 5s]
-Dealt to player1 [9c 9s]
-player2 folds
-player3 calls 2
-Uncalled bet of 1 returned to player3
-*** FLOP *** (2) [7c Qc Th]
-*** TURN *** (2) [7c Qc Th] [2s]
-*** RIVER *** (2) [7c Qc Th 2s] [8c]
-player3 shows [4c 5s]
-player1 shows [9c 9s]
-player1 wins the pot (2)
-
-Hand #40, player1 (2), player2 (779), player3 (419)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [Ah Jh]
-Dealt to player2 [9s 2h]
-Dealt to player3 [Ad 2c]
-player1 folds
-player2 folds
-player3 wins the pot (3)
-
-Hand #41, player3 (420), player1 (2), player2 (778)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [4h Kh]
-Dealt to player1 [7c 5s]
-Dealt to player2 [6s 9c]
-player3 raises to 6
-player1 folds
-player2 folds
-player3 wins the pot (9)
-
-Hand #42, player2 (776), player3 (423), player1 (1)
-player3 posts the blind of 1
-player1 posts the blind of 1
-Dealt to player2 [8c 6s]
-Dealt to player3 [5d Kh]
-Dealt to player1 [Ts Jh]
-player2 folds
-player3 folds
-player1 wins the pot (2)
-
-Hand #43, player1 (2), player2 (776), player3 (422)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [6h Jc]
-Dealt to player2 [3d Tc]
-Dealt to player3 [7c 2s]
-player1 folds
-player2 folds
-player3 wins the pot (3)
-
-Hand #44, player3 (423), player1 (2), player2 (775)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [7c Qs]
-Dealt to player1 [Jc 9s]
-Dealt to player2 [4h 7h]
-player3 folds
-player1 folds
-player2 wins the pot (3)
-
-Hand #45, player2 (776), player3 (423), player1 (1)
-player3 posts the blind of 1
-player1 posts the blind of 1
-Dealt to player2 [Jc Td]
-Dealt to player3 [Tc Jd]
-Dealt to player1 [Qc Kd]
-player2 folds
-player3 folds
-player1 wins the pot (2)
-
-Hand #46, player1 (2), player2 (776), player3 (422)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [Kc Ah]
-Dealt to player2 [9d Qh]
-Dealt to player3 [Kh 7h]
-player1 folds
-player2 folds
-player3 wins the pot (3)
-
-Hand #47, player3 (423), player1 (2), player2 (775)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Kd 4s]
-Dealt to player1 [5h Ah]
-Dealt to player2 [Jc 6s]
-player3 calls 2
-player1 folds
-player2 checks
-*** FLOP *** (5) [8c Td 9c]
-*** TURN *** (5) [8c Td 9c] [5s]
-*** RIVER *** (5) [8c Td 9c 5s] [9d]
-player3 shows [Kd 4s]
-player2 shows [Jc 6s]
-player3 wins the pot (5)
-
-Hand #48, player2 (773), player3 (426), player1 (1)
-player3 posts the blind of 1
-player1 posts the blind of 1
-Dealt to player2 [9c Kh]
-Dealt to player3 [5d 6c]
-Dealt to player1 [3h Tc]
-player2 folds
-player3 raises to 5
-Uncalled bet of 4 returned to player3
-*** FLOP *** (2) [4c Ks 5s]
-*** TURN *** (2) [4c Ks 5s] [4h]
-*** RIVER *** (2) [4c Ks 5s 4h] [4s]
-player3 shows [5d 6c]
-player1 shows [3h Tc]
-player3 wins the pot (2)
-
-Hand #49, player3 (427), player2 (773), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [7s 8c]
-Dealt to player2 [Jh 3h]
-Dealt to player3 [Kc Kh]
-player3 folds
-player2 wins the pot (3)
-
-Hand #50, player2 (774), player3 (426), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [5s Kh]
-Dealt to player1 [5h Kd]
-Dealt to player2 [9d Tc]
-player2 folds
-player3 wins the pot (3)
-
-Hand #51, player3 (427), player2 (773), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [7s 4d]
-Dealt to player3 [2d Jc]
-Dealt to player1 [5s 4h]
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #52, player2 (771), player3 (429), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [2h 4c]
-Dealt to player2 [Js 6s]
-Dealt to player3 [3h 8h]
-player2 folds
-player3 wins the pot (3)
-
-Hand #53, player3 (430), player2 (770), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [3c 4d]
-Dealt to player1 [Kd 8c]
-Dealt to player2 [2c 9c]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [2d Js 9s]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #54, player2 (768), player3 (432), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [Ts Ad]
-Dealt to player3 [5c 8c]
-Dealt to player1 [4h 4c]
-player2 calls 2
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #55, player3 (434), player2 (766), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [8d 5c]
-Dealt to player2 [Ac 8c]
-Dealt to player3 [3c 4h]
-player3 folds
-player2 wins the pot (3)
-
-Hand #56, player2 (767), player3 (433), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Qd Th]
-Dealt to player1 [Ac Kh]
-Dealt to player2 [4s 6s]
-player2 calls 2
-player3 checks
-*** FLOP *** (4) [5h Qs Tc]
-player3 checks
-player2 checks
-*** TURN *** (4) [5h Qs Tc] [Kd]
-player3 checks
-player2 checks
-*** RIVER *** (4) [5h Qs Tc Kd] [Kc]
-player3 checks
-player2 checks
-player3 shows [Qd Th]
-player2 shows [4s 6s]
-player3 wins the pot (4)
-
-Hand #57, player3 (435), player2 (765), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [As Qc]
-Dealt to player3 [9h 3d]
-Dealt to player1 [5h 2s]
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #58, player2 (763), player3 (437), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [9h Qc]
-Dealt to player2 [Jd 6c]
-Dealt to player3 [Th 2c]
-player2 folds
-player3 wins the pot (3)
-
-Hand #59, player3 (438), player2 (762), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [4s 4h]
-Dealt to player1 [Qh Kd]
-Dealt to player2 [4c 6s]
-player3 folds
-player2 wins the pot (3)
-
-Hand #60, player2 (763), player3 (437), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [4d 4c]
-Dealt to player3 [3d 2d]
-Dealt to player1 [9c Jd]
-player2 folds
-player3 wins the pot (3)
-
-Hand #61, player3 (438), player2 (762), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [4d Kd]
-Dealt to player2 [6h 9s]
-Dealt to player3 [2h Jd]
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #62, player2 (760), player3 (440), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Ad 7c]
-Dealt to player1 [Kd 8c]
-Dealt to player2 [2s 4c]
-player2 folds
-player3 wins the pot (3)
-
-Hand #63, player3 (441), player2 (759), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [5h Kh]
-Dealt to player3 [8s Js]
-Dealt to player1 [3c 6h]
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #64, player2 (757), player3 (443), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [Kc 6h]
-Dealt to player2 [5c 4d]
-Dealt to player3 [5d 3c]
-player2 folds
-player3 wins the pot (3)
-
-Hand #65, player3 (444), player2 (756), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [6h 4s]
-Dealt to player1 [Th Qs]
-Dealt to player2 [5s 4h]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
-
-Hand #66, player2 (754), player3 (446), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [Kh Kc]
-Dealt to player3 [Ah 2s]
-Dealt to player1 [2d 5c]
-player2 folds
-player3 wins the pot (3)
-
-Hand #67, player3 (447), player2 (753), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [5h Jd]
-Dealt to player2 [Kh Qs]
-Dealt to player3 [4d 5c]
-player3 folds
-player2 wins the pot (3)
-
-Hand #68, player2 (754), player3 (446), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Jh 8h]
-Dealt to player1 [Ah 6c]
-Dealt to player2 [Ks As]
-player2 folds
-player3 wins the pot (3)
-
-Hand #69, player3 (447), player2 (753), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Ks 8d]
-Dealt to player3 [7h Kd]
-Dealt to player1 [2d 4h]
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #70, player2 (751), player3 (449), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [9c 8s]
-Dealt to player2 [2c 2d]
-Dealt to player3 [Tc Ks]
-player2 folds
-player3 wins the pot (3)
-
-Hand #71, player3 (450), player2 (750), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [7s 9s]
-Dealt to player1 [4d Js]
-Dealt to player2 [Qs 9d]
-player3 folds
-player2 wins the pot (3)
-
-Hand #72, player2 (751), player3 (449), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [6h Ks]
-Dealt to player3 [7c Jd]
-Dealt to player1 [Jh 4h]
-player2 folds
-player3 wins the pot (3)
-
-Hand #73, player3 (450), player2 (750), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [Ad 9d]
-Dealt to player2 [8s Th]
-Dealt to player3 [8h 4h]
-player3 folds
-player2 wins the pot (3)
-
-Hand #74, player2 (751), player3 (449), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [3s 6s]
-Dealt to player1 [Kc 8d]
-Dealt to player2 [Qd Kh]
-player2 folds
-player3 wins the pot (3)
-
-Hand #75, player3 (450), player2 (750), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Kc Kh]
-Dealt to player3 [Kd 8c]
-Dealt to player1 [2d 4s]
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #76, player2 (748), player3 (452), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [7s 9s]
-Dealt to player2 [9c Qd]
-Dealt to player3 [3s Jc]
-player2 folds
-player3 wins the pot (3)
-
-Hand #77, player3 (453), player2 (747), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [2h Jh]
-Dealt to player1 [6h 9h]
-Dealt to player2 [7c Qc]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [4h Kh Ah]
-player2 checks
-player3 bets 3
-player2 raises to 9
-player3 raises to 24
-player2 calls 24
-*** TURN *** (52) [4h Kh Ah] [Js]
-player2 checks
-player3 checks
-*** RIVER *** (52) [4h Kh Ah Js] [2c]
-player2 checks
-player3 checks
-player3 shows [2h Jh]
-player2 shows [7c Qc]
-player3 wins the pot (52)
-
-Hand #78, player2 (721), player3 (479), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [Ah 7d]
-Dealt to player3 [3c 7s]
-Dealt to player1 [Ks Ad]
-player2 folds
-player3 wins the pot (3)
-
-Hand #79, player3 (480), player2 (720), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [Jc 5d]
-Dealt to player2 [4c Qh]
-Dealt to player3 [8h Ah]
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #80, player2 (718), player3 (482), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [4s 8d]
-Dealt to player1 [As 9h]
-Dealt to player2 [5c Ac]
-player2 folds
-player3 wins the pot (3)
-
-Hand #81, player3 (483), player2 (717), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [3c 8c]
-Dealt to player3 [4d Ac]
-Dealt to player1 [2d 7s]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
-
-Hand #82, player2 (715), player3 (485), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [2s 4h]
-Dealt to player2 [2c 4c]
-Dealt to player3 [Kd 9c]
-player2 folds
-player3 wins the pot (3)
-
-Hand #83, player3 (486), player2 (714), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [9s 4d]
-Dealt to player1 [Qc 3c]
-Dealt to player2 [6c Td]
-player3 folds
-player2 wins the pot (3)
-
-Hand #84, player2 (715), player3 (485), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [Jh 2d]
-Dealt to player3 [8s 9h]
-Dealt to player1 [Ah Qh]
-player2 folds
-player3 wins the pot (3)
-
-Hand #85, player3 (486), player2 (714), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [4h 6c]
-Dealt to player2 [Ac As]
-Dealt to player3 [Td 7h]
-player3 folds
-player2 wins the pot (3)
-
-Hand #86, player2 (715), player3 (485), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Kh 2h]
-Dealt to player1 [3d Th]
-Dealt to player2 [6s Kd]
-player2 folds
-player3 wins the pot (3)
-
-Hand #87, player3 (486), player2 (714), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Jh 8s]
-Dealt to player3 [6d Ts]
-Dealt to player1 [Tc 8d]
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #88, player2 (712), player3 (488), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [4h Tc]
-Dealt to player2 [5c 7d]
-Dealt to player3 [4d 3s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #89, player3 (489), player2 (711), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [As 5d]
-Dealt to player1 [2d 2h]
-Dealt to player2 [5s Ac]
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #90, player2 (709), player3 (491), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [3s 8h]
-Dealt to player3 [Kc Js]
-Dealt to player1 [Th 7d]
-player2 folds
-player3 wins the pot (3)
-
-Hand #91, player3 (492), player2 (708), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [As Kh]
-Dealt to player2 [2h 4s]
-Dealt to player3 [Ts Ac]
-player3 folds
-player2 wins the pot (3)
-
-Hand #92, player2 (709), player3 (491), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [2c 8h]
-Dealt to player1 [4s Ac]
-Dealt to player2 [5h Jc]
-player2 folds
-player3 wins the pot (3)
-
-Hand #93, player3 (492), player2 (708), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Tc Qd]
-Dealt to player3 [As Kc]
-Dealt to player1 [2c 8s]
-player3 folds
-player2 wins the pot (3)
-
-Hand #94, player2 (709), player3 (491), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [Jd 5d]
-Dealt to player2 [8s 3s]
-Dealt to player3 [6h 2h]
-player2 folds
-player3 wins the pot (3)
-
-Hand #95, player3 (492), player2 (708), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [2d Js]
-Dealt to player1 [6c 4c]
-Dealt to player2 [3s Qd]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [4h Qh 9d]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #96, player2 (706), player3 (494), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [6c 2s]
-Dealt to player3 [3h 5h]
-Dealt to player1 [8h Jh]
-player2 calls 2
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #97, player3 (496), player2 (704), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [6d 8h]
-Dealt to player2 [4d Jh]
-Dealt to player3 [Td 5d]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
-
-Hand #98, player2 (702), player3 (498), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [7s Ah]
-Dealt to player1 [8s 4c]
-Dealt to player2 [Jc 3d]
-player2 folds
-player3 wins the pot (3)
-
-Hand #99, player3 (499), player2 (701), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Qs Qh]
-Dealt to player3 [7s 8d]
-Dealt to player1 [7c 5c]
-player3 folds
-player2 wins the pot (3)
-
-Hand #100, player2 (702), player3 (498), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [8s 8h]
-Dealt to player2 [4s 6s]
-Dealt to player3 [Jh 8d]
-player2 folds
-player3 wins the pot (3)
-
-Hand #101, player3 (499), player2 (701), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Kd 3d]
-Dealt to player1 [9h 2c]
-Dealt to player2 [4h Qs]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
-
-Hand #102, player2 (699), player3 (501), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [8h 6d]
-Dealt to player3 [6c 2h]
-Dealt to player1 [9s 5s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #103, player3 (502), player2 (698), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [6s Kc]
-Dealt to player2 [5s 7c]
-Dealt to player3 [9d Th]
-player3 folds
-player2 wins the pot (3)
-
-Hand #104, player2 (699), player3 (501), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [4d Qs]
-Dealt to player1 [5d Kh]
-Dealt to player2 [3h 4s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #105, player3 (502), player2 (698), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [3c 2h]
-Dealt to player3 [3s Th]
-Dealt to player1 [5s Qd]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [2s 8d Js]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #106, player2 (696), player3 (504), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [Js 4s]
-Dealt to player2 [3h 4h]
-Dealt to player3 [6s Qd]
-player2 calls 2
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #107, player3 (506), player2 (694), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [3d 2c]
-Dealt to player1 [7d 9d]
-Dealt to player2 [Th 4d]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
-
-Hand #108, player2 (692), player3 (508), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [Qc 5d]
-Dealt to player3 [5h 7c]
-Dealt to player1 [Tc 4s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #109, player3 (509), player2 (691), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [4s 2d]
-Dealt to player2 [Ac 9d]
-Dealt to player3 [Ks Qc]
-player3 folds
-player2 wins the pot (3)
-
-Hand #110, player2 (692), player3 (508), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [9d 3d]
-Dealt to player1 [6h 8s]
-Dealt to player2 [Jc Tc]
-player2 folds
-player3 wins the pot (3)
-
-Hand #111, player3 (509), player2 (691), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Kc Ts]
-Dealt to player3 [Tc 8h]
-Dealt to player1 [2c 2d]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [Qs As 9d]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #112, player2 (689), player3 (511), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [8s Qd]
-Dealt to player2 [4d 7s]
-Dealt to player3 [8c 6c]
-player2 calls 2
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #113, player3 (513), player2 (687), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [9d Tc]
-Dealt to player1 [7s Kh]
-Dealt to player2 [2c Ts]
-player3 folds
-player2 wins the pot (3)
-
-Hand #114, player2 (688), player3 (512), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [6s 8h]
-Dealt to player3 [Ad Kc]
-Dealt to player1 [8d 5c]
-player2 folds
-player3 wins the pot (3)
-
-Hand #115, player3 (513), player2 (687), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [5c Qh]
-Dealt to player2 [7s Jd]
-Dealt to player3 [4h 8h]
-player3 folds
-player2 wins the pot (3)
-
-Hand #116, player2 (688), player3 (512), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Kd Qc]
-Dealt to player1 [5d 8d]
-Dealt to player2 [Td 7d]
-player2 folds
-player3 wins the pot (3)
-
-Hand #117, player3 (513), player2 (687), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Js 5s]
-Dealt to player3 [4d 3c]
-Dealt to player1 [3s As]
-player3 folds
-player2 wins the pot (3)
-
-Hand #118, player2 (688), player3 (512), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [9h Ts]
-Dealt to player2 [3d Td]
-Dealt to player3 [Js 3c]
-player2 folds
-player3 wins the pot (3)
-
-Hand #119, player3 (513), player2 (687), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Kd Qc]
-Dealt to player1 [3c 2h]
-Dealt to player2 [Jc Kc]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
-
-Hand #120, player2 (685), player3 (515), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [5s Ts]
-Dealt to player3 [8d Ad]
-Dealt to player1 [6d Kh]
-player2 folds
-player3 wins the pot (3)
-
-Hand #121, player3 (516), player2 (684), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [Js Qh]
-Dealt to player2 [Ts 4h]
-Dealt to player3 [7s 3h]
-player3 folds
-player2 wins the pot (3)
-
-Hand #122, player2 (685), player3 (515), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Ah 6h]
-Dealt to player1 [5d 7h]
-Dealt to player2 [4s Kd]
-player2 folds
-player3 wins the pot (3)
-
-Hand #123, player3 (516), player2 (684), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [8d 7d]
-Dealt to player3 [9d 4d]
-Dealt to player1 [9c 4c]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [Qd 3c Ac]
-player2 checks
-player3 bets 2
-player2 folds
-player3 wins the pot (6)
-
-Hand #124, player2 (682), player3 (518), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [8c Jc]
-Dealt to player2 [6s 5h]
-Dealt to player3 [2d As]
+Dealt to player1 [9c Ah]
+Dealt to player2 [8h 5c]
+Dealt to player3 [Jh 2s]
 player2 raises to 5
-player3 raises to 11
-player2 folds
-player3 wins the pot (16)
-
-Hand #125, player3 (523), player2 (677), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [6s Qh]
-Dealt to player1 [As 7d]
-Dealt to player2 [8h 8d]
-player3 folds
-player2 wins the pot (3)
-
-Hand #126, player2 (678), player3 (522), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [Tc 8s]
-Dealt to player3 [6h Jd]
-Dealt to player1 [4s As]
-player2 folds
-player3 wins the pot (3)
-
-Hand #127, player3 (523), player2 (677), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [Js 7s]
-Dealt to player2 [Ad 3d]
-Dealt to player3 [2c 8c]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
-
-Hand #128, player2 (675), player3 (525), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Tc 6c]
-Dealt to player1 [5d Ts]
-Dealt to player2 [Qd Td]
-player2 folds
-player3 wins the pot (3)
-
-Hand #129, player3 (526), player2 (674), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Qc 3s]
-Dealt to player3 [7s Qd]
-Dealt to player1 [Ac 8c]
-player3 folds
-player2 wins the pot (3)
-
-Hand #130, player2 (675), player3 (525), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [9d 2c]
-Dealt to player2 [Jc Td]
-Dealt to player3 [3s 2s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #131, player3 (526), player2 (674), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [4d 8s]
-Dealt to player1 [Qs 7h]
-Dealt to player2 [7s 8c]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [4h 9h 2s]
-player2 checks
-player3 checks
-*** TURN *** (4) [4h 9h 2s] [Jd]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #132, player2 (672), player3 (528), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [5s Qc]
-Dealt to player3 [Ac 2h]
-Dealt to player1 [4s 3s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #133, player3 (529), player2 (671), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [2h Js]
-Dealt to player2 [Jc 3c]
-Dealt to player3 [6d 5s]
-player3 folds
-player2 wins the pot (3)
-
-Hand #134, player2 (672), player3 (528), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [6s Tc]
-Dealt to player1 [6d 7d]
-Dealt to player2 [Kd 7c]
-player2 folds
-player3 wins the pot (3)
-
-Hand #135, player3 (529), player2 (671), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [6c 5h]
-Dealt to player3 [5c 7c]
-Dealt to player1 [9s 4c]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [7d Th 2c]
-player2 checks
-player3 bets 3
-player2 calls 3
-*** TURN *** (10) [7d Th 2c] [Js]
-player2 checks
-player3 bets 6
-player2 folds
-player3 wins the pot (16)
-
-Hand #136, player2 (666), player3 (534), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [Th Qs]
-Dealt to player2 [8d 6c]
-Dealt to player3 [Td 7d]
-player2 calls 2
-player3 checks
-*** FLOP *** (4) [3c 4d 2s]
-player3 checks
-player2 checks
-*** TURN *** (4) [3c 4d 2s] [Ks]
-player3 checks
-player2 checks
-*** RIVER *** (4) [3c 4d 2s Ks] [3d]
-player3 bets 2
-player2 folds
-player3 wins the pot (6)
-
-Hand #137, player3 (536), player2 (664), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Tc Ks]
-Dealt to player1 [2d 3s]
-Dealt to player2 [Kc 6s]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
-
-Hand #138, player2 (662), player3 (538), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [3c Qh]
-Dealt to player3 [9c 4s]
-Dealt to player1 [6s Qd]
-player2 folds
-player3 wins the pot (3)
-
-Hand #139, player3 (539), player2 (661), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [5s Th]
-Dealt to player2 [3s 6h]
-Dealt to player3 [6c 2h]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [6d 7d 3h]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #140, player2 (659), player3 (541), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Ah 2h]
-Dealt to player1 [8d Qh]
-Dealt to player2 [4d 9h]
-player2 raises to 5
-player3 calls 5
-*** FLOP *** (10) [Jh 6s 2s]
-player3 bets 8
-player2 calls 8
-*** TURN *** (26) [Jh 6s 2s] [Ks]
-player3 bets 18
-player2 calls 18
-*** RIVER *** (62) [Jh 6s 2s Ks] [4s]
-player3 checks
-player2 checks
-player3 shows [Ah 2h]
-player2 shows [4d 9h]
-player2 wins the pot (62)
-
-Hand #141, player3 (510), player2 (690), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Kd 2c]
-Dealt to player3 [2h Ac]
-Dealt to player1 [4c 3s]
-player3 folds
-player2 wins the pot (3)
-
-Hand #142, player2 (691), player3 (509), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [8c 3h]
-Dealt to player2 [Td 2c]
-Dealt to player3 [5h Jc]
-player2 folds
-player3 wins the pot (3)
-
-Hand #143, player3 (510), player2 (690), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [2h 7c]
-Dealt to player1 [8d Td]
-Dealt to player2 [Qs Kc]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [Js 6c Ks]
-player2 checks
-player3 checks
-*** TURN *** (4) [Js 6c Ks] [Jd]
-player2 checks
-player3 checks
-*** RIVER *** (4) [Js 6c Ks Jd] [5d]
-player2 checks
-player3 checks
-player3 shows [2h 7c]
-player2 shows [Qs Kc]
-player2 wins the pot (4)
-
-Hand #144, player2 (692), player3 (508), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [2s 7s]
-Dealt to player3 [2d 5c]
-Dealt to player1 [Qh 4d]
-player2 folds
-player3 wins the pot (3)
-
-Hand #145, player3 (509), player2 (691), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [2s 2h]
-Dealt to player2 [Jd Js]
-Dealt to player3 [Tc 9h]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [5d 4s 7s]
-player2 checks
-player3 checks
-*** TURN *** (4) [5d 4s 7s] [8s]
-player2 checks
-player3 checks
-*** RIVER *** (4) [5d 4s 7s 8s] [Kd]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #146, player2 (689), player3 (511), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [8c 3d]
-Dealt to player1 [Qh Qd]
-Dealt to player2 [8d 4d]
-player2 folds
-player3 wins the pot (3)
-
-Hand #147, player3 (512), player2 (688), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [5h 3h]
-Dealt to player3 [Kd 8d]
-Dealt to player1 [7c 2c]
-player3 folds
-player2 wins the pot (3)
-
-Hand #148, player2 (689), player3 (511), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [4d 8s]
-Dealt to player2 [6s 8h]
-Dealt to player3 [Jc 2s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #149, player3 (512), player2 (688), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [2h Td]
-Dealt to player1 [Ks Ac]
-Dealt to player2 [Qs Qd]
-player3 folds
-player2 wins the pot (3)
-
-Hand #150, player2 (689), player3 (511), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [Th 8s]
-Dealt to player3 [6h 7c]
-Dealt to player1 [6c 4s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #151, player3 (512), player2 (688), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [Td Th]
-Dealt to player2 [8h As]
-Dealt to player3 [Kc 2s]
-player3 folds
-player2 wins the pot (3)
-
-Hand #152, player2 (689), player3 (511), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [6c 6d]
-Dealt to player1 [4h Th]
-Dealt to player2 [Kc 6h]
-player2 folds
-player3 wins the pot (3)
-
-Hand #153, player3 (512), player2 (688), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Kd 8c]
-Dealt to player3 [Jc Js]
-Dealt to player1 [Kh 5h]
-player3 folds
-player2 wins the pot (3)
-
-Hand #154, player2 (689), player3 (511), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [3s 7c]
-Dealt to player2 [Ad Th]
-Dealt to player3 [Qc Qs]
-player2 folds
-player3 wins the pot (3)
-
-Hand #155, player3 (512), player2 (688), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Qs 8s]
-Dealt to player1 [6d 8d]
-Dealt to player2 [5h 3d]
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #156, player2 (686), player3 (514), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [5c Jh]
-Dealt to player3 [Qd 2h]
-Dealt to player1 [2s 3d]
-player2 folds
-player3 wins the pot (3)
-
-Hand #157, player3 (515), player2 (685), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [Kh 9c]
-Dealt to player2 [2d 4s]
-Dealt to player3 [Qh 6d]
-player3 folds
-player2 wins the pot (3)
-
-Hand #158, player2 (686), player3 (514), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Jc Jd]
-Dealt to player1 [3c 2s]
-Dealt to player2 [7c Ac]
-player2 folds
-player3 wins the pot (3)
-
-Hand #159, player3 (515), player2 (685), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [3s 2s]
-Dealt to player3 [Qc As]
-Dealt to player1 [5d 9c]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
-
-Hand #160, player2 (683), player3 (517), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [Jd 2c]
-Dealt to player2 [Kd 9d]
-Dealt to player3 [Kc 6s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #161, player3 (518), player2 (682), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [6h 2d]
-Dealt to player1 [Jd 7c]
-Dealt to player2 [7s Td]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
-
-Hand #162, player2 (680), player3 (520), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [Qd Ks]
-Dealt to player3 [3s Kh]
-Dealt to player1 [9c Jd]
-player2 folds
-player3 wins the pot (3)
-
-Hand #163, player3 (521), player2 (679), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [4s Ks]
-Dealt to player2 [Ah Qd]
-Dealt to player3 [4h Td]
-player3 folds
-player2 wins the pot (3)
-
-Hand #164, player2 (680), player3 (520), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Th Jd]
-Dealt to player1 [5h 8c]
-Dealt to player2 [9d 6c]
-player2 folds
-player3 wins the pot (3)
-
-Hand #165, player3 (521), player2 (679), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Ts Tc]
-Dealt to player3 [5c 8s]
-Dealt to player1 [Ks Ah]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [7d 6s 6d]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #166, player2 (677), player3 (523), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [5d Jh]
-Dealt to player2 [Jc Tc]
-Dealt to player3 [9c 5h]
-player2 folds
-player3 wins the pot (3)
-
-Hand #167, player3 (524), player2 (676), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [7c 2c]
-Dealt to player1 [Ac Js]
-Dealt to player2 [Kc 3c]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
-
-Hand #168, player2 (674), player3 (526), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [Jh 3d]
-Dealt to player3 [2h Td]
-Dealt to player1 [Kd 2s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #169, player3 (527), player2 (673), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [Th 6h]
-Dealt to player2 [3s 7s]
-Dealt to player3 [7c Qc]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [8d 5c 2s]
-player2 checks
-player3 bets 3
-player2 calls 3
-*** TURN *** (10) [8d 5c 2s] [5s]
-player2 checks
-player3 checks
-*** RIVER *** (10) [8d 5c 2s 5s] [4h]
-player2 checks
-player3 checks
-player2 shows [3s 7s]
-player3 shows [7c Qc]
-player3 wins the pot (10)
-
-Hand #170, player2 (668), player3 (532), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [7s Kc]
-Dealt to player1 [5c 9c]
-Dealt to player2 [7c Jd]
-player2 folds
-player3 wins the pot (3)
-
-Hand #171, player3 (533), player2 (667), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Qs Ts]
-Dealt to player3 [2c 8s]
-Dealt to player1 [9c Qc]
-player3 raises to 4
-player2 folds
-player3 wins the pot (6)
-
-Hand #172, player2 (665), player3 (535), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [3h 8c]
-Dealt to player2 [2d Tc]
-Dealt to player3 [Qd Qs]
-player2 folds
-player3 wins the pot (3)
-
-Hand #173, player3 (536), player2 (664), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Jh 6h]
-Dealt to player1 [9s 3h]
-Dealt to player2 [8s 5h]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [3c Jd Ks]
-player2 checks
-player3 checks
-*** TURN *** (4) [3c Jd Ks] [Kh]
-player2 checks
-player3 checks
-*** RIVER *** (4) [3c Jd Ks Kh] [8h]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #174, player2 (662), player3 (538), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [3s 7d]
-Dealt to player3 [Kc As]
-Dealt to player1 [8s Jd]
-player2 folds
-player3 wins the pot (3)
-
-Hand #175, player3 (539), player2 (661), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [3c Qd]
-Dealt to player2 [9d 4s]
-Dealt to player3 [9h 6c]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [2s Th Td]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #176, player2 (659), player3 (541), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Qs 2d]
-Dealt to player1 [Qd Kc]
-Dealt to player2 [Ts 5s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #177, player3 (542), player2 (658), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [5c Kh]
-Dealt to player3 [3h 8d]
-Dealt to player1 [Qs 3s]
-player3 folds
-player2 wins the pot (3)
-
-Hand #178, player2 (659), player3 (541), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [Ah 6c]
-Dealt to player2 [Qd Kd]
-Dealt to player3 [4s 9c]
-player2 folds
-player3 wins the pot (3)
-
-Hand #179, player3 (542), player2 (658), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Ad 7s]
-Dealt to player1 [5d Qs]
-Dealt to player2 [6c 2h]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [Td 4h 5c]
-player2 checks
-player3 bets 3
-player2 calls 3
-*** TURN *** (10) [Td 4h 5c] [Ks]
-player2 checks
-player3 bets 2
-player2 calls 2
-*** RIVER *** (14) [Td 4h 5c Ks] [9d]
-player2 checks
-player3 checks
-player3 shows [Ad 7s]
-player2 shows [6c 2h]
-player3 wins the pot (14)
-
-Hand #180, player2 (651), player3 (549), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [4s As]
-Dealt to player3 [2c Qh]
-Dealt to player1 [5s Jd]
-player2 raises to 5
-player3 raises to 8
-player2 raises to 17
-player3 folds
-player2 wins the pot (25)
-
-Hand #181, player3 (541), player2 (659), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [2c Qc]
-Dealt to player2 [Kh 7h]
-Dealt to player3 [7c 5d]
-player3 folds
-player2 wins the pot (3)
-
-Hand #182, player2 (660), player3 (540), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [9c Kc]
-Dealt to player1 [5c 7s]
-Dealt to player2 [Ah 9d]
-player2 raises to 5
-player3 folds
+player1 folds
 player2 wins the pot (7)
 
-Hand #183, player3 (538), player2 (662), player1 (0)
-player3 posts the blind of 1
+Hand #14, player1 (81), player2 (39), player3 (0)
+player1 posts the blind of 1
 player2 posts the blind of 2
-Dealt to player2 [Jc 2h]
-Dealt to player3 [Ks 3c]
-Dealt to player1 [2c 5c]
-player3 raises to 4
-player2 raises to 9
-player3 folds
-player2 wins the pot (13)
-
-Hand #184, player2 (666), player3 (534), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [Qd Qc]
-Dealt to player2 [7d 8s]
-Dealt to player3 [7h Jd]
-player2 raises to 5
-player3 calls 5
-*** FLOP *** (10) [4d Kh Ad]
-player3 checks
-player2 checks
-*** TURN *** (10) [4d Kh Ad] [5c]
-player3 checks
-player2 checks
-*** RIVER *** (10) [4d Kh Ad 5c] [9d]
-player3 checks
-player2 checks
-player2 shows [7d 8s]
-player3 shows [7h Jd]
-player3 wins the pot (10)
-
-Hand #185, player3 (539), player2 (661), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Qd 5c]
-Dealt to player1 [8s Jd]
-Dealt to player2 [Ts Ac]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [7s Th 7h]
-player2 checks
-player3 checks
-*** TURN *** (4) [7s Th 7h] [As]
-player2 checks
-player3 checks
-*** RIVER *** (4) [7s Th 7h As] [9s]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #186, player2 (659), player3 (541), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [5c 8c]
-Dealt to player3 [2d 8d]
-Dealt to player1 [3h Th]
-player2 folds
-player3 wins the pot (3)
-
-Hand #187, player3 (542), player2 (658), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [5h Jh]
-Dealt to player2 [3h 6d]
-Dealt to player3 [2s 5c]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [9h 3d 2h]
-player2 checks
-player3 checks
-*** TURN *** (4) [9h 3d 2h] [Qh]
-player2 checks
-player3 checks
-*** RIVER *** (4) [9h 3d 2h Qh] [5d]
-player2 checks
-player3 bets 3
-player2 folds
-player3 wins the pot (7)
-
-Hand #188, player2 (656), player3 (544), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Ac Ad]
-Dealt to player1 [6h Qc]
-Dealt to player2 [2h 5c]
-player2 folds
-player3 wins the pot (3)
-
-Hand #189, player3 (545), player2 (655), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [4s Ad]
-Dealt to player3 [Kd 6s]
-Dealt to player1 [4h Jh]
-player3 folds
+Dealt to player3 [6d Qc]
+Dealt to player1 [8s 4c]
+Dealt to player2 [Qs 6h]
+player1 folds
 player2 wins the pot (3)
 
-Hand #190, player2 (656), player3 (544), player1 (0)
+Hand #15, player2 (40), player1 (80), player3 (0)
 player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [4d Ah]
-Dealt to player2 [Th Ac]
-Dealt to player3 [5h 4h]
+player1 posts the blind of 2
+Dealt to player2 [4c 9d]
+Dealt to player3 [3c Qc]
+Dealt to player1 [7s 9s]
 player2 folds
-player3 wins the pot (3)
+player1 wins the pot (3)
 
-Hand #191, player3 (545), player2 (655), player1 (0)
-player3 posts the blind of 1
+Hand #16, player1 (81), player2 (39), player3 (0)
+player1 posts the blind of 1
 player2 posts the blind of 2
-Dealt to player3 [4c 6h]
-Dealt to player1 [3s As]
-Dealt to player2 [7s 6s]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [9c 4s 6c]
-player2 checks
-player3 checks
-*** TURN *** (4) [9c 4s 6c] [3d]
-player2 checks
-player3 bets 2
-player2 folds
-player3 wins the pot (6)
+Dealt to player1 [3h 5s]
+Dealt to player2 [7s As]
+Dealt to player3 [4c Ad]
+player1 folds
+player2 wins the pot (3)
 
-Hand #192, player2 (653), player3 (547), player1 (0)
+Hand #17, player2 (40), player1 (80), player3 (0)
 player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [5c 7c]
-Dealt to player3 [Ad Jd]
-Dealt to player1 [5d Td]
-player2 folds
-player3 wins the pot (3)
+player1 posts the blind of 2
+Dealt to player3 [2c 8s]
+Dealt to player1 [8d Jd]
+Dealt to player2 [6s 4h]
+player2 raises to 4
+player1 folds
+player2 wins the pot (6)
 
-Hand #193, player3 (548), player2 (652), player1 (0)
-player3 posts the blind of 1
+Hand #18, player1 (78), player2 (42), player3 (0)
+player1 posts the blind of 1
 player2 posts the blind of 2
-Dealt to player1 [8d 6h]
-Dealt to player2 [Jh Qh]
-Dealt to player3 [Ks 2c]
-player3 raises to 5
-player2 folds
-player3 wins the pot (7)
+Dealt to player2 [8d 9s]
+Dealt to player3 [Ks 5h]
+Dealt to player1 [3d 4d]
+player1 folds
+player2 wins the pot (3)
 
-Hand #194, player2 (650), player3 (550), player1 (0)
+Hand #19, player2 (43), player1 (77), player3 (0)
 player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [5c 7h]
-Dealt to player1 [Kh 4d]
-Dealt to player2 [Qs 2s]
-player2 folds
-player3 wins the pot (3)
-
-Hand #195, player3 (551), player2 (649), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player2 [Tc 7d]
-Dealt to player3 [5s 8h]
+player1 posts the blind of 2
 Dealt to player1 [Ah Jh]
-player3 folds
+Dealt to player2 [7c 3d]
+Dealt to player3 [2h Td]
+player2 calls 2
+player1 checks
+*** FLOP *** (4) [2d 6d 5s]
+player1 checks
+player2 checks
+*** TURN *** (4) [2d 6d 5s] [7s]
+player1 checks
+player2 bets 2
+player1 calls 2
+*** RIVER *** (8) [2d 6d 5s 7s] [Ad]
+player1 checks
+player2 bets 7
+### ILLEGAL ACTION: Check [player=player1]
+player1 folds
+player2 wins the pot (15)
+
+Hand #20, player1 (73), player2 (47), player3 (0)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [7d Ah]
+Dealt to player1 [Tc 4h]
+Dealt to player2 [2s Jd]
+### ILLEGAL ACTION: Check [player=player1]
+player1 folds
 player2 wins the pot (3)
-
-Hand #196, player2 (650), player3 (550), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player1 [7s 4h]
-Dealt to player2 [9h 4d]
-Dealt to player3 [3h 5h]
-player2 folds
-player3 wins the pot (3)
-
-Hand #197, player3 (551), player2 (649), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [9h Qh]
-Dealt to player1 [Qc 3s]
-Dealt to player2 [7s 6h]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [8h Ah 5d]
-player2 checks
-player3 checks
-*** TURN *** (4) [8h Ah 5d] [2d]
-player2 checks
-player3 checks
-*** RIVER *** (4) [8h Ah 5d 2d] [4c]
-player2 checks
-player3 checks
-player3 shows [9h Qh]
-player2 shows [7s 6h]
-player2 wins the pot (4)
-
-Hand #198, player2 (651), player3 (549), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player2 [7d 6c]
-Dealt to player3 [4c Ts]
-Dealt to player1 [8h Qh]
-player2 folds
-player3 wins the pot (3)
-
-Hand #199, player3 (550), player2 (650), player1 (0)
-player3 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player1 [9c Jh]
-Dealt to player2 [9h 6s]
-Dealt to player3 [3d Th]
-player3 calls 2
-player2 checks
-*** FLOP *** (4) [8s Ad Qh]
-player2 checks
-player3 checks
-*** TURN *** (4) [8s Ad Qh] [Kd]
-player2 checks
-player3 checks
-*** RIVER *** (4) [8s Ad Qh Kd] [Qs]
-player2 checks
-player3 checks
-player2 shows [9h 6s]
-player3 shows [3d Th]
-player3 wins the pot (4)
-
-Hand #200, player2 (648), player3 (552), player1 (0)
-player2 posts the blind of 1
-player3 posts the blind of 2
-Dealt to player3 [Jc 7c]
-Dealt to player1 [3c 6d]
-Dealt to player2 [4d Qs]
-player2 folds
-player3 wins the pot (3)
 
