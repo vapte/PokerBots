@@ -15,7 +15,7 @@ from tkinter import *
 #The skeleton for this bot is from the MIT PokerBots course website 
 #The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
 
-handsToPlay = 20
+handsToPlay = 2
 allHistories = []
 
 class Player(object):
@@ -536,9 +536,7 @@ AF>1.5        Aggressive
             handType =  'highcard'
 
         #particular power within hand family
-        #subPower =  handPower(hand,handStrVals,handType)
         return (handType, Player.handOrder.index(handType)+1)
-        #offset handOrder.index(handType) by 1 because list index starts at 0
 
 
 #Player will have a list of Opponent instances
@@ -752,12 +750,20 @@ def init(data):
     data.player2pos = (data.width/2,data.height-15-data.playerSize)
     data.player3pos = (data.width-15-data.playerSize,data.height/2)
     data.playerPositions = [data.player1pos,data.player2pos,data.player3pos]
+    data.playerNames = ['player1','player2','player3']
+    data.readoutPositions = [(i,j-100) for (i,j) in data.playerPositions]
     data.allHistories = allHistoriesNew
-    data.stack = 0
+    data.stackSizes = [0,0,0]
     data.board = []
-    data.playerCards = []
+    #make sure data.playerCards is filled
+    data.playerCards = [['back','back'],['back','back'],['back','back']]
     data.botTuple = botTupleNew
     loadPlayingCardImages(data) 
+    data.cardOffset = 85
+    data.boardSize = 230
+    data.timerCount = 0
+    data.readoutCount = 0
+
     
 
 
@@ -770,24 +776,148 @@ def keyPressed(event, data):
     pass
 
 def timerFired(data):
-    pass
+    data.timerCount+=1
+    if data.timerCount%10 == 0:
+        data.readoutCount+=1
+
+
+def parseEvent(event):
+    if event[0] == 'pot':   #pot
+        data.potSize=event[1]
+        return 'pot'
+    elif event==[]: #empty
+        return None
+    elif len(event)>2 and type(event[0])==str:  #board
+        data.board=event
+        return 'board'
+    elif ':' in event:  #game event
+        eventList = event.split(':')
+        action = eventList[0]
+        player = eventList[-1]
+        try:
+            quantity = int(eventList[1])    #some actions have no quantity
+            return (action,quantity,player)
+        except:
+            return (action,player)  
+    elif 'player' in event[0]:  #player
+        player = int(event[0][-1])  #player index int
+        hole = event[1]
+        stack = event[2]
+        return ('playerEvent', player,hole,stack)
+
+
+# ['POST:1:player2', 'POST:2:player3', [], ['pot', 0], ['player1', ['3s', '9h'], 0], 'RAISE:4:player1', 'CALL:4:player2', 'CALL:4:player3', 'SHOW:3s:9h:player1', 'SHOW:Ks:Qs:player2', 'SHOW:7d:6h:player3', 'WIN:12:player2', [], ['pot', 3], ['player1', ['3s', '9h'], 4]] 
+
 
 def redrawAll(canvas, data):
     #table
     canvas.create_rectangle(5,5,data.width-5,data.height-5,fill = 'orange4')
     canvas.create_rectangle(10,10,data.width-10,data.height-10,fill = 'green4')
-    canvas.create_text(10,10,text = 'Players: %s' % ' '.join(data.botTuple),anchor = 'sw')
+
+    #gametext
+    canvas.create_text(20,30,text = 'Players: %s' % ' '.join(data.botTuple),anchor = 'sw')
+
+    #players
     drawPlayers(canvas,data)
+
+    #board
+    #30*7+10*6+(2*10) = 290 pixels wide
+    (x0,y0,x1,y1) = (data.width/2-data.boardSize,data.height/2-100,data.width/2+data.boardSize,data.height/2)
+    canvas.create_rectangle(x0,y0,x1,y1,fill=  'red4')
+
+    #boardCards
+    drawBoardCards(canvas,data)
+
+    #readout
+    currEvent = data.allHistories[data.readoutCount]
+    readOut = parseEvent(currEvent)
+    if readOut!=None:
+        if readOut=='board':
+            drawBoardCards(canvas,data)
+        elif readOut == 'pot':
+            drawPot(canvas,data)
+        elif readOut[0] == 'playerEvent':
+            assert(len(readOut[1])==2)  #player always has 2 hole cards
+            data.playerCards[readOut[1]] = readOut[2]
+            data.stackSize[readOut[1]] = int(readOut[3])
+            drawPlayers(canvas,data)
+        elif len(readOut)==3:   #action that affects stacks/pot
+
+        elif len(readOut)==2:   #action that doesn't affect stacks/pot
+        
+
+
+
+
+def drawPot(canvas,data):
+    canvas.create_text(100,100, text = '%d' % str(data.potSize))
+
+
+
+def drawBoardCards(canvas,data):
+    initX = data.width/2-data.boardSize+25
+    y0 = data.height/2-98
+    count = 0 
+    while len(data.board)<5:
+        data.board.append(getSpecialPlayingCardImage(data,'back'))
+    for card in data.board:
+        if type(card)==str:
+            (rank,suit) = getRankSuit(card)
+            canvas.create_image(initX+count*data.cardOffset,y0,image = getPlayingCardImage(data,rank,suit),anchor='nw')
+        else:
+            canvas.create_image(initX+count*data.cardOffset,y0,image = card,anchor = 'nw')
+        count+=1
+
+
+def getRankSuit(card):
+    #return (rank,suit) tuple from string pair representation of cards
+    if card == 'back':
+        return 'back'
+    rank = card[0]
+    suit = card[1]
+    if rank not in list(range(2,10)):
+        if rank == 'A':
+            rank = 1
+        elif rank == 'K':
+            rank = 13
+        elif rank == 'Q':
+            rank = 12
+        elif rank == 'T':
+            rank = 10
+        elif rank == 'J':
+            rank = 11
+    rank = int(rank)
+    return (rank,suit)
 
 
 def drawPlayers(canvas,data):
     playerCount = 0
     for player in data.playerPositions:
         d = data.playerSize
-        (x0,y0,x1,y1) = (player[0]-d,player[1]-10,player[0]+d,player[1]+10)
-        canvas.create_rectangle(x0,y0,x1,y1, fill = 'red4')
+        (x0,y0,x1,y1) = (player[0]-d,player[1]-10,player[0]+d,player[1]+25)
+        canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
         canvas.create_text(player[0],player[1], text = '%s' % botTupleNew[playerCount].upper())
+        canvas.create_text(player[0],player[2]+15, text = '%d' % data.stackSizes[playerCount])
+        currPlayer =  list(map(getRankSuit, data.playerCards[playerCount]))
+        if playerCount==0:
+            initX = player[0]+d+50
+            initY = player[1]
+        elif playerCount==1:
+            initX = player[0]-data.cardOffset/2-5
+            initY = player[1]-data.cardOffset
+        elif playerCount==2:
+            initX = player[0]-d-50-data.cardOffset
+            initY = player[1]
+        for i in range(2):
+            if type(currPlayer[i])==tuple:
+                rank = currPlayer[i][0]
+                suit = currPlayer[i][1]
+                canvas.create_image(initX+data.cardOffset*i,initY,image = getPlayingCardImage(data,rank,suit))
+            else:
+                canvas.create_image(initX+data.cardOffset*i,initY,image = getSpecialPlayingCardImage(data,'back'))
         playerCount+=1
+    
+
 
 #loadPlayingCardImages, getPlayingCardImage, getSpecialPlayingCardImage from 15-112 graphics course notes
 
