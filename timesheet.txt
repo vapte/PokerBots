@@ -19,6 +19,8 @@ result: AfExploit beats EvBasic 99% of the time
 
 12/3 - 5 hours - attempted to do weird write/read from file with painful string manipulation. later discovered pickle.
 
+12/4 - 10 hours - graphics
+
 
 
 

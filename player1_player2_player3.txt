@@ -2,28 +2,31 @@
 Hand #1, player1 (4), player2 (4), player3 (4)
 player2 posts the blind of 1
 player3 posts the blind of 2
-Dealt to player1 [8c Qc]
-Dealt to player2 [Td 4c]
-Dealt to player3 [8s 8h]
+Dealt to player1 [4c 8c]
+Dealt to player2 [3c As]
+Dealt to player3 [7c 3h]
 player1 raises to 4
 player2 folds
-player3 folds
-player1 wins the pot (7)
+player3 calls 4
+*** FLOP *** (9) [2h 7h Jh]
+*** TURN *** (9) [2h 7h Jh] [Th]
+*** RIVER *** (9) [2h 7h Jh Th] [Ah]
+player1 shows [4c 8c]
+player3 shows [7c 3h]
+player3 wins the pot (9)
 
-Hand #2, player3 (2), player1 (7), player2 (3)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Js 3h]
-Dealt to player1 [6s Tc]
-Dealt to player2 [5d Kd]
-player3 calls 2
-player1 raises to 3
-player2 folds
-Uncalled bet of 1 returned to player1
-*** FLOP *** (6) [4s 5c Kh]
-*** TURN *** (6) [4s 5c Kh] [8s]
-*** RIVER *** (6) [4s 5c Kh 8s] [9d]
-player3 shows [Js 3h]
-player1 shows [6s Tc]
-player3 wins the pot (6)
+Hand #2, player2 (3), player3 (9), player1 (0)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player3 [5s 6s]
+Dealt to player1 [Kc Jd]
+Dealt to player2 [Ks As]
+player2 raises to 3
+player3 calls 3
+*** FLOP *** (6) [4h 6c Kd]
+*** TURN *** (6) [4h 6c Kd] [Jc]
+*** RIVER *** (6) [4h 6c Kd Jc] [2c]
+player3 shows [5s 6s]
+player2 shows [Ks As]
+player2 wins the pot (6)
 

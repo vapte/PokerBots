@@ -12,12 +12,48 @@ import tkinter
 import pickle
 from tkinter import *
 
-#The skeleton for this bot is from the MIT PokerBots course website 
-#The skeleton code defined Player, run, and 'if __name__ == '__main__':" 
+
 
 handsToPlay = 2
 allHistories = []
 
+
+###################
+# STARTUP GRAPHICS 
+###################
+
+def init(data):
+    pass
+
+def mousePressed(event, data):
+    # use event.x and event.y
+    pass
+
+def keyPressed(event, data):
+    # use event.char and event.keysym
+    pass
+
+def timerFired(data):
+    pass
+
+def redrawAll(canvas, data):
+    # draw in canvas
+    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Skeleton code for Player obtained from MIT PokerBots course website 
 class Player(object):
     values = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'] #ordered lo to hi
     handOrder = ['highcard', '1pair', '2pair', '3ofakind', 'straight', 
@@ -766,7 +802,9 @@ def init(data):
     data.potSize = 0
     data.readoutCount = 0
     data.gameOver = False
-
+    data.potBoxSize = 70
+    data.numHands = 0 
+    data.seen = None
 def mousePressed(event, data):
     # use event.x and event.y
     pass
@@ -776,21 +814,20 @@ def keyPressed(event, data):
     pass
 
 def timerFired(data):
-    pace = 2
+    pace = 5
     if data.timerCount%pace == 0:
         data.readoutCount=data.timerCount//pace
-    else:
-        data.readoutCount=None
+    
     data.timerCount+=1
 
-def parseEvent(data,event): #this function sucks
+def parseEvent(data,event):
     if event==[]: #empty
         return None
     elif event[0] == 'pot':   #pot
-        #for now do pot update internally through players
-        #data.potSize=event[1]
-        #return 'pot'
-        pass
+       # data.potSize=event[1]
+        return None 
+    elif event[0] == 'numhands':
+        data.numHands = event[1]
     elif len(event)>=3 and type(event[1])==str and type(event)==list:  #board
         data.board=event
         return 'board'
@@ -810,9 +847,6 @@ def parseEvent(data,event): #this function sucks
         return ('playerEvent', player,hole,stack)
 
 
-# ['POST:1:player2', 'POST:2:player3', [], ['pot', 0], ['player1', ['3s', '9h'], 0], 'RAISE:4:player1', 'CALL:4:player2', 'CALL:4:player3', 'SHOW:3s:9h:player1', 'SHOW:Ks:Qs:player2', 'SHOW:7d:6h:player3', 'WIN:12:player2', [], ['pot', 3], ['player1', ['3s', '9h'], 4]] 
-
-
 def redrawAll(canvas, data):
     #table
     canvas.create_rectangle(5,5,data.width-5,data.height-5,fill = 'orange4')
@@ -825,12 +859,14 @@ def redrawAll(canvas, data):
     drawPlayers(canvas,data)
 
     #board
-    #30*7+10*6+(2*10) = 290 pixels wide
     (x0,y0,x1,y1) = (data.width/2-data.boardSize,data.height/2-100,data.width/2+data.boardSize,data.height/2)
     canvas.create_rectangle(x0,y0,x1,y1,fill=  'red4')
 
     #boardCards
     drawBoardCards(canvas,data)
+
+    #drawPot
+    drawPot(canvas,data)
 
     #readout
     if data.gameOver:
@@ -844,6 +880,7 @@ def redrawAll(canvas, data):
         currEvent = data.allHistories[data.readoutCount]
         print('currEvent',currEvent)
         readOut = parseEvent(data,currEvent)
+        print('readout',readOut)
         if readOut!=None:
             if readOut=='board':
                 drawBoardCards(canvas,data)
@@ -852,53 +889,53 @@ def redrawAll(canvas, data):
             elif readOut[0] == 'playerEvent':
                 assert(len(readOut[2])==2)  #player always has 2 hole cards
                 data.playerCards[readOut[1]-1] = readOut[2] #index offset 
-                data.stackSizes[readOut[1]-1] = int(readOut[3])
+                #data.stackSizes[readOut[1]-1] = int(readOut[3])
                 drawPlayers(canvas,data)
-            elif len(readOut)==3 and type(readOut)==list:   #action that adds to pot, takes from player stack
-                #win
-                (action,player,quantity) = readOut
-                if action=='WIN' or action=='TIE':
-                    data.stackSizes[player]+=quantity
-                    data.potSize = 0
-                    
-                #refund
-                elif action=='REFUND':
-                    data.stackSizes[player]+=quantity
-                    data.potSize-=quantity #not sure about this
-                    
-
-                #call bet raise
+            elif type(readOut)==tuple:   #action that adds to pot, takes from player stack
+                if data.seen == None:
+                    data.seen = readOut
+                elif data.seen == readOut:  #prevent same action from repeat recording
+                    pass
                 else:
-                    data.stackSizes[player]-=quantity
-                    data.potSize += quantity 
-                    
-                drawPot(canvas,data)
-                drawAction(canvas,data,currEvent)
+                    try:
+                        (action,player,quantity) = readOut
+                    except:
+                        (action,player) = readOut
+                    cutStack = ['POST','CALL','TIE','BET','RAISE']
+                    padStack = ['WIN','REFUND']
+                    if action in cutStack:
+                        data.stackSizes[player-1] -= quantity
+                        data.potSize += quantity
+                    elif action in padStack:
+                        data.stackSizes[player-1] += quantity
+                        data.potSize -= quantity 
+
+                    drawAction(canvas,data,currEvent)
+                    data.seen = readOut
 
 
-            elif len(readOut)==2 and type(readOut)==list:   #action that doesn't affect stacks/pot
-                #fold, check
-                #intriguingly fold/check don't affect player or board state
+        
 
-                drawAction(canvas,data,currEvent)
 
 def drawAction(canvas,data,event):
-    print(event)
     (actionX,actionY) = data.playerPositions[int(event[-1])-1]  #-1 for list indexing
-    actionY-=10
+    actionY-=17
     eventList = event.split(':')
     action = eventList[0]
     player = int(eventList[-1][-1])
     try:
         quantity = int(eventList[1])    #some actions have no quantity
-        return (action,quantity,player)
+        canvas.create_text(actionX,actionY, text = "%s:%d" % (action,quantity), fill  = 'blue')
     except:
-        return (action,player)  
-    canvas.create_text(actionX,actionY, text = "%s:%d" % (action,quantity))
+        canvas.create_text(actionX,actionY, text = "%s" % action, fill = 'blue')
+
 
 
 def drawPot(canvas,data):
-    canvas.create_text(100,100, text = '%d' % data.potSize)
+    (x0,y0,x1,y1) = (data.width/2-data.potBoxSize,100-data.potBoxSize/2,data.width/2+data.potBoxSize,100+data.potBoxSize/2)
+    canvas.create_rectangle(x0,y0,x1,y1,fill = 'red4')
+    canvas.create_text(data.width/2, 100, text = 'POT: %d' % data.potSize)
+    canvas.create_text(data.width/2,115, text = 'HANDS PLAYED: %d' % data.numHands)
 
 
 
@@ -1081,7 +1118,7 @@ if __name__ == '__main__':
         allHistoriesNew = []
         for i in range(1,len(extra)):
             item = extra[i]
-            if item[0] !=extra[i-1][0] or item[0]==[]:
+            if item[0] !=extra[i-1][0] and item[0]!=[]:
                 allHistoriesNew.append(item[0])
         print(allHistoriesNew,len(allHistoriesNew))
       
