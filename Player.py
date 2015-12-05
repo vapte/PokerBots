@@ -191,8 +191,8 @@ class Player(object):
             print('hi\n\n',allHistories,'\n\n')
 
         #EXPORT allHistories to text file
-        
-        Player.writeFile('filename.pickle',allHistories,True)
+        fileIndex = int(self.name[-1])+2
+        Player.writeFile('filename%d.pickle' % fileIndex ,allHistories,True)
         
 
 
@@ -360,14 +360,14 @@ class Player(object):
         if self.name=='player1':
             for value in packetValues:
                 if ':' in value and 'player' in value:
-                    allHistories.append(value)
-            allHistories.append(self.board)
-            allHistories.append(['pot',self.potSize])
-            allHistories.append([self.name,self.hole,self.stack])
-        else:
-            allHistories.append([self.name,self.hole])
-
-
+                    allHistories.append((value,time.time()))  #dont want repeats in events
+                allHistories.append((['numhands',self.numHands],time.time()))
+        #repeats in board, potsize, and playerinfo are fine
+        allHistories.append((self.board,time.time()))
+        allHistories.append((['pot',self.potSize],time.time()))
+        print('historyUpdate check', self.name, self.hole)
+        allHistories.append(([self.name,self.hole,self.stack],time.time()))
+        print(allHistories)
     '''
     AF benchmark values: 
     http://poker.gamblefaces.com/understanding-hud/post-flop-aggression-factor/
@@ -654,6 +654,7 @@ def setHands(handNum):
     config[stackIndex] = newStackLine
     newConfig = '\n'.join(config)    
     writeFile(fullPath,newConfig)
+    return new  #useful for graphics
 
 def setBotTypes(bot1 = None,bot2 = None,bot3 = None): #max 3 bots allowed
     availBotTypes = ['evbasic','random','afexploit','checkfold']
@@ -753,7 +754,7 @@ def init(data):
     data.playerNames = ['player1','player2','player3']
     data.readoutPositions = [(i,j-100) for (i,j) in data.playerPositions]
     data.allHistories = allHistoriesNew
-    data.stackSizes = [0,0,0]
+    data.stackSizes = [startingStack]*3
     data.board = []
     #make sure data.playerCards is filled
     data.playerCards = [['back','back'],['back','back'],['back','back']]
@@ -762,10 +763,9 @@ def init(data):
     data.cardOffset = 85
     data.boardSize = 230
     data.timerCount = 0
+    data.potSize = 0
     data.readoutCount = 0
-
-    
-
+    data.gameOver = False
 
 def mousePressed(event, data):
     # use event.x and event.y
@@ -776,27 +776,31 @@ def keyPressed(event, data):
     pass
 
 def timerFired(data):
+    pace = 2
+    if data.timerCount%pace == 0:
+        data.readoutCount=data.timerCount//pace
+    else:
+        data.readoutCount=None
     data.timerCount+=1
-    if data.timerCount%10 == 0:
-        data.readoutCount+=1
 
-
-def parseEvent(event):
-    if event[0] == 'pot':   #pot
-        data.potSize=event[1]
-        return 'pot'
-    elif event==[]: #empty
+def parseEvent(data,event): #this function sucks
+    if event==[]: #empty
         return None
-    elif len(event)>2 and type(event[0])==str:  #board
+    elif event[0] == 'pot':   #pot
+        #for now do pot update internally through players
+        #data.potSize=event[1]
+        #return 'pot'
+        pass
+    elif len(event)>=3 and type(event[1])==str and type(event)==list:  #board
         data.board=event
         return 'board'
     elif ':' in event:  #game event
         eventList = event.split(':')
         action = eventList[0]
-        player = eventList[-1]
+        player = int(eventList[-1][-1])
         try:
             quantity = int(eventList[1])    #some actions have no quantity
-            return (action,quantity,player)
+            return (action,player,quantity)
         except:
             return (action,player)  
     elif 'player' in event[0]:  #player
@@ -829,28 +833,72 @@ def redrawAll(canvas, data):
     drawBoardCards(canvas,data)
 
     #readout
-    currEvent = data.allHistories[data.readoutCount]
-    readOut = parseEvent(currEvent)
-    if readOut!=None:
-        if readOut=='board':
-            drawBoardCards(canvas,data)
-        elif readOut == 'pot':
-            drawPot(canvas,data)
-        elif readOut[0] == 'playerEvent':
-            assert(len(readOut[1])==2)  #player always has 2 hole cards
-            data.playerCards[readOut[1]] = readOut[2]
-            data.stackSize[readOut[1]] = int(readOut[3])
-            drawPlayers(canvas,data)
-        elif len(readOut)==3:   #action that affects stacks/pot
+    if data.gameOver:
+        canvas.create_text(data.width/2, 40, text = 'Game Over')
+    if data.readoutCount!=None and data.readoutCount>len(data.allHistories)-1 and not data.gameOver:
+        canvas.create_text(data.width/2, 40, text = 'Game Over')
+        data.gameOver = True
+    if data.readoutCount==None or data.readoutCount>len(data.allHistories)-1:
+        pass
+    else:
+        currEvent = data.allHistories[data.readoutCount]
+        print('currEvent',currEvent)
+        readOut = parseEvent(data,currEvent)
+        if readOut!=None:
+            if readOut=='board':
+                drawBoardCards(canvas,data)
+            elif readOut == 'pot':
+                drawPot(canvas,data)
+            elif readOut[0] == 'playerEvent':
+                assert(len(readOut[2])==2)  #player always has 2 hole cards
+                data.playerCards[readOut[1]-1] = readOut[2] #index offset 
+                data.stackSizes[readOut[1]-1] = int(readOut[3])
+                drawPlayers(canvas,data)
+            elif len(readOut)==3 and type(readOut)==list:   #action that adds to pot, takes from player stack
+                #win
+                (action,player,quantity) = readOut
+                if action=='WIN' or action=='TIE':
+                    data.stackSizes[player]+=quantity
+                    data.potSize = 0
+                    
+                #refund
+                elif action=='REFUND':
+                    data.stackSizes[player]+=quantity
+                    data.potSize-=quantity #not sure about this
+                    
 
-        elif len(readOut)==2:   #action that doesn't affect stacks/pot
-        
+                #call bet raise
+                else:
+                    data.stackSizes[player]-=quantity
+                    data.potSize += quantity 
+                    
+                drawPot(canvas,data)
+                drawAction(canvas,data,currEvent)
 
 
+            elif len(readOut)==2 and type(readOut)==list:   #action that doesn't affect stacks/pot
+                #fold, check
+                #intriguingly fold/check don't affect player or board state
+
+                drawAction(canvas,data,currEvent)
+
+def drawAction(canvas,data,event):
+    print(event)
+    (actionX,actionY) = data.playerPositions[int(event[-1])-1]  #-1 for list indexing
+    actionY-=10
+    eventList = event.split(':')
+    action = eventList[0]
+    player = int(eventList[-1][-1])
+    try:
+        quantity = int(eventList[1])    #some actions have no quantity
+        return (action,quantity,player)
+    except:
+        return (action,player)  
+    canvas.create_text(actionX,actionY, text = "%s:%d" % (action,quantity))
 
 
 def drawPot(canvas,data):
-    canvas.create_text(100,100, text = '%d' % str(data.potSize))
+    canvas.create_text(100,100, text = '%d' % data.potSize)
 
 
 
@@ -859,13 +907,14 @@ def drawBoardCards(canvas,data):
     y0 = data.height/2-98
     count = 0 
     while len(data.board)<5:
-        data.board.append(getSpecialPlayingCardImage(data,'back'))
+        data.board.append('back')
+
     for card in data.board:
-        if type(card)==str:
+        if card!='back':
             (rank,suit) = getRankSuit(card)
             canvas.create_image(initX+count*data.cardOffset,y0,image = getPlayingCardImage(data,rank,suit),anchor='nw')
         else:
-            canvas.create_image(initX+count*data.cardOffset,y0,image = card,anchor = 'nw')
+            canvas.create_image(initX+count*data.cardOffset,y0,image = getSpecialPlayingCardImage(data,'back'),anchor = 'nw')
         count+=1
 
 
@@ -894,11 +943,13 @@ def drawPlayers(canvas,data):
     playerCount = 0
     for player in data.playerPositions:
         d = data.playerSize
-        (x0,y0,x1,y1) = (player[0]-d,player[1]-10,player[0]+d,player[1]+25)
+        (x0,y0,x1,y1) = (player[0]-d,player[1]-25,player[0]+d,player[1]+25)
         canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
         canvas.create_text(player[0],player[1], text = '%s' % botTupleNew[playerCount].upper())
-        canvas.create_text(player[0],player[2]+15, text = '%d' % data.stackSizes[playerCount])
+        print('stacks',player, data.stackSizes)
+        canvas.create_text(player[0],player[1]+15, text = '%d' % data.stackSizes[playerCount])
         currPlayer =  list(map(getRankSuit, data.playerCards[playerCount]))
+        print(currPlayer,playerCount,data.playerCards)
         if playerCount==0:
             initX = player[0]+d+50
             initY = player[1]
@@ -989,9 +1040,10 @@ def run(width=300, height=300):
 
 if __name__ == '__main__':
     
-    setHands(handsToPlay)
-    botTuple = setBotTypes('afexploit','random','random')
+    startingStack = setHands(handsToPlay)
+    botTuple = setBotTypes('afexploit','evbasic','random')
     writeFile('filename1.pickle', botTuple,True)
+    writeFile('filename2.pickle',startingStack,True)
 
     assert(len(botTuple)==3)
 
@@ -1015,8 +1067,29 @@ if __name__ == '__main__':
     #read and parse output log
     if processesDead:
         botTupleNew = readFile('filename1.pickle',True)
-        allHistoriesNew = readFile('filename.pickle',True)
-        print(allHistoriesNew)
+        startingStack = readFile('filename2.pickle',True)
+        allHistoriesNew = []
+        for i in list(range(3,6)):
+            currList = readFile('filename%d.pickle' % i ,True)
+            if currList == {'hello':'world'}:
+                continue
+            for item in currList:
+                assert(type(item)==tuple)
+                allHistoriesNew.append(item)
+        allHistoriesNew.sort(key = lambda x: x[1])
+        extra = copy.deepcopy(allHistoriesNew)
+        allHistoriesNew = []
+        for i in range(1,len(extra)):
+            item = extra[i]
+            if item[0] !=extra[i-1][0] or item[0]==[]:
+                allHistoriesNew.append(item[0])
+        print(allHistoriesNew,len(allHistoriesNew))
+      
+
+
+
+
+
         run(1200, 600) 
     
 

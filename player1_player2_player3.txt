@@ -2,9 +2,9 @@
 Hand #1, player1 (4), player2 (4), player3 (4)
 player2 posts the blind of 1
 player3 posts the blind of 2
-Dealt to player1 [6c Ah]
-Dealt to player2 [3h Qc]
-Dealt to player3 [9h Js]
+Dealt to player1 [8c Qc]
+Dealt to player2 [Td 4c]
+Dealt to player3 [8s 8h]
 player1 raises to 4
 player2 folds
 player3 folds
@@ -13,17 +13,17 @@ player1 wins the pot (7)
 Hand #2, player3 (2), player1 (7), player2 (3)
 player1 posts the blind of 1
 player2 posts the blind of 2
-Dealt to player3 [As 3d]
-Dealt to player1 [9d Ad]
-Dealt to player2 [9h 8s]
+Dealt to player3 [Js 3h]
+Dealt to player1 [6s Tc]
+Dealt to player2 [5d Kd]
 player3 calls 2
 player1 raises to 3
 player2 folds
 Uncalled bet of 1 returned to player1
-*** FLOP *** (6) [6h Ks 9c]
-*** TURN *** (6) [6h Ks 9c] [Qc]
-*** RIVER *** (6) [6h Ks 9c Qc] [Kh]
-player3 shows [As 3d]
-player1 shows [9d Ad]
-player1 wins the pot (6)
+*** FLOP *** (6) [4s 5c Kh]
+*** TURN *** (6) [4s 5c Kh] [8s]
+*** RIVER *** (6) [4s 5c Kh 8s] [9d]
+player3 shows [Js 3h]
+player1 shows [6s Tc]
+player3 wins the pot (6)
 
