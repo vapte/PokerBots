@@ -18,124 +18,6 @@ handsToPlay = 2
 allHistories = []
 
 
-###################
-# STARTUP GRAPHICS 
-###################
-
-#data.width = 450, data.height = 450
-
-def init(data):
-    data.numButtons = 12
-    data.buttons = [dict()]*data.numButtons
-    #each buttonDict = {id: X, numPresses: X, position: X,...}
-    data.column = 150   #rule of thirds
-    data.margin = 10
-    data.buttonSize = 15
-    data.fieldWidth = 90
-    data.row = 50
-    initButtons(data)
-
-    
-
-def initButtons(data):
-    #player1 up/down, player2 up/down, player 3 up/down, big blind, # hands, playback pace
-    for i in range(len(data.buttons)):  #careful with aliasing here. 
-        currButton = data.buttons[i]
-        col = data.column
-        m = data.margin
-        f = data.fieldWidth
-        row = data.row
-        if i==0:
-            currButton['id'] = 'player1up'
-            currButton['position'] = (col+m, row)
-        elif i==1:
-            currButton['id'] = 'player1down'
-            currButton['position'] = (col+m+f, row)
-        elif i==2:
-            currButton['id'] = 'player2up'
-            currButton['position'] = (col+m, row*2)
-        elif i==3:
-            currButton['id'] = 'player2down'
-            currButton['position'] = (col+m+f,row*2)
-        elif i==4:
-            currButton['id'] = 'player3up'
-            currButton['position'] = (col+m,row*3)
-        elif i==5:
-            currButton['id'] = 'player3down'
-            currButton['position'] = (col+m+f,row*3)
-        elif i==6:
-            currButton['id'] = 'blindup'
-            currButton['position'] = (col+m, row*4)
-        elif i==7:
-            currButton['id'] = 'blinddown'
-            currButton['position'] = (col+m+f, row*4)
-        elif i==8:
-            currButton['id'] = 'handsup'
-            currButton['position'] = (col+m,row*5)
-        elif i==9:
-            currButton['id'] = 'handsdown'
-            currButton['position'] = (col+m+f, row*6)
-        elif i==10:
-            currButton['id'] = 'paceup'
-            currButton['position'] = (col+m, row*7)
-        elif i==1:
-            currButton['id'] = 'pacedown'
-            currButton['position'] = (col+m+f, row*7)
-
-        #init numPresses generally
-        currButton['numPresses'] = 0
-
-def drawButtons(canvas,data):
-    b = data.buttonSize
-    k = data.buttonSize/5
-    for button in data.buttons:
-        (x0,y0) = button['position']
-        if 'down' in button['id']:
-            #draw down button
-            v1  = (x0+k,y0+k)
-            v2 = (x0+b-k,y0+k)
-            v3 = (x0+b/2, y0+b-k)
-            canvas.create_polygon(v1,v2,v3, fill = 'red')
-        elif 'up' in button['id']:
-            #draw up button
-            v1 = (x0+b/2, y0+k)
-            v2 = (x0+k, y0+b-k)
-            v3 = (x0+b-k, y0+b-k)
-            canvas.create_polygon(v1,v2,v3,fill = 'red')
-        #draw bounding rectangle
-        canvas.create_rectangle(x0,y0,x0+b,y0+b,outline = 'white')
-
-def drawButtonTags(data):
-    pass
-
-def mousePressed(event, data):
-    # use event.x and event.y
-    pass
-
-def keyPressed(event, data):
-    # use event.char and event.keysym
-    pass
-
-def timerFired(data):
-    pass
-
-def redrawAll(canvas, data):
-    # draw in canvas
-    drawButtons(canvas,data)
-    pass
-
-def buttonParse(event):
-    startingStack = setHands(handsToPlay)
-    botTuple = setBotTypes('afexploit','evbasic','random')
-    writeFile('filename1.pickle', botTuple,True)
-    writeFile('filename2.pickle',startingStack,True)
-
-
-
-
-
-
-
 #Skeleton code for Player obtained from MIT PokerBots course website 
 class Player(object):
     values = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'] #ordered lo to hi
@@ -753,75 +635,6 @@ def getBlind():
     config = readFile(path+os.sep+'config.txt')
     return int(config.split('\n')[0][-1])
 
-def setHands(handNum):
-    path = os.getcwd()
-    fullPath = path+os.sep+'config.txt'
-    config = readFile(fullPath)
-    config = config.split('\n')
-    handsIndex = 0
-    stackIndex = 0
-    for i in range(len(config)):
-        line = config[i]
-        if 'NUMBER_OF_HANDS' in line:
-            handsIndex = i
-        if 'STARTING_STACK' in line:
-            stackIndex = i
-    new = handNum*getBlind()
-    newStackLine = ' STARTING_STACK = %s' % new
-    newLine = ' NUMBER_OF_HANDS = %s' % handNum
-    config[handsIndex] = newLine
-    config[stackIndex] = newStackLine
-    newConfig = '\n'.join(config)    
-    writeFile(fullPath,newConfig)
-    return new  #useful for graphics
-
-def setBotTypes(bot1 = None,bot2 = None,bot3 = None): #max 3 bots allowed
-    availBotTypes = ['evbasic','random','afexploit','checkfold']
-    inputTypes = ['CHECKFOLD', 'RANDOM', 'SOCKET']
-
-    botTuple = (bot1,bot2,bot3)
-    inputList = list()
-
-    for bot in botTuple:
-        if bot==None: 
-            bot = 'checkfold'
-        bot = bot.lower()
-        if bot not in availBotTypes: #turn all bad bots in to checkfold bots
-            bot = 'checkfold'
-        if bot == 'checkfold':
-            inputList.append('CHECKFOLD')
-        elif bot=='random':
-            inputList.append('RANDOM')
-        else:
-            inputList.append('SOCKET')
-
-    path = os.getcwd()
-    fullPath = path+os.sep+'config.txt'
-    config = readFile(fullPath)
-    config = config.split('\n')
-
-    for i in range(len(config)):
-        line = config[i]
-        if 'PLAYER_1_TYPE = ' in line:
-            bot1Index = i
-        elif 'PLAYER_2_TYPE = ' in line:
-            bot2Index = i
-        elif 'PLAYER_3_TYPE = ' in line: 
-            bot3Index = i
-
-
-    bot1Line = 'PLAYER_1_TYPE = %s' % inputList[0]
-    bot2Line = 'PLAYER_2_TYPE = %s' % inputList[1]
-    bot3Line = 'PLAYER_3_TYPE = %s' % inputList[2]
-
-    config[bot1Index] = bot1Line
-    config[bot2Index] = bot2Line
-    config[bot3Index] = bot3Line
-
-    newConfig = '\n'.join(config)    
-    writeFile(fullPath,newConfig)
-
-    return botTuple
 
 def startBot(num,args,botType):  #bot number, args
         num = int(num)
@@ -888,6 +701,8 @@ def init(data):
     data.potBoxSize = 70
     data.numHands = 0 
     data.seen = None
+    data.pace = readFile('filename7.pickle',True)
+
 def mousePressed(event, data):
     # use event.x and event.y
     pass
@@ -897,9 +712,9 @@ def keyPressed(event, data):
     pass
 
 def timerFired(data):
-    pace = 5
-    if data.timerCount%pace == 0:
-        data.readoutCount=data.timerCount//pace
+    data.pace = 5
+    if data.timerCount%data.pace == 0:
+        data.readoutCount=data.timerCount//data.pace
     
     data.timerCount+=1
 
@@ -1160,8 +975,7 @@ def run(width=300, height=300):
 
 if __name__ == '__main__':
     
-    run(450,450)
-
+    botTuple = readFile('filename1.pickle', True)
     assert(len(botTuple)==3)
 
     parser = argparse.ArgumentParser(description='A Pokerbot.', add_help=False, prog='pokerbot')

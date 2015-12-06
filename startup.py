@@ -4,6 +4,8 @@
 
 from tkinter import *
 import time
+import os
+import pickle
 
 #data.width = 450, data.height = 450
 
@@ -16,18 +18,19 @@ def init(data):
     data.margin = 10
     data.buttonSize = 15
     data.fieldWidth = 120
-    data.row = 50
+    data.row = 43
     initButtons(data)
     data.numRows = 6
     data.typeChoices =['evbasic','random','afexploit','checkfold']
+    loadBackground(data)
+    data.splash = True    #true = splash screen, false = setting screen
+    initInputParameters(data)
+
+def initInputParameters(data):
     data.player1type = data.player2type = data.player3type = 0
     data.blind = 0
     data.numHands = 0
     data.pace = 0
-    loadBackground(data)
-
-
-    
 
 def initButtons(data):
     #player1 up/down, player2 up/down, player 3 up/down, big blind, # hands, playback pace
@@ -88,44 +91,25 @@ def initButtons(data):
         x['numPresses'] = 0
         data.buttons.append(x)
 
-def drawTags(canvas,data): 
-    for i in range(1,data.numRows+1):
-        currText = ''
-        if i==1:
-            currText = 'Player 1 type:'
-        elif i==2:
-            currText = 'Player 2 type:'
-        elif i==3:
-            currText = 'Player 3 type:'
-        elif i==4:
-            currText = 'Big Blind:'
-        elif i==5:
-            currText = "Hands to Play:"
-        elif i==6:
-            currText = "Playback Pace:"
-        canvas.create_text(50,i*data.row+10, text = currText)
+### Splash Screen (data.splash == True): 
 
-def drawButtons(canvas,data):
-    b = data.buttonSize
-    k = data.buttonSize/5
-    for button in data.buttons:
-        (x0,y0) = button['position']
-        if 'down' in button['id']:
-            #draw down button
-            v1  = (x0+k,y0+k)
-            v2 = (x0+b-k,y0+k)
-            v3 = (x0+b/2, y0+b-k)
-            canvas.create_polygon(v1,v2,v3, fill = 'red')
-        elif 'up' in button['id']:
-            #draw up button
-            v1 = (x0+b/2, y0+k)
-            v2 = (x0+k, y0+b-k)
-            v3 = (x0+b-k, y0+b-k)
-            canvas.create_polygon(v1,v2,v3,fill = 'red')
+def timerFiredSplash(data):
+    pass
 
+def keyPressedSplash(event, data):
+    pass
 
+def mousePressedSplash(event, data):
+    data.splash = False
 
-def mousePressed(event, data):
+def redrawAllSplash(canvas, data):
+    splashText = "Welcome to the PokerBots Suite\n Click anywhere to continue"
+    canvas.create_image(data.width/2, data.height/2, image = data.background)
+    canvas.create_text(data.width/2, data.height/3, text = splashText, fill = 'white', font = "msserif 20")
+
+### Input Screen (data.splash == False):
+
+def mousePressedInput(event, data):
     for button in data.buttons:
         (x0,y0) = button['position']
         b = data.buttonSize
@@ -167,8 +151,6 @@ def buttonUpdate(data):
             if data.numHands<0: data.numHands = 0
 
 
-
-
 #from my submission of hw1:
 def rectanglesOverlap(left1, top1, width1, h1, left2, top2, width2, h2):
     if (left1+width1>=left2 and 
@@ -205,40 +187,208 @@ def drawSelections(canvas,data):
             currText = str(data.numHands)
         elif i==6:
             currText = str(data.pace)
-        canvas.create_text(data.column+75,i*data.row+7, text = currText)
+        canvas.create_text(data.column+75,i*data.row+7, text = currText, fill = 'white',  font = 'Arial 14 bold')
 
 
-
-
-def keyPressed(event, data):
+def keyPressedInput(event,data):
     if event.keysym == 'r':
-        init(data)
+        initInputParameters(data)
+    elif event.keysym == 'c':
+        export(data)
     pass
 
-def timerFired(data):
-    
+
+def timerFiredInput(data):
     pass
 
-def redrawAll(canvas, data):
-    # draw in canvas
+def redrawAllInput(canvas,data):
+    canvas.create_image(data.width/2, data.height/2, image = data.background)
     drawButtons(canvas,data)
     drawTags(canvas, data)
     drawSelections(canvas, data)
-    pass
 
-def buttonParse(event):
-    startingStack = setHands(handsToPlay)
-    botTuple = setBotTypes('afexploit','evbasic','random')
-    writeFile('filename1.pickle', botTuple,True)
-    writeFile('filename2.pickle',startingStack,True)
+    #I should probably put my name on this 
+    canvas.create_text(data.width-77,data.height-5, text = "Created by Vineet Apte", fill = 'white',  font = 'Arial 14 bold')
 
+    #reset
 
+    canvas.create_text(data.width-77,25, text = "Press 'r' to reset\nPress 'c' to confirm", fill = 'white',  font = 'Arial 14 bold')
 
+def drawTags(canvas,data): 
+    for i in range(1,data.numRows+1):
+        currText = ''
+        if i==1:
+            currText = 'Player 1 type:'
+        elif i==2:
+            currText = 'Player 2 type:'
+        elif i==3:
+            currText = 'Player 3 type:'
+        elif i==4:
+            currText = 'Big Blind:'
+        elif i==5:
+            currText = "Hands to Play:"
+        elif i==6:
+            currText = "Playback Pace:"
+        canvas.create_text(100,i*data.row+7, text = currText, fill = 'white', font = 'Arial 14 bold')
+
+def drawButtons(canvas,data):
+    b = data.buttonSize
+    k = data.buttonSize/5
+    for button in data.buttons:
+        (x0,y0) = button['position']
+        if 'down' in button['id']:
+            #draw down button
+            v1  = (x0+k,y0+k)
+            v2 = (x0+b-k,y0+k)
+            v3 = (x0+b/2, y0+b-k)
+            canvas.create_polygon(v1,v2,v3, fill = 'red')
+        elif 'up' in button['id']:
+            #draw up button
+            v1 = (x0+b/2, y0+k)
+            v2 = (x0+k, y0+b-k)
+            v3 = (x0+b-k, y0+b-k)
+            canvas.create_polygon(v1,v2,v3,fill = 'red')  
 
 def loadBackground(data):
-    data.background = [ ]
-    filename = "dogs.gif"
-    data.background.append(PhotoImage(file=filename))
+    data.background = None
+    filename = "dogs_background.gif"
+    data.background = PhotoImage(file=filename)
+
+
+#put in own file later
+
+def setHands(handNum):
+    path = os.getcwd()
+    fullPath = path+os.sep+'config.txt'
+    config = readFile(fullPath)
+    config = config.split('\n')
+    handsIndex = 0
+    stackIndex = 0
+    for i in range(len(config)):
+        line = config[i]
+        if 'NUMBER_OF_HANDS' in line:
+            handsIndex = i
+        if 'STARTING_STACK' in line:
+            stackIndex = i
+    new = handNum*getBlind()
+    newStackLine = ' STARTING_STACK = %s' % new
+    newLine = ' NUMBER_OF_HANDS = %s' % handNum
+    config[handsIndex] = newLine
+    config[stackIndex] = newStackLine
+    newConfig = '\n'.join(config)    
+    writeFile(fullPath,newConfig)
+    return new  #useful for graphics
+
+def setBotTypes(bot1 = None,bot2 = None,bot3 = None): #max 3 bots allowed
+    availBotTypes = ['evbasic','random','afexploit','checkfold']
+    inputTypes = ['CHECKFOLD', 'RANDOM', 'SOCKET']
+
+    botTuple = (bot1,bot2,bot3)
+    inputList = list()
+
+    for bot in botTuple:
+        if bot==None: 
+            bot = 'checkfold'
+        bot = bot.lower()
+        if bot not in availBotTypes: #turn all bad bots in to checkfold bots
+            bot = 'checkfold'
+        if bot == 'checkfold':
+            inputList.append('CHECKFOLD')
+        elif bot=='random':
+            inputList.append('RANDOM')
+        else:
+            inputList.append('SOCKET')
+
+    path = os.getcwd()
+    fullPath = path+os.sep+'config.txt'
+    config = readFile(fullPath)
+    config = config.split('\n')
+
+    for i in range(len(config)):
+        line = config[i]
+        if 'PLAYER_1_TYPE = ' in line:
+            bot1Index = i
+        elif 'PLAYER_2_TYPE = ' in line:
+            bot2Index = i
+        elif 'PLAYER_3_TYPE = ' in line: 
+            bot3Index = i
+
+
+    bot1Line = 'PLAYER_1_TYPE = %s' % inputList[0]
+    bot2Line = 'PLAYER_2_TYPE = %s' % inputList[1]
+    bot3Line = 'PLAYER_3_TYPE = %s' % inputList[2]
+
+    config[bot1Index] = bot1Line
+    config[bot2Index] = bot2Line
+    config[bot3Index] = bot3Line
+
+    newConfig = '\n'.join(config)    
+    writeFile(fullPath,newConfig)
+
+    return botTuple
+
+
+def writeFile(path, contents, withPickle = False):
+    if withPickle:
+        with open(path, "wb") as f:
+                pickle.dump(contents,f)
+    else:
+        with open(path, "wt") as f:
+            f.write(contents)
+
+
+def readFile(path, withPickle = False):
+    if withPickle:
+        with open(path, "rb") as f:
+            return pickle.load(f)
+    else:
+        with open(path, "rt") as f:
+            return f.read()
+
+def getBlind():
+    path = os.getcwd()
+    config = readFile(path+os.sep+'config.txt')
+    return int(config.split('\n')[0][-1])
+#############
+
+
+def export(data):
+    startingStack = setHands(data.numHands)
+    choice1 = data.typeChoices[data.player1type]
+    choice2 = data.typeChoices[data.player2type]
+    choice3 = data.typeChoices[data.player3type]
+    botTuple = setBotTypes(choice1,choice2,choice3)
+    writeFile('filename1.pickle', botTuple,True)
+    writeFile('filename2.pickle',startingStack,True)
+    writeFile('filename7.pickle', data.pace, True)
+
+### Master graphics functions:
+
+def mousePressed(event,data):
+    if data.splash:
+        mousePressedSplash(event,data)
+    else:
+        mousePressedInput(event,data)
+
+def keyPressed(event, data):
+    if data.splash:
+        keyPressedSplash(event,data)
+    else:
+        keyPressedInput(event, data)        
+
+def redrawAll(canvas, data):
+    if data.splash:
+        redrawAllSplash(canvas,data)
+    else:
+        redrawAllInput(canvas, data)
+
+def timerFired(data):
+    if data.splash:
+        timerFiredSplash(data)
+    else:
+        timerFiredInput(data)
+    
+
 
 
 
