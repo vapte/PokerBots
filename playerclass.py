@@ -81,6 +81,7 @@ class Player(object):
             word = packetValues[0]
 
             if word=='NEWHAND':
+                self.boardReset()
                 self.hole = [packetValues[3],packetValues[4]]
                 self.playerNames = []
                 for piece in packetValues[5:-5]:
@@ -338,6 +339,9 @@ class Player(object):
             self.EV =  outProb-self.potOdds
             self.impliedEV  = outProb-self.impliedPotOdds
 
+    def boardReset(self):
+        self.allHistories.append((['back']*5,time.time()))        
+
     def historyUpdate(self, packetValues, handOver=False):
         if not handOver:
             for value in packetValues:
@@ -346,21 +350,26 @@ class Player(object):
                         if player in value:
                             self.histories[player].append(value)
         elif handOver:
+            river = []
             for value in packetValues:
                 #only needs to compute winrate for self
                 if ('WIN' in value or 'TIE' in value) and self.name in value:
                     self.histories[self.name].append(value)
-        if self.name=='player1':
-            for value in packetValues:
-                if ':' in value and 'player' in value:
-                    allHistories.append((value,time.time()))  #dont want repeats in events
-                self.allHistories.append((['numhands',self.numHands],time.time()))
+                elif len(value)==2:
+                    if value[0] in Player.values and value[1] in Player.suits:
+                        river.append(value)
+            self.allHistories.append((river,time.time()))
         #repeats in board, potsize, and playerinfo are fine
         self.allHistories.append((self.board,time.time()))
         self.allHistories.append((['pot',self.potSize],time.time()))
         print('historyUpdate check', self.name, self.hole)
         self.allHistories.append(([self.name,self.hole,self.stack],time.time()))
-        print(self.allHistories)
+        if self.name=='player1':
+            for value in packetValues:
+                if ':' in value and 'player' in value:
+                    self.allHistories.append((value,time.time()))  #dont want repeats in events
+        
+        print(self.allHistories,'\n\n')
 
     '''
     AF benchmark values: 

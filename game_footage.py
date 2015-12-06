@@ -45,7 +45,6 @@ def keyPressed(event, data):
     pass
 
 def timerFired(data):
-    data.pace = 5
     if data.timerCount%data.pace == 0:
         data.readoutCount=data.timerCount//data.pace
     
@@ -57,8 +56,6 @@ def parseEvent(data,event):
     elif event[0] == 'pot':   #pot
        # data.potSize=event[1]
         return None 
-    elif event[0] == 'numhands':
-        data.numHands = event[1]
     elif len(event)>=3 and type(event[1])==str and type(event)==list:  #board
         data.board=event
         return 'board'
@@ -84,13 +81,13 @@ def redrawAll(canvas, data):
     canvas.create_rectangle(10,10,data.width-10,data.height-10,fill = 'green4')
 
     #gametext
-    canvas.create_text(20,30,text = 'Players: %s' % ' '.join(data.botTuple),anchor = 'sw')
+    canvas.create_text(20,30,text = 'Players: %s' % ' '.join(data.botTuple),anchor = 'sw', font = 'msserif 12 bold')
 
     #players
     drawPlayers(canvas,data)
 
     #board
-    (x0,y0,x1,y1) = (data.width/2-data.boardSize,data.height/2-100,data.width/2+data.boardSize,data.height/2)
+    (x0,y0,x1,y1) = (data.width/2-data.boardSize,data.height/2-152,data.width/2+data.boardSize,data.height/2-52)
     canvas.create_rectangle(x0,y0,x1,y1,fill=  'red4')
 
     #boardCards
@@ -101,9 +98,9 @@ def redrawAll(canvas, data):
 
     #readout
     if data.gameOver:
-        canvas.create_text(data.width/2, 40, text = 'Game Over')
+        canvas.create_text(data.width/2, 40, text = 'Game Over', font = 'msserif 12 bold')
     if data.readoutCount!=None and data.readoutCount>len(data.allHistories)-1 and not data.gameOver:
-        canvas.create_text(data.width/2, 40, text = 'Game Over')
+        canvas.create_text(data.width/2, 40, text = 'Game Over', font = 'msserif 12 bold')
         data.gameOver = True
     if data.readoutCount==None or data.readoutCount>len(data.allHistories)-1:
         pass
@@ -134,6 +131,10 @@ def redrawAll(canvas, data):
                         (action,player) = readOut
                     cutStack = ['POST','CALL','TIE','BET','RAISE']
                     padStack = ['WIN','REFUND']
+                    if action=='WIN':
+                        data.numHands+=1
+                    elif action=='TIE': 
+                        data.numHands+=0.5
                     if action in cutStack:
                         data.stackSizes[player-1] -= quantity
                         data.potSize += quantity
@@ -156,23 +157,23 @@ def drawAction(canvas,data,event):
     player = int(eventList[-1][-1])
     try:
         quantity = int(eventList[1])    #some actions have no quantity
-        canvas.create_text(actionX,actionY, text = "%s:%d" % (action,quantity), fill  = 'blue')
+        canvas.create_text(actionX,actionY, text = "%s:%d" % (action,quantity), fill  = 'blue', font = 'msserif 12 bold')
     except:
-        canvas.create_text(actionX,actionY, text = "%s" % action, fill = 'blue')
+        canvas.create_text(actionX,actionY, text = "%s" % action, fill = 'blue', font = 'msserif 12 bold')
 
 
 
 def drawPot(canvas,data):
     (x0,y0,x1,y1) = (data.width/2-data.potBoxSize,100-data.potBoxSize/2,data.width/2+data.potBoxSize,100+data.potBoxSize/2)
-    canvas.create_rectangle(x0,y0,x1,y1,fill = 'red4')
-    canvas.create_text(data.width/2, 100, text = 'POT: %d' % data.potSize)
-    canvas.create_text(data.width/2,115, text = 'HANDS PLAYED: %d' % data.numHands)
+    #canvas.create_rectangle(x0,y0-52,x1,y1-52,fill = 'red4')
+    canvas.create_text(data.width/2, 100, text = 'POT: %d' % data.potSize, font = 'msserif 12 bold')
+    canvas.create_text(data.width/2,115, text = 'HANDS PLAYED: %d' % data.numHands, font = 'msserif 12 bold')
 
 
 
 def drawBoardCards(canvas,data):
     initX = data.width/2-data.boardSize+25
-    y0 = data.height/2-98
+    y0 = data.height/2-150
     count = 0 
     while len(data.board)<5:
         data.board.append('back')
@@ -213,9 +214,9 @@ def drawPlayers(canvas,data):
         d = data.playerSize
         (x0,y0,x1,y1) = (player[0]-d,player[1]-25,player[0]+d,player[1]+25)
         canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
-        canvas.create_text(player[0],player[1], text = '%s' % data.botTuple[playerCount].upper())
+        canvas.create_text(player[0],player[1], text = '%s' % data.botTuple[playerCount].upper(), font = 'msserif 12 bold')
         print('stacks',player, data.stackSizes)
-        canvas.create_text(player[0],player[1]+15, text = '%d' % data.stackSizes[playerCount])
+        canvas.create_text(player[0],player[1]+15, text = '%d' % data.stackSizes[playerCount], font = 'msserif 12 bold')
         currPlayer =  list(map(getRankSuit, data.playerCards[playerCount]))
         print(currPlayer,playerCount,data.playerCards)
         if playerCount==0:
@@ -267,7 +268,7 @@ def getSpecialPlayingCardImage(data, name):
 ###############################
 
 
-def runFootage(width=1200, height=600):
+def runFootage(width=800, height=600):
     def redrawAllWrapper(canvas, data):
         canvas.delete(ALL)
         redrawAll(canvas, data)
