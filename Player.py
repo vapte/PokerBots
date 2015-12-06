@@ -22,7 +22,90 @@ allHistories = []
 # STARTUP GRAPHICS 
 ###################
 
+#data.width = 450, data.height = 450
+
 def init(data):
+    data.numButtons = 12
+    data.buttons = [dict()]*data.numButtons
+    #each buttonDict = {id: X, numPresses: X, position: X,...}
+    data.column = 150   #rule of thirds
+    data.margin = 10
+    data.buttonSize = 15
+    data.fieldWidth = 90
+    data.row = 50
+    initButtons(data)
+
+    
+
+def initButtons(data):
+    #player1 up/down, player2 up/down, player 3 up/down, big blind, # hands, playback pace
+    for i in range(len(data.buttons)):  #careful with aliasing here. 
+        currButton = data.buttons[i]
+        col = data.column
+        m = data.margin
+        f = data.fieldWidth
+        row = data.row
+        if i==0:
+            currButton['id'] = 'player1up'
+            currButton['position'] = (col+m, row)
+        elif i==1:
+            currButton['id'] = 'player1down'
+            currButton['position'] = (col+m+f, row)
+        elif i==2:
+            currButton['id'] = 'player2up'
+            currButton['position'] = (col+m, row*2)
+        elif i==3:
+            currButton['id'] = 'player2down'
+            currButton['position'] = (col+m+f,row*2)
+        elif i==4:
+            currButton['id'] = 'player3up'
+            currButton['position'] = (col+m,row*3)
+        elif i==5:
+            currButton['id'] = 'player3down'
+            currButton['position'] = (col+m+f,row*3)
+        elif i==6:
+            currButton['id'] = 'blindup'
+            currButton['position'] = (col+m, row*4)
+        elif i==7:
+            currButton['id'] = 'blinddown'
+            currButton['position'] = (col+m+f, row*4)
+        elif i==8:
+            currButton['id'] = 'handsup'
+            currButton['position'] = (col+m,row*5)
+        elif i==9:
+            currButton['id'] = 'handsdown'
+            currButton['position'] = (col+m+f, row*6)
+        elif i==10:
+            currButton['id'] = 'paceup'
+            currButton['position'] = (col+m, row*7)
+        elif i==1:
+            currButton['id'] = 'pacedown'
+            currButton['position'] = (col+m+f, row*7)
+
+        #init numPresses generally
+        currButton['numPresses'] = 0
+
+def drawButtons(canvas,data):
+    b = data.buttonSize
+    k = data.buttonSize/5
+    for button in data.buttons:
+        (x0,y0) = button['position']
+        if 'down' in button['id']:
+            #draw down button
+            v1  = (x0+k,y0+k)
+            v2 = (x0+b-k,y0+k)
+            v3 = (x0+b/2, y0+b-k)
+            canvas.create_polygon(v1,v2,v3, fill = 'red')
+        elif 'up' in button['id']:
+            #draw up button
+            v1 = (x0+b/2, y0+k)
+            v2 = (x0+k, y0+b-k)
+            v3 = (x0+b-k, y0+b-k)
+            canvas.create_polygon(v1,v2,v3,fill = 'red')
+        #draw bounding rectangle
+        canvas.create_rectangle(x0,y0,x0+b,y0+b,outline = 'white')
+
+def drawButtonTags(data):
     pass
 
 def mousePressed(event, data):
@@ -38,14 +121,14 @@ def timerFired(data):
 
 def redrawAll(canvas, data):
     # draw in canvas
+    drawButtons(canvas,data)
     pass
 
-
-
-
-
-
-
+def buttonParse(event):
+    startingStack = setHands(handsToPlay)
+    botTuple = setBotTypes('afexploit','evbasic','random')
+    writeFile('filename1.pickle', botTuple,True)
+    writeFile('filename2.pickle',startingStack,True)
 
 
 
@@ -1077,10 +1160,7 @@ def run(width=300, height=300):
 
 if __name__ == '__main__':
     
-    startingStack = setHands(handsToPlay)
-    botTuple = setBotTypes('afexploit','evbasic','random')
-    writeFile('filename1.pickle', botTuple,True)
-    writeFile('filename2.pickle',startingStack,True)
+    run(450,450)
 
     assert(len(botTuple)==3)
 

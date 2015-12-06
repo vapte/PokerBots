@@ -1,0 +1,293 @@
+###################
+# STARTUP GRAPHICS 
+###################
+
+from tkinter import *
+import time
+
+#data.width = 450, data.height = 450
+
+
+def init(data):
+    data.numButtons = 12
+    data.buttons = []
+    #each buttonDict = {id: X, numPresses: X, position: X,...}
+    data.column = 150   #rule of thirds
+    data.margin = 10
+    data.buttonSize = 15
+    data.fieldWidth = 120
+    data.row = 50
+    initButtons(data)
+    data.numRows = 6
+    data.typeChoices =['evbasic','random','afexploit','checkfold']
+    data.player1type = data.player2type = data.player3type = 0
+    data.blind = 0
+    data.numHands = 0
+    data.pace = 0
+    loadBackground(data)
+
+
+    
+
+def initButtons(data):
+    #player1 up/down, player2 up/down, player 3 up/down, big blind, # hands, playback pace
+    for i in range(data.numButtons):  #careful with aliasing here. 
+        col = data.column
+        m = data.margin
+        f = data.fieldWidth
+        row = data.row
+        if i==0:
+            x = dict()
+            x['id'] = 'player1up'
+            x['position'] = (col+m, row)
+        elif i==1:
+            x = dict()
+            x['id'] = 'player1down'
+            x['position'] = (col+m+f, row)
+        elif i==2:
+            x = dict()
+            x['id'] = 'player2up'
+            x['position'] = (col+m, row*2)
+        elif i==3:
+            x = dict()
+            x['id'] = 'player2down'
+            x['position'] = (col+m+f,row*2)
+        elif i==4:
+            x = dict()
+            x['id'] = 'player3up'
+            x['position'] = (col+m,row*3)
+        elif i==5:
+            x = dict()
+            x['id'] = 'player3down'
+            x['position'] = (col+m+f,row*3)
+        elif i==6:
+            x = dict()
+            x['id'] = 'blindup'
+            x['position'] = (col+m, row*4)
+        elif i==7:
+            x = dict()
+            x['id'] = 'blinddown'
+            x['position'] = (col+m+f, row*4)
+        elif i==8:
+            x = dict()
+            x['id'] = 'handsup'
+            x['position'] = (col+m,row*5)
+        elif i==9:
+            x = dict()
+            x['id'] = 'handsdown'
+            x['position'] = (col+m+f, row*5)
+        elif i==10:
+            x = dict()
+            x['id'] = 'paceup'
+            x['position'] = (col+m, row*6)
+        elif i==11:
+            x = dict()
+            x['id'] = 'pacedown'
+            x['position'] = (col+m+f, row*6)
+        #init numPresses generally
+        x['numPresses'] = 0
+        data.buttons.append(x)
+
+def drawTags(canvas,data): 
+    for i in range(1,data.numRows+1):
+        currText = ''
+        if i==1:
+            currText = 'Player 1 type:'
+        elif i==2:
+            currText = 'Player 2 type:'
+        elif i==3:
+            currText = 'Player 3 type:'
+        elif i==4:
+            currText = 'Big Blind:'
+        elif i==5:
+            currText = "Hands to Play:"
+        elif i==6:
+            currText = "Playback Pace:"
+        canvas.create_text(50,i*data.row+10, text = currText)
+
+def drawButtons(canvas,data):
+    b = data.buttonSize
+    k = data.buttonSize/5
+    for button in data.buttons:
+        (x0,y0) = button['position']
+        if 'down' in button['id']:
+            #draw down button
+            v1  = (x0+k,y0+k)
+            v2 = (x0+b-k,y0+k)
+            v3 = (x0+b/2, y0+b-k)
+            canvas.create_polygon(v1,v2,v3, fill = 'red')
+        elif 'up' in button['id']:
+            #draw up button
+            v1 = (x0+b/2, y0+k)
+            v2 = (x0+k, y0+b-k)
+            v3 = (x0+b-k, y0+b-k)
+            canvas.create_polygon(v1,v2,v3,fill = 'red')
+
+
+
+def mousePressed(event, data):
+    for button in data.buttons:
+        (x0,y0) = button['position']
+        b = data.buttonSize
+        #(x1,y1) = (x0+b,y0+b)
+        if rectanglesOverlap(event.x,event.y,1,1,x0,y0,b,b):
+            button['numPresses']+=1
+    buttonUpdate(data)
+
+
+def buttonUpdate(data):
+    for button in data.buttons:
+        curr = button['numPresses']
+        if button['id']=='player1up':
+            data.player1type= (curr)%len(data.typeChoices)
+        elif button['id']=='player1down':
+            data.player1type= (data.player1type-curr)%len(data.typeChoices)
+        elif button['id']=='player2up':
+            data.player2type= (curr)%len(data.typeChoices)
+        elif button['id']=='player2down':
+            data.player2type= (data.player2type-curr)%len(data.typeChoices)
+        elif button['id']=='player3up':
+            data.player3type= (curr)%len(data.typeChoices)
+        elif button['id']=='player3down':
+            data.player3type= (data.player3type-curr)%len(data.typeChoices)
+        elif button['id'] == 'blindup':
+            data.blind = curr
+        elif button['id'] == 'blinddown':
+            data.blind -= curr
+            if data.blind<0: data.blind=0
+        elif button['id'] == 'paceup':
+            data.pace = curr
+        elif button['id'] == 'pacedown':
+            data.pace -= curr
+            if data.pace<0: data.pace= 0
+        elif button['id'] == 'handsup':
+            data.numHands = curr
+        elif button['id'] == 'handsdown':
+            data.numHands -=  curr 
+            if data.numHands<0: data.numHands = 0
+
+
+
+
+#from my submission of hw1:
+def rectanglesOverlap(left1, top1, width1, h1, left2, top2, width2, h2):
+    if (left1+width1>=left2 and 
+        top1+h1>=top2 and 
+        top2+h2>=top1 and left1<=left2+width2):
+        return True
+    elif (left1+width1>=left2 and 
+        top2+h2>=top1 and 
+        top2<=top1+h1 and left1<=left2+width2):
+        return True
+    elif (left2+width2<=left1+width1 and 
+        top1+h1>=top2 and 
+        top1+h1<=top2+h2 and left2+width2>=left1):
+        return True
+    elif (left2+width2<=left1+width1 and 
+        top2+h2>=top1 and 
+        top2+h2<=top1+h1 and left2+width2>=left1):
+        return True
+    else:
+        return False
+
+def drawSelections(canvas,data):
+    for i in range(1,data.numRows+1):
+        currText = ''
+        if i==1:
+            currText = data.typeChoices[data.player1type]
+        elif i==2:
+            currText = data.typeChoices[data.player2type]
+        elif i==3:
+            currText = data.typeChoices[data.player3type]
+        elif i==4:
+            currText = str(data.blind)
+        elif i==5:
+            currText = str(data.numHands)
+        elif i==6:
+            currText = str(data.pace)
+        canvas.create_text(data.column+75,i*data.row+7, text = currText)
+
+
+
+
+def keyPressed(event, data):
+    if event.keysym == 'r':
+        init(data)
+    pass
+
+def timerFired(data):
+    
+    pass
+
+def redrawAll(canvas, data):
+    # draw in canvas
+    drawButtons(canvas,data)
+    drawTags(canvas, data)
+    drawSelections(canvas, data)
+    pass
+
+def buttonParse(event):
+    startingStack = setHands(handsToPlay)
+    botTuple = setBotTypes('afexploit','evbasic','random')
+    writeFile('filename1.pickle', botTuple,True)
+    writeFile('filename2.pickle',startingStack,True)
+
+
+
+
+def loadBackground(data):
+    data.background = [ ]
+    filename = "dogs.gif"
+    data.background.append(PhotoImage(file=filename))
+
+
+
+
+####################################
+# run from 15-112 course notes
+####################################
+
+def run(width=300, height=300):
+    def redrawAllWrapper(canvas, data):
+        canvas.delete(ALL)
+        redrawAll(canvas, data)
+        canvas.update()    
+
+    def mousePressedWrapper(event, canvas, data):
+        mousePressed(event, data)
+        redrawAllWrapper(canvas, data)
+
+    def keyPressedWrapper(event, canvas, data):
+        keyPressed(event, data)
+        redrawAllWrapper(canvas, data)
+
+    def timerFiredWrapper(canvas, data):
+        timerFired(data)
+        redrawAllWrapper(canvas, data)
+        # pause, then call timerFired again
+        canvas.after(data.timerDelay, timerFiredWrapper, canvas, data)
+    # Create root before calling init (so we can create images in init)
+    root = Tk()
+    # Set up data and call init
+    class Struct(object): pass
+    data = Struct()
+    data.width = width
+    data.height = height
+    data.timerDelay = 250 # milliseconds
+    init(data)
+    # create the root and the canvas
+    canvas = Canvas(root, width=data.width, height=data.height)
+    canvas.pack()
+    # set up events
+    root.bind("<Button-1>", lambda event:
+                            mousePressedWrapper(event, canvas, data))
+    root.bind("<Key>", lambda event:
+                            keyPressedWrapper(event, canvas, data))
+    timerFiredWrapper(canvas, data)
+    # and launch the app
+    root.mainloop()  # blocks until window is closed
+    print("bye!")
+
+run(450, 450)
+
+
