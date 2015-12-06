@@ -1,0 +1,309 @@
+
+from tkinter import *
+from settings_handler import *
+
+import pickle
+
+###############################
+#          GRAPHICS
+###############################
+
+
+def init(data):
+    data.playerSize = 45
+    data.player1pos = (15+data.playerSize,data.height/2)
+    data.player2pos = (data.width/2,data.height-15-data.playerSize)
+    data.player3pos = (data.width-15-data.playerSize,data.height/2)
+    data.playerPositions = [data.player1pos,data.player2pos,data.player3pos]
+    data.playerNames = ['player1','player2','player3']
+    data.readoutPositions = [(i,j-100) for (i,j) in data.playerPositions]
+    data.allHistories = readFile('filename8.pickle',True)
+    (data.blind, startingStack) = readFile('filename2.pickle',True)
+    data.stackSizes = [startingStack]*3
+    data.board = []
+    #make sure data.playerCards is filled
+    data.playerCards = [['back','back'],['back','back'],['back','back']]
+    data.botTuple = readFile('filename1.pickle',True)
+    loadPlayingCardImages(data) 
+    data.cardOffset = 85
+    data.boardSize = 230
+    data.timerCount = 0
+    data.potSize = 0
+    data.readoutCount = 0
+    data.gameOver = False
+    data.potBoxSize = 70
+    data.numHands = 0 
+    data.seen = None
+    data.pace = readFile('filename7.pickle',True)
+
+def mousePressed(event, data):
+    # use event.x and event.y
+    pass
+
+def keyPressed(event, data):
+    # use event.char and event.keysym
+    pass
+
+def timerFired(data):
+    data.pace = 5
+    if data.timerCount%data.pace == 0:
+        data.readoutCount=data.timerCount//data.pace
+    
+    data.timerCount+=1
+
+def parseEvent(data,event):
+    if event==[]: #empty
+        return None
+    elif event[0] == 'pot':   #pot
+       # data.potSize=event[1]
+        return None 
+    elif event[0] == 'numhands':
+        data.numHands = event[1]
+    elif len(event)>=3 and type(event[1])==str and type(event)==list:  #board
+        data.board=event
+        return 'board'
+    elif ':' in event:  #game event
+        eventList = event.split(':')
+        action = eventList[0]
+        player = int(eventList[-1][-1])
+        try:
+            quantity = int(eventList[1])    #some actions have no quantity
+            return (action,player,quantity)
+        except:
+            return (action,player)  
+    elif 'player' in event[0]:  #player
+        player = int(event[0][-1])  #player index int
+        hole = event[1]
+        stack = event[2]
+        return ('playerEvent', player,hole,stack)
+
+
+def redrawAll(canvas, data):
+    #table
+    canvas.create_rectangle(5,5,data.width-5,data.height-5,fill = 'orange4')
+    canvas.create_rectangle(10,10,data.width-10,data.height-10,fill = 'green4')
+
+    #gametext
+    canvas.create_text(20,30,text = 'Players: %s' % ' '.join(data.botTuple),anchor = 'sw')
+
+    #players
+    drawPlayers(canvas,data)
+
+    #board
+    (x0,y0,x1,y1) = (data.width/2-data.boardSize,data.height/2-100,data.width/2+data.boardSize,data.height/2)
+    canvas.create_rectangle(x0,y0,x1,y1,fill=  'red4')
+
+    #boardCards
+    drawBoardCards(canvas,data)
+
+    #drawPot
+    drawPot(canvas,data)
+
+    #readout
+    if data.gameOver:
+        canvas.create_text(data.width/2, 40, text = 'Game Over')
+    if data.readoutCount!=None and data.readoutCount>len(data.allHistories)-1 and not data.gameOver:
+        canvas.create_text(data.width/2, 40, text = 'Game Over')
+        data.gameOver = True
+    if data.readoutCount==None or data.readoutCount>len(data.allHistories)-1:
+        pass
+    else:
+        currEvent = data.allHistories[data.readoutCount]
+        print('currEvent',currEvent)
+        readOut = parseEvent(data,currEvent)
+        print('readout',readOut)
+        if readOut!=None:
+            if readOut=='board':
+                drawBoardCards(canvas,data)
+            elif readOut == 'pot':
+                drawPot(canvas,data)
+            elif readOut[0] == 'playerEvent':
+                assert(len(readOut[2])==2)  #player always has 2 hole cards
+                data.playerCards[readOut[1]-1] = readOut[2] #index offset 
+                #data.stackSizes[readOut[1]-1] = int(readOut[3])
+                drawPlayers(canvas,data)
+            elif type(readOut)==tuple:   #action that adds to pot, takes from player stack
+                if data.seen == None:
+                    data.seen = readOut
+                elif data.seen == readOut:  #prevent same action from repeat recording
+                    pass
+                else:
+                    try:
+                        (action,player,quantity) = readOut
+                    except:
+                        (action,player) = readOut
+                    cutStack = ['POST','CALL','TIE','BET','RAISE']
+                    padStack = ['WIN','REFUND']
+                    if action in cutStack:
+                        data.stackSizes[player-1] -= quantity
+                        data.potSize += quantity
+                    elif action in padStack:
+                        data.stackSizes[player-1] += quantity
+                        data.potSize -= quantity 
+
+                    drawAction(canvas,data,currEvent)
+                    data.seen = readOut
+
+
+        
+
+
+def drawAction(canvas,data,event):
+    (actionX,actionY) = data.playerPositions[int(event[-1])-1]  #-1 for list indexing
+    actionY-=17
+    eventList = event.split(':')
+    action = eventList[0]
+    player = int(eventList[-1][-1])
+    try:
+        quantity = int(eventList[1])    #some actions have no quantity
+        canvas.create_text(actionX,actionY, text = "%s:%d" % (action,quantity), fill  = 'blue')
+    except:
+        canvas.create_text(actionX,actionY, text = "%s" % action, fill = 'blue')
+
+
+
+def drawPot(canvas,data):
+    (x0,y0,x1,y1) = (data.width/2-data.potBoxSize,100-data.potBoxSize/2,data.width/2+data.potBoxSize,100+data.potBoxSize/2)
+    canvas.create_rectangle(x0,y0,x1,y1,fill = 'red4')
+    canvas.create_text(data.width/2, 100, text = 'POT: %d' % data.potSize)
+    canvas.create_text(data.width/2,115, text = 'HANDS PLAYED: %d' % data.numHands)
+
+
+
+def drawBoardCards(canvas,data):
+    initX = data.width/2-data.boardSize+25
+    y0 = data.height/2-98
+    count = 0 
+    while len(data.board)<5:
+        data.board.append('back')
+
+    for card in data.board:
+        if card!='back':
+            (rank,suit) = getRankSuit(card)
+            canvas.create_image(initX+count*data.cardOffset,y0,image = getPlayingCardImage(data,rank,suit),anchor='nw')
+        else:
+            canvas.create_image(initX+count*data.cardOffset,y0,image = getSpecialPlayingCardImage(data,'back'),anchor = 'nw')
+        count+=1
+
+
+def getRankSuit(card):
+    #return (rank,suit) tuple from string pair representation of cards
+    if card == 'back':
+        return 'back'
+    rank = card[0]
+    suit = card[1]
+    if rank not in list(range(2,10)):
+        if rank == 'A':
+            rank = 1
+        elif rank == 'K':
+            rank = 13
+        elif rank == 'Q':
+            rank = 12
+        elif rank == 'T':
+            rank = 10
+        elif rank == 'J':
+            rank = 11
+    rank = int(rank)
+    return (rank,suit)
+
+
+def drawPlayers(canvas,data):
+    playerCount = 0
+    for player in data.playerPositions:
+        d = data.playerSize
+        (x0,y0,x1,y1) = (player[0]-d,player[1]-25,player[0]+d,player[1]+25)
+        canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
+        canvas.create_text(player[0],player[1], text = '%s' % data.botTuple[playerCount].upper())
+        print('stacks',player, data.stackSizes)
+        canvas.create_text(player[0],player[1]+15, text = '%d' % data.stackSizes[playerCount])
+        currPlayer =  list(map(getRankSuit, data.playerCards[playerCount]))
+        print(currPlayer,playerCount,data.playerCards)
+        if playerCount==0:
+            initX = player[0]+d+50
+            initY = player[1]
+        elif playerCount==1:
+            initX = player[0]-data.cardOffset/2-5
+            initY = player[1]-data.cardOffset
+        elif playerCount==2:
+            initX = player[0]-d-50-data.cardOffset
+            initY = player[1]
+        for i in range(2):
+            if type(currPlayer[i])==tuple:
+                rank = currPlayer[i][0]
+                suit = currPlayer[i][1]
+                canvas.create_image(initX+data.cardOffset*i,initY,image = getPlayingCardImage(data,rank,suit))
+            else:
+                canvas.create_image(initX+data.cardOffset*i,initY,image = getSpecialPlayingCardImage(data,'back'))
+        playerCount+=1
+    
+
+
+#loadPlayingCardImages, getPlayingCardImage, getSpecialPlayingCardImage from 15-112 graphics course notes
+
+def loadPlayingCardImages(data):
+    cards = 55 # cards 1-52, back, joker1, joker2
+    data.cardImages = [ ]
+    for card in range(cards):
+        rank = (card%13)+1
+        suit = "cdhsx"[card//13]
+        filename = "playing-card-gifs/%s%d.gif" % (suit, rank)
+        data.cardImages.append(PhotoImage(file=filename))
+
+def getPlayingCardImage(data, rank, suitName):
+    suitName = suitName[0].lower() # only car about first letter
+    suitNames = "cdhsx"
+    assert(1 <= rank <= 13)
+    assert(suitName in suitNames)
+    suit = suitNames.index(suitName)
+    return data.cardImages[13*suit + rank - 1]
+
+def getSpecialPlayingCardImage(data, name):
+    specialNames = ["back", "joker1", "joker2"]
+    return getPlayingCardImage(data, specialNames.index(name)+1, "x")
+
+
+################################
+#graphics run function from 15-112 course notes
+###############################
+
+
+def runFootage(width=1200, height=600):
+    def redrawAllWrapper(canvas, data):
+        canvas.delete(ALL)
+        redrawAll(canvas, data)
+        canvas.update()    
+
+    def mousePressedWrapper(event, canvas, data):
+        mousePressed(event, data)
+        redrawAllWrapper(canvas, data)
+
+    def keyPressedWrapper(event, canvas, data):
+        keyPressed(event, data)
+        redrawAllWrapper(canvas, data)
+
+    def timerFiredWrapper(canvas, data):
+        timerFired(data)
+        redrawAllWrapper(canvas, data)
+        # pause, then call timerFired again
+        canvas.after(data.timerDelay, timerFiredWrapper, canvas, data)
+    # Create root before calling init (so we can create images in init)
+    root = Tk()
+    # Set up data and call init
+    class Struct(object): pass
+    data = Struct()
+    data.width = width
+    data.height = height
+    data.timerDelay = 250 # milliseconds
+    init(data)
+    # create the root and the canvas
+    canvas = Canvas(root, width=data.width, height=data.height)
+    canvas.pack()
+    # set up events
+    root.bind("<Button-1>", lambda event:
+                            mousePressedWrapper(event, canvas, data))
+    root.bind("<Key>", lambda event:
+                            keyPressedWrapper(event, canvas, data))
+    timerFiredWrapper(canvas, data)
+    # and launch the app
+    root.mainloop()  # blocks until window is closed
+    print("bye!")

@@ -2,33 +2,38 @@
 Hand #1, player1 (6), player2 (6), player3 (6)
 player2 posts the blind of 1
 player3 posts the blind of 2
-Dealt to player1 [Ks 4s]
-Dealt to player2 [6c 7s]
-Dealt to player3 [As 8h]
-player1 raises to 5
-### ILLEGAL ACTION: Check [player=player2]
-player2 folds
-player3 folds
-player1 wins the pot (8)
-
-Hand #2, player3 (4), player1 (9), player2 (5)
-player1 posts the blind of 1
-player2 posts the blind of 2
-Dealt to player3 [Ah 6d]
-Dealt to player1 [2d Th]
-Dealt to player2 [Qc 3c]
-player3 folds
+Dealt to player1 [6h Ac]
+Dealt to player2 [Ks Qc]
+Dealt to player3 [2d 6d]
+### ILLEGAL ACTION: Check [player=player1]
 player1 folds
-player2 wins the pot (3)
+player2 raises to 6
+player3 calls 6
+*** FLOP *** (12) [6c Qs 5c]
+*** TURN *** (12) [6c Qs 5c] [3s]
+*** RIVER *** (12) [6c Qs 5c 3s] [4d]
+player2 shows [Ks Qc]
+player3 shows [2d 6d]
+player3 wins the pot (12)
 
-Hand #3, player2 (6), player3 (4), player1 (8)
+Hand #2, player3 (12), player1 (6), player2 (0)
 player3 posts the blind of 1
 player1 posts the blind of 2
-Dealt to player2 [7s 8d]
-Dealt to player3 [Kd Kh]
-Dealt to player1 [8c 5h]
-### ILLEGAL ACTION: Check [player=player2]
-player2 folds
-player3 folds
-player1 wins the pot (3)
+Dealt to player3 [Ad 5s]
+Dealt to player1 [8c 3d]
+Dealt to player2 [6d 3s]
+player3 raises to 4
+### ILLEGAL ACTION: Check [player=player1]
+player1 folds
+player3 wins the pot (6)
+
+Hand #3, player1 (4), player3 (14), player2 (0)
+player1 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player2 [4s 4h]
+Dealt to player3 [8d Tc]
+Dealt to player1 [2h 6h]
+### ILLEGAL ACTION: Check [player=player1]
+player1 folds
+player3 wins the pot (3)
 
