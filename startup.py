@@ -29,6 +29,7 @@ def init(data):
     loadBackground(data)
     data.splash = True    #true = splash screen, false = setting screen
     data.exported = False
+    data.maxHandsAllowed = 100
     initInputParameters(data)
 
 def initInputParameters(data):
@@ -134,6 +135,8 @@ def mousePressedInput(event, data):
     if rectanglesOverlap(event.x,event.y,1,1,x-b/2,y-b/2,b,b):
         data.handButton['numPresses']+=1
         data.numHands*=10
+        if data.numHands>data.maxHandsAllowed:   #max Hands = 100
+            data.numHands=data.maxHandsAllowed
     buttonUpdate(data)
 
 
