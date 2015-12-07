@@ -1,6 +1,3 @@
-
-import socket
-import sys
 import itertools as it 
 import random
 import copy

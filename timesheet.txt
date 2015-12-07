@@ -19,8 +19,10 @@ result: AfExploit beats EvBasic 99% of the time
 
 12/3 - 5 hours - attempted to do weird write/read from file with painful string manipulation. later discovered pickle.
 
-12/4 - 10 hours - graphics
+12/4 - 10 hours - graphics: game footage
 
+12/5 - 10 hours - game footage debugging, splash screen, hooking front end to back end, ran into major multiprocessing bug 
 
+12/6 - 6 hours - graphics debugging, polished game footage
 
 

@@ -1,5 +1,4 @@
 import socket
-import sys
 import copy
 import os
 import multiprocessing
