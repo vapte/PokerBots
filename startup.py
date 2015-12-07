@@ -112,6 +112,8 @@ def redrawAllSplash(canvas, data):
     splashText = "Welcome to the PokerBots Suite\n Click anywhere to continue"
     canvas.create_image(data.width/2, data.height/2, image = data.background)
     canvas.create_text(data.width/2, data.height/3, text = splashText, fill = 'white', font = "msserif 20")
+     #I should probably put my name on this 
+    canvas.create_text(data.width-77,data.height-5, text = "Created by Vineet Apte", fill = 'white',  font = 'msserif 14 bold')
 
 ### Input Screen (data.splash == False):
 
@@ -160,6 +162,7 @@ def buttonUpdate(data):
         elif button['id'] == 'pacedown':
             data.pace -= curr
             if data.pace<=0: data.pace= 1
+            if data.pace>10: data.pace = 10
        
 
 
@@ -198,7 +201,7 @@ def drawSelections(canvas,data):
         elif i==5:
             currText = str(data.numHands)
         elif i==6:
-            currText = str(data.pace)
+            currText = str(min(100*data.pace/10, 100))+'%'
         canvas.create_text(data.column+75,i*data.row+7, text = currText, fill = 'white',  font = 'msserif 14 bold')
 
 
@@ -220,8 +223,8 @@ def redrawAllInput(canvas,data):
     drawTags(canvas, data)
     drawSelections(canvas, data)
 
-    #I should probably put my name on this 
-    canvas.create_text(data.width-77,data.height-5, text = "Created by Vineet Apte", fill = 'white',  font = 'msserif 14 bold')
+    #close when done message
+    canvas.create_text(data.width/2, data.height-100, text = "Close when done", fill = 'white', font = 'msserif 18 bold')
 
     #reset
     if data.exported:
@@ -243,7 +246,7 @@ def drawTags(canvas,data):
         elif i==5:
             currText = "Hands to Play:"
         elif i==6:
-            currText = "Playback Pace:"
+            currText = "Playback Speed:"
         canvas.create_text(100,i*data.row+7, text = currText, fill = 'white', font = 'msserif 14 bold')
 
 def drawButtons(canvas,data):

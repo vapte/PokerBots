@@ -79,13 +79,13 @@ def redrawAll(canvas, data):
     canvas.create_rectangle(10,10,data.width-10,data.height-10,fill = 'green4')
 
     #gametext
-    canvas.create_text(20,30,text = 'Players: %s' % ' '.join(data.botTuple),anchor = 'sw', font = 'msserif 12 bold')
+    canvas.create_text(20,30,text = 'Players: %s' % ', '.join(data.botTuple),anchor = 'sw', font = 'msserif 12')
 
     #players
     drawPlayers(canvas,data)
 
     #board
-    (x0,y0,x1,y1) = (data.width/2-data.boardSize,data.height/2-152,data.width/2+data.boardSize,data.height/2-52)
+    (x0,y0,x1,y1) = (data.width/2-data.boardSize,data.height/2-172,data.width/2+data.boardSize,data.height/2-72)
     canvas.create_rectangle(x0,y0,x1,y1,fill=  'red4')
 
     #boardCards
@@ -94,6 +94,7 @@ def redrawAll(canvas, data):
     #drawPot
     drawPot(canvas,data)
 
+    
     #readout
     if data.gameOver:
         canvas.create_text(data.width/2, 40, text = 'Game Over', font = 'msserif 12 bold')
@@ -166,15 +167,15 @@ def drawAction(canvas,data,event):
 
 def drawPot(canvas,data):
     (x0,y0,x1,y1) = (data.width/2-data.potBoxSize,100-data.potBoxSize/2,data.width/2+data.potBoxSize,100+data.potBoxSize/2)
-    #canvas.create_rectangle(x0,y0-52,x1,y1-52,fill = 'red4')
-    canvas.create_text(data.width/2, 100, text = 'POT: %d' % data.potSize, font = 'msserif 12 bold')
-    canvas.create_text(data.width/2,115, text = 'HANDS PLAYED: %d' % data.numHands, font = 'msserif 12 bold')
+    canvas.create_rectangle(x0,60,x1,110,fill = 'floralwhite')
+    canvas.create_text(data.width/2, 80, text = 'POT: %d' % data.potSize, font = 'msserif 12')
+    canvas.create_text(data.width/2,95, text = 'HANDS PLAYED: %d' % data.numHands, font = 'msserif 12')
 
 
 
 def drawBoardCards(canvas,data):
     initX = data.width/2-data.boardSize+25
-    y0 = data.height/2-150
+    y0 = data.height/2-150-20
     count = 0 
     while len(data.board)<5:
         data.board.append('back')
