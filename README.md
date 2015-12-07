@@ -22,15 +22,15 @@ Prerequisites:
 
 To run this project, you will need the following modules:
 
-numpy
-socket
-os
-multiprocessing
-time
-pickle
-tkinter
-itertools
-random
+numpy,
+socket,
+os,
+multiprocessing,
+time,
+pickle,
+tkinter,
+itertools,
+random,
 copy
 
 Installation:
