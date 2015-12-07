@@ -1,4 +1,3 @@
-import argparse
 import socket
 import sys
 import copy
@@ -19,7 +18,6 @@ from startup import *
 
 def startBot(num,args,botType):  #bot number, args
         num = int(num)
-        print(args)
         # Create a socket connection to the engine.
         print('Connecting to %s:%d' % (args['host'], args['port']+num))
         try:
@@ -38,16 +36,16 @@ def startBot(num,args,botType):  #bot number, args
 
 def initThreads(botTuple,args):
         botList = list(botTuple)
-        botTuple = botList.sort(key = lambda x: (x not in ['random','checkfold']))
-        print(botTuple)
+        botTuple = sorted(botList, key = lambda x: (x not in ['random','checkfold']))
+        botTuple = tuple(botTuple)
         processes = []
+        portCount = 0
         for i in range(len(botTuple)):
-            if botTuple[i]!='random' and botTuple[i]!='checkfold': 
-                currArgs = (portNum, i,args,botTuple[i])
+            if botTuple[i]!='random' and botTuple[i]!='checkfold':  #player made bot
+                currArgs = (portCount,args,botTuple[i])
                 currProcess = multiprocessing.Process(target=startBot,args=currArgs)
                 processes.append(currProcess)
-            else:
-                pass
+                portCount+=1
         for process in processes:
             process.start()
             time.sleep(0.1)
@@ -65,18 +63,12 @@ if __name__ == '__main__':
     killPickles()
     runUI()
 
-    runJar.terminate()
     runJar = multiprocessing.Process(target = subprocess.call, args = ["./runjar.sh"])
     runJar.start()
     time.sleep(1)
 
     botTuple = readFile('filename1.pickle', True)
     assert(len(botTuple)==3)
-
-    # parser = argparse.ArgumentParser(description='A Pokerbot.', add_help=False, prog='pokerbot')
-    # parser.add_argument('-h', dest='host', type=str, default='localhost', help='Host to connect to, defaults to localhost')
-    # parser.add_argument('port', metavar='PORT', type=int, help='Port on host to connect to')
-    # args = parser.parse_args()
 
     processes = initThreads(botTuple,{'host':'localhost','port':3000})
 

@@ -37,11 +37,9 @@ def init(data):
     data.pace = readFile('filename7.pickle',True)
 
 def mousePressed(event, data):
-    # use event.x and event.y
     pass
 
 def keyPressed(event, data):
-    # use event.char and event.keysym
     pass
 
 def timerFired(data):
@@ -236,10 +234,10 @@ def drawPlayers(canvas,data):
             else:
                 canvas.create_image(initX+data.cardOffset*i,initY,image = getSpecialPlayingCardImage(data,'back'))
         playerCount+=1
-    
 
 
 #loadPlayingCardImages, getPlayingCardImage, getSpecialPlayingCardImage from 15-112 graphics course notes
+#playing-card-gifs and all its contents from 15-112 graphics course notes
 
 def loadPlayingCardImages(data):
     cards = 55 # cards 1-52, back, joker1, joker2

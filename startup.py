@@ -10,6 +10,8 @@ import pickle
 from settings_handler import *
 
 
+## @TODO: DEBUG 10X button
+
 
 def init(data):
     data.numButtons = 12
@@ -20,18 +22,20 @@ def init(data):
     data.buttonSize = 15
     data.fieldWidth = 120
     data.row = 43
+    data.handButton = {'id':'handX', 'numPresses': 0, 'position': 'placeholder'}
     initButtons(data)
     data.numRows = 6
     data.typeChoices =['evbasic','random','afexploit','checkfold']
     loadBackground(data)
     data.splash = True    #true = splash screen, false = setting screen
+    data.exported = False
     initInputParameters(data)
 
 def initInputParameters(data):
     data.player1type = data.player2type = data.player3type = 0
-    data.blind = 0
-    data.numHands = 0
-    data.pace = 0
+    data.blind = 1
+    data.numHands = 1
+    data.pace = 1
 
 def initButtons(data):
     #player1 up/down, player2 up/down, player 3 up/down, big blind, # hands, playback pace
@@ -80,6 +84,7 @@ def initButtons(data):
             x = dict()
             x['id'] = 'handsdown'
             x['position'] = (col+m+f, row*5)
+            data.handButton['position'] = (col+m+f+45,row*5+6)
         elif i==10:
             x = dict()
             x['id'] = 'paceup'
@@ -117,6 +122,16 @@ def mousePressedInput(event, data):
         #(x1,y1) = (x0+b,y0+b)
         if rectanglesOverlap(event.x,event.y,1,1,x0,y0,b,b):
             button['numPresses']+=1
+            if button['id'] == 'handsup':
+                data.numHands += 1
+            elif button['id'] == 'handsdown':
+                data.numHands -=  1
+            if data.numHands<=0: data.numHands = 1
+
+    (x,y) = data.handButton['position']
+    if rectanglesOverlap(event.x,event.y,1,1,x-b/2,y-b/2,b,b):
+        data.handButton['numPresses']+=1
+        data.numHands*=10
     buttonUpdate(data)
 
 
@@ -145,11 +160,7 @@ def buttonUpdate(data):
         elif button['id'] == 'pacedown':
             data.pace -= curr
             if data.pace<=0: data.pace= 1
-        elif button['id'] == 'handsup':
-            data.numHands = curr
-        elif button['id'] == 'handsdown':
-            data.numHands -=  curr 
-            if data.numHands<=0: data.numHands = 1
+       
 
 
 #from my submission of hw1:
@@ -188,7 +199,7 @@ def drawSelections(canvas,data):
             currText = str(data.numHands)
         elif i==6:
             currText = str(data.pace)
-        canvas.create_text(data.column+75,i*data.row+7, text = currText, fill = 'white',  font = 'Arial 14 bold')
+        canvas.create_text(data.column+75,i*data.row+7, text = currText, fill = 'white',  font = 'msserif 14 bold')
 
 
 def keyPressedInput(event,data):
@@ -196,6 +207,7 @@ def keyPressedInput(event,data):
         initInputParameters(data)
     elif event.keysym == 'c':
         export(data)
+        data.exported = True
     pass
 
 
@@ -209,11 +221,13 @@ def redrawAllInput(canvas,data):
     drawSelections(canvas, data)
 
     #I should probably put my name on this 
-    canvas.create_text(data.width-77,data.height-5, text = "Created by Vineet Apte", fill = 'white',  font = 'Arial 14 bold')
+    canvas.create_text(data.width-77,data.height-5, text = "Created by Vineet Apte", fill = 'white',  font = 'msserif 14 bold')
 
     #reset
-
-    canvas.create_text(data.width-77,25, text = "Press 'r' to reset\nPress 'c' to confirm", fill = 'white',  font = 'Arial 14 bold')
+    if data.exported:
+        canvas.create_rectangle(data.width-77-70,25,data.width-77+100-30,40,fill = 'red')
+    data.exported = False
+    canvas.create_text(data.width-77,25, text = "Press 'r' to reset\nPress 'c' to confirm", fill = 'white',  font = 'msserif 14 bold')
 
 def drawTags(canvas,data): 
     for i in range(1,data.numRows+1):
@@ -230,7 +244,7 @@ def drawTags(canvas,data):
             currText = "Hands to Play:"
         elif i==6:
             currText = "Playback Pace:"
-        canvas.create_text(100,i*data.row+7, text = currText, fill = 'white', font = 'Arial 14 bold')
+        canvas.create_text(100,i*data.row+7, text = currText, fill = 'white', font = 'msserif 14 bold')
 
 def drawButtons(canvas,data):
     b = data.buttonSize
@@ -243,23 +257,22 @@ def drawButtons(canvas,data):
             v2 = (x0+b-k,y0+k)
             v3 = (x0+b/2, y0+b-k)
             canvas.create_polygon(v1,v2,v3, fill = 'red')
+            if button['id']=='handsdown': #draw hand 10x button
+                (x,y)=  data.handButton['position']
+                canvas.create_rectangle(x-b,y-b,x+b,y+b,fill= 'red',width= 0)  
+                canvas.create_text(x,y,text = '10X', fill = 'white',font = 'msserif 12 bold')
         elif 'up' in button['id']:
             #draw up button
             v1 = (x0+b/2, y0+k)
             v2 = (x0+k, y0+b-k)
             v3 = (x0+b-k, y0+b-k)
-            canvas.create_polygon(v1,v2,v3,fill = 'red')  
+            canvas.create_polygon(v1,v2,v3,fill = 'red')
+            
 
 def loadBackground(data):
     data.background = None
     filename = "dogs_background.gif"
     data.background = PhotoImage(file=filename)
-
-
-
-
-
-#############
 
 
 def export(data):
@@ -268,8 +281,8 @@ def export(data):
     choice1 = data.typeChoices[data.player1type]
     choice2 = data.typeChoices[data.player2type]
     choice3 = data.typeChoices[data.player3type]
-    botTuple = setBotTypes(choice1,choice2,choice3)
-    writeFile('filename1.pickle', botTuple,True)
+    bots = setBotTypes(choice1,choice2,choice3)
+    writeFile('filename1.pickle', bots,True)
     writeFile('filename2.pickle',(data.blind, startingStack),True)
     writeFile('filename7.pickle', data.pace, True)
 
@@ -344,7 +357,6 @@ def runUI(width=450, height=450):
     timerFiredWrapper(canvas, data)
     # and launch the app
     root.mainloop()  # blocks until window is closed
-    print("bye!")
 
 
 
