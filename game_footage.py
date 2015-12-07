@@ -8,6 +8,7 @@ import pickle
 #          GRAPHICS
 ###############################
 
+devSpeed = 300 #special timerDelay for dev
 
 def init(data):
     data.playerSize = 45
@@ -145,18 +146,21 @@ def redrawAll(canvas, data):
                     data.seen = readOut
 
 
-        
-
-
 def drawAction(canvas,data,event):
     (actionX,actionY) = data.playerPositions[int(event[-1])-1]  #-1 for list indexing
     d = data.playerSize
     (x0,y0,x1,y1) = (actionX-d,actionY-25,actionX+d,actionY+25)
-    canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
-    actionY-=8
     eventList = event.split(':')
     action = eventList[0]
     player = int(eventList[-1][-1])
+    if action in ['WIN','TIE','REFUND']:    #taking from the pot
+        canvas.create_rectangle(x0,y0,x1,y1, fill = 'green')
+    elif action in ['RAISE', 'BET', 'POST', 'CALL']:    #adding to the pot
+        canvas.create_rectangle(x0,y0,x1,y1, fill = 'red')
+    else:   #actions that don't affect the pot (directly)
+        canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
+
+    actionY-=8
     try:
         quantity = int(eventList[1])    #some actions have no quantity
         canvas.create_text(actionX,actionY, text = "%s:%d" % (action,quantity), font = 'msserif 18 bold')
@@ -188,6 +192,18 @@ def drawBoardCards(canvas,data):
             canvas.create_image(initX+count*data.cardOffset,y0,image = getSpecialPlayingCardImage(data,'back'),anchor = 'nw')
         count+=1
 
+    boardState = ''
+    if len(data.board)==3:
+        boardState = 'FLOP'
+    elif len(data.board)==4:
+        boardState = 'TURN'
+    elif len(data.board) == 5:
+        boardState = 'RIVER'
+    if data.board.count('back')==5:
+        boardState = 'PREFLOP'
+    canvas.create_text(initX+(count+1)*data.cardOffset, data.height/2-130, text = boardState, font = 'msserif 14 bold')
+
+
 
 def getRankSuit(card):
     #return (rank,suit) tuple from string pair representation of cards
@@ -218,7 +234,7 @@ def drawPlayers(canvas,data):
         canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
         canvas.create_text(player[0],player[1], text = '%s' % data.botTuple[playerCount].upper(), font = 'msserif 12 bold')
         print('stacks',player, data.stackSizes)
-        canvas.create_text(player[0],player[1]+15, text = '%d' % data.stackSizes[playerCount], font = 'msserif 12 bold')
+        canvas.create_text(player[0],player[1]+15, text = '%d' % max(data.stackSizes[playerCount],0), font = 'msserif 12 bold')
         currPlayer =  list(map(getRankSuit, data.playerCards[playerCount]))
         print(currPlayer,playerCount,data.playerCards)
         if playerCount==0:
@@ -296,7 +312,7 @@ def runFootage(width=800, height=600):
     data = Struct()
     data.width = width
     data.height = height
-    data.timerDelay = 650 # milliseconds
+    data.timerDelay = devSpeed # milliseconds
     init(data)
     # create the root and the canvas
     canvas = Canvas(root, width=data.width, height=data.height)

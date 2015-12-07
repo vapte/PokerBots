@@ -105,7 +105,8 @@ if __name__ == '__main__':
 
 
 
-        print(allHistoriesNew,len(allHistoriesNew))
+        print(allHistoriesNew)
+        
         writeFile('filename8.pickle',allHistoriesNew,True)
       
     runFootage()
