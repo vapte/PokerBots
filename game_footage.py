@@ -149,15 +149,18 @@ def redrawAll(canvas, data):
 
 def drawAction(canvas,data,event):
     (actionX,actionY) = data.playerPositions[int(event[-1])-1]  #-1 for list indexing
-    actionY-=17
+    d = data.playerSize
+    (x0,y0,x1,y1) = (actionX-d,actionY-25,actionX+d,actionY+25)
+    canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
+    actionY-=8
     eventList = event.split(':')
     action = eventList[0]
     player = int(eventList[-1][-1])
     try:
         quantity = int(eventList[1])    #some actions have no quantity
-        canvas.create_text(actionX,actionY, text = "%s:%d" % (action,quantity), fill  = 'blue', font = 'msserif 12 bold')
+        canvas.create_text(actionX,actionY, text = "%s:%d" % (action,quantity), font = 'msserif 18 bold')
     except:
-        canvas.create_text(actionX,actionY, text = "%s" % action, fill = 'blue', font = 'msserif 12 bold')
+        canvas.create_text(actionX,actionY, text = "%s" % action, font = 'msserif 18 bold')
 
 
 
@@ -292,7 +295,7 @@ def runFootage(width=800, height=600):
     data = Struct()
     data.width = width
     data.height = height
-    data.timerDelay = 250 # milliseconds
+    data.timerDelay = 650 # milliseconds
     init(data)
     # create the root and the canvas
     canvas = Canvas(root, width=data.width, height=data.height)
@@ -305,4 +308,3 @@ def runFootage(width=800, height=600):
     timerFiredWrapper(canvas, data)
     # and launch the app
     root.mainloop()  # blocks until window is closed
-    print("bye!")

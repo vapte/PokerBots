@@ -1,0 +1,203 @@
+6.176 MIT Pokerbots - player1 vs player2 vs player3 (stack=20, bb=2)
+Hand #1, player1 (20), player2 (20), player3 (20)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player1 [5h Kc]
+Dealt to player2 [Ks 4c]
+Dealt to player3 [Js 5d]
+player1 raises to 5
+player2 raises to 12
+player3 raises to 19
+player1 raises to 20
+player2 folds
+player3 folds
+player1 wins the pot (51)
+
+Hand #2, player3 (1), player1 (51), player2 (8)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [5h Jc]
+Dealt to player1 [6s 5s]
+Dealt to player2 [Ts Kd]
+player3 folds
+player1 raises to 5
+player2 raises to 8
+player1 folds
+player2 wins the pot (13)
+
+Hand #3, player2 (13), player3 (1), player1 (46)
+player3 posts the blind of 1
+player1 posts the blind of 2
+Dealt to player2 [5h Th]
+Dealt to player3 [Ks 6d]
+Dealt to player1 [Js 7s]
+player2 raises to 5
+player1 raises to 10
+player2 raises to 13
+player1 folds
+Uncalled bet of 12 returned to player2
+*** FLOP *** (12) [Tc Jc 7c]
+*** TURN *** (12) [Tc Jc 7c] [Td]
+*** RIVER *** (12) [Tc Jc 7c Td] [5c]
+player2 shows [5h Th]
+player3 shows [Ks 6d]
+player2 wins the pot (12)
+
+Hand #4, player1 (36), player2 (24), player3 (0)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player1 [6h 5c]
+Dealt to player2 [Kd Kc]
+Dealt to player3 [Ac Js]
+player1 raises to 5
+player2 raises to 11
+player1 raises to 20
+player2 raises to 24
+player1 folds
+player2 wins the pot (44)
+
+Hand #5, player2 (44), player1 (16), player3 (0)
+player2 posts the blind of 1
+player1 posts the blind of 2
+Dealt to player3 [Qd 9s]
+Dealt to player1 [Td 8d]
+Dealt to player2 [6c Ad]
+player2 raises to 5
+player1 raises to 11
+player2 raises to 16
+player1 folds
+player2 wins the pot (27)
+
+Hand #6, player1 (5), player2 (55), player3 (0)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player2 [7h 2s]
+Dealt to player3 [9d 3c]
+Dealt to player1 [2h 4s]
+player1 raises to 4
+player2 raises to 5
+player1 folds
+player2 wins the pot (9)
+
+Hand #7, player2 (59), player1 (1), player3 (0)
+player2 posts the blind of 1
+player1 posts the blind of 1
+Dealt to player1 [4c Td]
+Dealt to player2 [7c Th]
+Dealt to player3 [6c Ah]
+*** FLOP *** (2) [Jh 3d Ks]
+*** TURN *** (2) [Jh 3d Ks] [Ts]
+*** RIVER *** (2) [Jh 3d Ks Ts] [Qc]
+player1 shows [4c Td]
+player2 shows [7c Th]
+player1 ties for the pot (1)
+player2 ties for the pot (1)
+
+Hand #8, player1 (1), player2 (59), player3 (0)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [8s 2s]
+Dealt to player1 [Js 2d]
+Dealt to player2 [Tc 4h]
+Uncalled bet of 1 returned to player2
+*** FLOP *** (2) [8d 6s 3c]
+*** TURN *** (2) [8d 6s 3c] [4c]
+*** RIVER *** (2) [8d 6s 3c 4c] [4s]
+player1 shows [Js 2d]
+player2 shows [Tc 4h]
+player2 wins the pot (2)
+
+6.176 MIT Pokerbots - player3 vs player1 vs player2 (stack=20, bb=2)
+Hand #1, player1 (20), player2 (20), player3 (20)
+player2 posts the blind of 1
+player3 posts the blind of 2
+Dealt to player1 [9h 3s]
+Dealt to player2 [As Qs]
+Dealt to player3 [2s 8h]
+player1 raises to 5
+player2 raises to 12
+player3 raises to 19
+player1 raises to 20
+player2 folds
+player3 folds
+player1 wins the pot (51)
+
+Hand #2, player3 (1), player1 (51), player2 (8)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player3 [Ah 3d]
+Dealt to player1 [5d Jc]
+Dealt to player2 [Jd 3s]
+player3 folds
+player1 raises to 5
+player2 raises to 8
+player1 folds
+player2 wins the pot (13)
+
+Hand #3, player2 (13), player3 (1), player1 (46)
+player3 posts the blind of 1
+player1 posts the blind of 2
+Dealt to player2 [2s Ah]
+Dealt to player3 [3h 7d]
+Dealt to player1 [Kc Jd]
+player2 raises to 5
+player1 raises to 10
+player2 raises to 13
+player1 folds
+Uncalled bet of 12 returned to player2
+*** FLOP *** (12) [Jc 4d Qc]
+*** TURN *** (12) [Jc 4d Qc] [Td]
+*** RIVER *** (12) [Jc 4d Qc Td] [5d]
+player2 shows [2s Ah]
+player3 shows [3h 7d]
+player2 wins the pot (12)
+
+Hand #4, player1 (36), player2 (24), player3 (0)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player1 [5s 8s]
+Dealt to player2 [9d 4h]
+Dealt to player3 [2s Jc]
+player1 raises to 5
+player2 raises to 11
+player1 raises to 20
+player2 raises to 24
+player1 folds
+player2 wins the pot (44)
+
+Hand #5, player2 (44), player1 (16), player3 (0)
+player2 posts the blind of 1
+player1 posts the blind of 2
+Dealt to player3 [3h Js]
+Dealt to player1 [9s Jd]
+Dealt to player2 [7s Qh]
+player2 raises to 5
+player1 raises to 11
+player2 raises to 16
+player1 folds
+player2 wins the pot (27)
+
+Hand #6, player1 (5), player2 (55), player3 (0)
+player1 posts the blind of 1
+player2 posts the blind of 2
+Dealt to player2 [Qd 3s]
+Dealt to player3 [5s 9s]
+Dealt to player1 [Ks Td]
+player1 raises to 4
+player2 raises to 5
+player1 folds
+player2 wins the pot (9)
+
+Hand #7, player2 (59), player1 (1), player3 (0)
+player2 posts the blind of 1
+player1 posts the blind of 1
+Dealt to player1 [Th 9d]
+Dealt to player2 [Jh Qd]
+Dealt to player3 [6h Js]
+*** FLOP *** (2) [2d Ks 3h]
+*** TURN *** (2) [2d Ks 3h] [Td]
+*** RIVER *** (2) [2d Ks 3h Td] [Ac]
+player1 shows [Th 9d]
+player2 shows [Jh Qd]
+player2 wins the pot (2)
+
