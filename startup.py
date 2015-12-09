@@ -9,8 +9,6 @@ import pickle
 
 from settings_handler import *
 
-
-
 def init(data):
     data.numButtons = 12
     data.buttons = []
@@ -85,7 +83,8 @@ def redrawAllSplash(canvas, data):
     canvas.create_image(data.width/2, data.height/2, image = data.background)
     canvas.create_text(data.width/2, data.height/3, text = splashText, fill = 'white', font = "msserif 20")
      #I should probably put my name on this 
-    canvas.create_text(data.width-77,data.height-5, text = "Created by Vineet Apte", fill = 'white',  font = 'msserif 14 bold')
+    t = "Created by Vineet Apte"
+    canvas.create_text(data.width-77,data.height-5, text = t, fill = 'white',  font = 'msserif 14 bold')
 
 ### Input Screen (data.splash == False):
 

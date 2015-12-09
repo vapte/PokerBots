@@ -204,7 +204,6 @@ def drawBoardCards(canvas,data):
         else:
             canvas.create_image(initX+count*data.cardOffset,y0,image = getSpecialPlayingCardImage(data,'back'),anchor = 'nw')
         count+=1
-
     boardState = ''
     if data.board.count('back')==2:
         boardState = 'FLOP'
@@ -244,11 +243,12 @@ def drawPlayers(canvas,data):
     for player in data.playerPositions:
         d = data.playerSize
         (x0,y0,x1,y1) = (player[0]-d,player[1]-25,player[0]+d,player[1]+25)
+        #draw player box, type, stack
         canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
         canvas.create_text(player[0],player[1], text = '%s' % data.botTuple[playerCount].upper(), font = 'msserif 12 bold')
-        print('stacks',player, data.stackSizes)
         canvas.create_text(player[0],player[1]+15, text = '%d' % max(data.stackSizes[playerCount],0), font = 'msserif 12 bold')
         currPlayer =  list(map(getRankSuit, data.playerCards[playerCount]))
+        #draw hole cards
         if playerCount==0:
             initX = player[0]+d+50
             initY = player[1]

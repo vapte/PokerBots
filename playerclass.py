@@ -437,29 +437,22 @@ AF>1.5        Aggressive
     def monteCarloTest(Player,allCards,returnProb = False):
         #runs Monte Carlo sim to get average best hand if cards are added
         #to community
-
-        simNum = 100
-        simCount = 0
-        cumePower = 0
+        simNum,simCount,cumePower = 100,0,0
         adjustedFullDeck = copy.copy(Player.fullDeck) 
-
         assert(len(allCards)<=6) 
-
         if returnProb:
             beatCount = 0
             currBest = Player.bestHand(allCards)
-
         #removing hole cards
         for card in adjustedFullDeck:
             if card in allCards:
-                adjustedFullDeck.remove(card)
+                adjustedFullDeck.remove(card)   #remove hole/board cards
         initAdjustedFullDeck = copy.copy(adjustedFullDeck)
-
         while simCount<=simNum:
             adjustedFullDeck = copy.copy(initAdjustedFullDeck)
             currCards = copy.copy(allCards)
             if len(allCards)<=6:    #river
-                nextCard = random.choice(adjustedFullDeck)
+                nextCard = random.choice(adjustedFullDeck)  #pull random card
                 currCards+=[nextCard]
                 adjustedFullDeck.remove(nextCard)
                 if len(allCards)<=5:  #turn
@@ -469,7 +462,7 @@ AF>1.5        Aggressive
                     if len(allCards)==2: #flop
                         nextCard3 = random.choice(adjustedFullDeck)
                         currCards+=[nextCard3]
-            if Player.bestHand(currCards)>currBest:
+            if Player.bestHand(currCards)>currBest: #if newhand > curr best hand
                 beatCount+=1
             cumePower+=Player.bestHand(currCards)
             simCount+=1
@@ -499,18 +492,16 @@ AF>1.5        Aggressive
         def twoPair(hand,handStrVals):
             valList = list(set(handStrVals))
             counts = []
-            for i in counts:
-                counts+=handStrVals.count(i)
+            for i in valList:
+                counts+=[handStrVals.count(i)]
             if sorted(counts)==[1,2,2]:
                 return True
         assert(len(hand)==5)    #texas hold'em hands have 5 cards
         handStr = ''.join(hand)
         handStrVals = ''.join(sorted([x[:-1] for x in hand])) #just values
         handStrSuits = ''.join([x[-1] for x in hand]) #just suits
-
-        #royal flush
         if handStrVals in Player.valuesStr and len(set(handStrSuits))==1:
-            handType = 'straightflush' #royal flush is just straight flush with maxPower
+            handType = 'straightflush' 
         elif highFreq(handStrVals)==4:
             handType = '4ofakind'
         elif len(set(handStrVals))==2:
@@ -527,8 +518,6 @@ AF>1.5        Aggressive
             handType =  '1pair'
         else:
             handType =  'highcard'
-
-        #particular power within hand family
         return (handType, Player.handOrder.index(handType)+1)
 
 
