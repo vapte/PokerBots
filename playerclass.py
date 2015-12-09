@@ -49,143 +49,124 @@ class Player(object):
         self.allHistories = []
 
     def run(self, inputSocket):
-        
         # Get a file-object for reading packets from the socket.
         # Using this ensures that you get exactly one packet per read.
         f_in = inputSocket.makefile()
         while True:
-            # Block until the engine sends us a packet.
-            data = f_in.readline().strip()
-            # If data is None, connection has closed.
-            if not data:
-                print("Gameover, engine disconnected.")
+            data = f_in.readline().strip() # Block until engine sends packet
+            if not data: # If data is None, connection has closed.
                 break
-            # Here is where you should implement code to parse the packets from
-            # the engine and act on it. We are just printing it instead.
- 
             packetValues = data.split(' ')
             print(self.name, data,'\n\n')
-       
-
-            # When appropriate, reply to the engine with a legal action.
-            # The engine will ignore all spurious responses.
-            # The engine will also check/fold for you if you return an
-            # illegal action.
-            # When sending responses, terminate each response with a newline
-            # character (\n) or your bot will hang!
-
-
             word = packetValues[0]
-
-            if word=='NEWHAND':
-                self.boardReset()
-                self.hole = [packetValues[3],packetValues[4]]
-                self.playerNames = []
-                for piece in packetValues[5:-5]:
-                    if not piece.isdigit():
-                        self.playerNames+=[piece]
-
-                #need to initialize histories/opponents on first hand
-                if self.histories == {}:
-                    for player in self.playerNames:
-                        self.histories[player] = []
-                    assert(len(self.playerNames)<=3) #engine allows 3 players max
-                if self.opponents == {}:
-                    for player in self.playerNames:
-                        if player!=self.name:
-                            self.opponents[player] = Opponent(player,self.__dict__)
-
-                self.numHands+=1
-
-                self.gameState = 'preflop'
-
+            if word=='NEWHAND': 
+                self.newHandUpdate(packetValues)
             elif word == "GETACTION":
-
-                self.historyUpdate(packetValues)
-
-                #get player actions
-                self.actions = packetValues[-4:-1]
-                if self.actions[0].isdigit():
-                    self.actions.pop(0)
-
-                #update potSize, board, stacksizes
-                self.potSize = int(packetValues[1])
-                numCards = int(packetValues[2])
-                if numCards > 0:
-                    self.board = packetValues[3:3+numCards]
-                self.stackSizes = packetValues[3+numCards:6+numCards] 
-
-
-                #compute pot odds
-                for action in self.actions:
-                    if "CALL" in action:
-                        callSize = int(action.split(':')[1])
-                self.potOdds = callSize/self.potSize
-
-
-                #run logic and send message
-                rawBotResponse = self.botLogic()
-                if rawBotResponse!=None:
-                    response = Player.botResponse(rawBotResponse)
-                else:
-                    response = Player.botResponse()
-                inputSocket.send(response)
-
+                self.getActionUpdate(packetValues, inputSocket)
             elif word == 'HANDOVER':
                 self.stackSizes = packetValues[1:4]
                 self.historyUpdate(packetValues,True)
-                
-
             elif word == "REQUESTKEYVALUES":
-                # At the end, the engine will allow your bot save key/value pairs.
-                # Send FINISH to indicate you're done.
                 inputSocket.send(b"FINISH\n")
-
             #update histories and stats
             if word == "GETACTION" or word=="HANDOVER":
-
-                
-                #gameState, self.flop
-                for event in packetValues:
-                    if 'FLOP' in event:
-                        self.gameState = 'flop'
-                        self.flop = len(self.histories)
-                        for opponent in self.opponents:
-                            currOpp = self.opponents[opponent]
-                            currOpp.flop = len(currOpp.histories)
-                    elif 'TURN' in event:
-                        self.gameState = 'turn'
-                    elif 'RIVER' in event:
-                        self.gameState = 'river'
-
+                self.gameStateUpdate(packetValues)
             if self.histories!={}:
-
-                self.statUpdate()
-
-                #opponent attributes update
-                for opponent in self.opponents:
-                    currOpp = self.opponents[opponent]
-                    currOpp.attrsUpdate(self.__dict__)
-
-                #opponent stats update
-                self.oppUpdate()
-
-                varsBotCopy = copy.deepcopy(self.__dict__)
-                #varsBotCopy.pop('histories')
-                print('SNAPSHOT',self.name, varsBotCopy,'\n\n')
-
-
+                self.allStats()
         # Clean up the socket.
         inputSocket.close()
-        time.sleep(2)
         if self.name=='player1':
             print('hi\n\n',self.allHistories,'\n\n')
+        self.export()
 
+        
+
+    def export(self):
         #EXPORT allHistories to text file
         fileIndex = int(self.name[-1])+2
         Player.writeFile('filename%d.pickle' % fileIndex ,self.allHistories,True)
-        
 
+
+
+    def allStats(self):
+        self.statUpdate()
+        #opponent attributes update
+        for opponent in self.opponents:
+            currOpp = self.opponents[opponent]
+            currOpp.attrsUpdate(self.__dict__)
+        #opponent stats update
+        self.oppUpdate()
+        varsBotCopy = copy.deepcopy(self.__dict__)
+        #varsBotCopy.pop('histories')
+        print('SNAPSHOT',self.name, varsBotCopy,'\n\n')
+
+    def gameStateUpdate(self,packetValues):
+        #gameState, self.flop
+        for event in packetValues:
+            if 'FLOP' in event:
+                self.gameState = 'flop'
+                self.flop = len(self.histories)
+                for opponent in self.opponents:
+                    currOpp = self.opponents[opponent]
+                    currOpp.flop = len(currOpp.histories)
+            elif 'TURN' in event:
+                self.gameState = 'turn'
+            elif 'RIVER' in event:
+                self.gameState = 'river'
+
+    def getActionUpdate(self,packetValues,inputSocket):
+        self.historyUpdate(packetValues)
+
+        #get player actions
+        self.actions = packetValues[-4:-1]
+        if self.actions[0].isdigit():
+            self.actions.pop(0)
+
+        #update potSize, board, stacksizes
+        self.potSize = int(packetValues[1])
+        numCards = int(packetValues[2])
+        if numCards > 0:
+            self.board = packetValues[3:3+numCards]
+        self.stackSizes = packetValues[3+numCards:6+numCards] 
+
+
+        #compute pot odds
+        for action in self.actions:
+            if "CALL" in action:
+                callSize = int(action.split(':')[1])
+        try:
+            self.potOdds = callSize/self.potSize
+        except:
+            self.potOdds = 0.333    #1/3 of the pot for 3 players
+
+
+
+        #run logic and send message
+        rawBotResponse = self.botLogic()
+        if rawBotResponse!=None:
+            response = Player.botResponse(rawBotResponse)
+        else:
+            response = Player.botResponse()
+        inputSocket.send(response)
+
+    def newHandUpdate(self, packetValues):
+        self.boardReset()
+        self.hole = [packetValues[3],packetValues[4]]
+        self.playerNames = []
+        for piece in packetValues[5:-5]:
+            if not piece.isdigit():
+                self.playerNames+=[piece]
+        #need to initialize histories/opponents on first hand
+        if self.histories == {}:
+            for player in self.playerNames:
+                self.histories[player] = []
+            assert(len(self.playerNames)<=3) #engine allows 3 players max
+        if self.opponents == {}:
+            for player in self.playerNames:
+                if player!=self.name:
+                    self.opponents[player] = Opponent(player,self.__dict__)
+        self.numHands+=1
+        self.gameState = 'preflop'
 
     def botLogic(self): #top level function for bot logic
         pass
@@ -346,7 +327,6 @@ class Player(object):
     def getExpectedValue(self):
         if len(self.hole+self.board)<=6:
             outProb = Player.monteCarloTest(self.hole+self.board, True)
-            print('algo', self.name, outProb,self.potOdds,self.impliedPotOdds)
             self.EV =  outProb*self.potOdds
             self.impliedEV  = outProb*self.impliedPotOdds
 
