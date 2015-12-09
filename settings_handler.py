@@ -39,49 +39,32 @@ def setHands(handNum):
 def setBotTypes(bot1 = None,bot2 = None,bot3 = None): #max 3 bots allowed
     availBotTypes = ['evbasic','random','afexploit','checkfold']
     inputTypes = ['CHECKFOLD', 'RANDOM', 'SOCKET']
-
-    botTuple = (bot1,bot2,bot3)
-    inputList = list()
-
+    botTuple,inputList = (bot1,bot2,bot3), list()
     for bot in botTuple:
         if bot==None: 
             bot = 'checkfold'
         bot = bot.lower()
         if bot not in availBotTypes: #turn all bad bots in to checkfold bots
             bot = 'checkfold'
-        if bot == 'checkfold':
-            inputList.append('CHECKFOLD')
-        elif bot=='random':
-            inputList.append('RANDOM')
-        else:
-            inputList.append('SOCKET')
-
-    path = os.getcwd()
-    fullPath = path+os.sep+'config.txt'
+        if bot == 'checkfold': inputList.append('CHECKFOLD')
+        elif bot=='random': inputList.append('RANDOM')
+        else: inputList.append('SOCKET')
+    fullPath = os.getcwd()+os.sep+'config.txt'
     config = readFile(fullPath)
     config = config.split('\n')
-
     for i in range(len(config)):
         line = config[i]
-        if 'PLAYER_1_TYPE = ' in line:
-            bot1Index = i
-        elif 'PLAYER_2_TYPE = ' in line:
-            bot2Index = i
-        elif 'PLAYER_3_TYPE = ' in line: 
-            bot3Index = i
-
-
+        if 'PLAYER_1_TYPE = ' in line: bot1Index = i
+        elif 'PLAYER_2_TYPE = ' in line: bot2Index = i
+        elif 'PLAYER_3_TYPE = ' in line:  bot3Index = i
     bot1Line = 'PLAYER_1_TYPE = %s' % inputList[0]
     bot2Line = 'PLAYER_2_TYPE = %s' % inputList[1]
     bot3Line = 'PLAYER_3_TYPE = %s' % inputList[2]
-
     config[bot1Index] = bot1Line
     config[bot2Index] = bot2Line
     config[bot3Index] = bot3Line
-
     newConfig = '\n'.join(config)    
     writeFile(fullPath,newConfig)
-
     return botTuple
 
 

@@ -41,8 +41,8 @@ def initThreads(botTuple,args):
         portCount = 0
         for i in range(len(botTuple)):
             if botTuple[i]!='random' and botTuple[i]!='checkfold':  #player made bot
-                currArgs = (portCount,args,botTuple[i])
-                currProcess = multiprocessing.Process(target=startBot,args=currArgs)
+                curr = (portCount,args,botTuple[i])
+                currProcess = multiprocessing.Process(target=startBot,args=curr)
                 processes.append(currProcess)
                 portCount+=1
         for process in processes:
@@ -62,7 +62,8 @@ if __name__ == '__main__':
     killPickles()
     runUI()
 
-    runJar = multiprocessing.Process(target = subprocess.call, args = ["./runjar.sh"])
+    jar = './runjar.sh'
+    runJar = multiprocessing.Process(target = subprocess.call, args = [jar])
     runJar.start()
     time.sleep(1)
 

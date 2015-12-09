@@ -10,8 +10,6 @@ import pickle
 from settings_handler import *
 
 
-## @TODO: DEBUG 10X button
-
 
 def init(data):
     data.numButtons = 12
@@ -41,59 +39,32 @@ def initInputParameters(data):
 def initButtons(data):
     #player1 up/down, player2 up/down, player 3 up/down, big blind, # hands, playback pace
     for i in range(data.numButtons):  #careful with aliasing here. 
-        col = data.column
-        m = data.margin
-        f = data.fieldWidth
-        row = data.row
+        (col,m,f,row) = (data.column, data.margin, data.fieldWidth,data.row)
         if i==0:
-            x = dict()
-            x['id'] = 'player1up'
-            x['position'] = (col+m, row)
+            x = {'id':'player1up', 'position':(col+m, row)}
         elif i==1:
-            x = dict()
-            x['id'] = 'player1down'
-            x['position'] = (col+m+f, row)
+            x = {'id':'player1down','position' :(col+m+f, row)}
         elif i==2:
-            x = dict()
-            x['id'] = 'player2up'
-            x['position'] = (col+m, row*2)
+            x = {'id': 'player2up', 'position':(col+m, row*2)}
         elif i==3:
-            x = dict()
-            x['id'] = 'player2down'
-            x['position'] = (col+m+f,row*2)
+            x = {'id': 'player2down', 'position':(col+m+f,row*2)}
         elif i==4:
-            x = dict()
-            x['id'] = 'player3up'
-            x['position'] = (col+m,row*3)
+            x = {'id':'player3up','position':(col+m,row*3)}
         elif i==5:
-            x = dict()
-            x['id'] = 'player3down'
-            x['position'] = (col+m+f,row*3)
+            x = {'id': 'player3down','position': (col+m+f,row*3)}
         elif i==6:
-            x = dict()
-            x['id'] = 'blindup'
-            x['position'] = (col+m, row*4)
+            x = {'id': 'blindup','position': (col+m, row*4)}
         elif i==7:
-            x = dict()
-            x['id'] = 'blinddown'
-            x['position'] = (col+m+f, row*4)
+            x = {'id': 'blinddown','position':(col+m+f, row*4)}
         elif i==8:
-            x = dict()
-            x['id'] = 'handsup'
-            x['position'] = (col+m,row*5)
+            x = {'id': 'handsup', 'position':(col+m,row*5)}
         elif i==9:
-            x = dict()
-            x['id'] = 'handsdown'
-            x['position'] = (col+m+f, row*5)
+            x = {'id':'handsdown','position':(col+m+f, row*5)}
             data.handButton['position'] = (col+m+f+45,row*5+6)
         elif i==10:
-            x = dict()
-            x['id'] = 'paceup'
-            x['position'] = (col+m, row*6)
+            x = {'id':'paceup','position':(col+m, row*6)}
         elif i==11:
-            x = dict()
-            x['id'] = 'pacedown'
-            x['position'] = (col+m+f, row*6)
+            x = {'id':'pacedown','position':(col+m+f, row*6)}
         #init numPresses generally
         x['numPresses'] = 0
         data.buttons.append(x)
@@ -204,8 +175,13 @@ def drawSelections(canvas,data):
         elif i==5:
             currText = str(data.numHands)
         elif i==6:
-            currText = str(min(100*data.pace/10, 100))+'%'
+            if data.pace>1:
+                currText = "Spectator"
+            else:
+                currText = "Developer"
         canvas.create_text(data.column+75,i*data.row+7, text = currText, fill = 'white',  font = 'msserif 14 bold')
+
+
 
 
 def keyPressedInput(event,data):
@@ -249,7 +225,7 @@ def drawTags(canvas,data):
         elif i==5:
             currText = "Hands to Play:"
         elif i==6:
-            currText = "Playback Speed:"
+            currText = "Playback Lag:"
         canvas.create_text(100,i*data.row+7, text = currText, fill = 'white', font = 'msserif 14 bold')
 
 def drawButtons(canvas,data):

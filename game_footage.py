@@ -8,7 +8,11 @@ import pickle
 #          GRAPHICS
 ###############################
 
-devSpeed = 300 #special timerDelay for dev
+pace = readFile('filename7.pickle',True)
+if pace==1:
+    devSpeed = 250 #special timerDelay for dev
+else:
+    devSpeed = 650
 
 def init(data):
     data.playerSize = 45
@@ -36,6 +40,11 @@ def init(data):
     data.numHands = 0 
     data.seen = None
     data.pace = readFile('filename7.pickle',True)
+    if data.pace==1:
+        devSpeed = 300 #special timerDelay for dev
+    else:
+        devSpeed = 550
+
 
 def mousePressed(event, data):
     pass
@@ -95,7 +104,6 @@ def redrawAll(canvas, data):
     #drawPot
     drawPot(canvas,data)
 
-    
     #readout
     if data.gameOver:
         canvas.create_text(data.width/2, 40, text = 'Game Over', font = 'msserif 12 bold')
@@ -110,40 +118,45 @@ def redrawAll(canvas, data):
         readOut = parseEvent(data,currEvent)
         print('readout',readOut)
         if readOut!=None:
-            if readOut=='board':
-                drawBoardCards(canvas,data)
-            elif readOut == 'pot':
-                drawPot(canvas,data)
-            elif readOut[0] == 'playerEvent':
-                assert(len(readOut[2])==2)  #player always has 2 hole cards
-                data.playerCards[readOut[1]-1] = readOut[2] #index offset 
-                #data.stackSizes[readOut[1]-1] = int(readOut[3])
-                drawPlayers(canvas,data)
-            elif type(readOut)==tuple:   #action that adds to pot, takes from player stack
-                if data.seen == None:
-                    data.seen = readOut
-                elif data.seen == readOut:  #prevent same action from repeat recording
-                    pass
-                else:
-                    try:
-                        (action,player,quantity) = readOut
-                    except:
-                        (action,player) = readOut
-                    cutStack = ['POST','CALL','TIE','BET','RAISE']
-                    padStack = ['WIN','REFUND']
-                    if action=='WIN':
-                        data.numHands+=1
-                    elif action=='TIE': 
-                        data.numHands+=0.5
-                    if action in cutStack:
-                        data.stackSizes[player-1] -= quantity
-                        data.potSize += quantity
-                    elif action in padStack:
-                        data.stackSizes[player-1] += quantity
-                        data.potSize -= quantity 
+            readoutParse(readOut,data,canvas,currEvent)
 
-                    drawAction(canvas,data,currEvent)
-                    data.seen = readOut
+
+def readoutParse(readOut,data,canvas,currEvent):
+    if readOut=='board':
+        drawBoardCards(canvas,data)
+    elif readOut == 'pot':
+        drawPot(canvas,data)
+    elif readOut[0] == 'playerEvent':
+        assert(len(readOut[2])==2)  #player always has 2 hole cards
+        data.playerCards[readOut[1]-1] = readOut[2] #index offset 
+        drawPlayers(canvas,data)
+    elif type(readOut)==tuple:   #action that adds to pot, takes from player stack
+        if data.seen == None:
+            data.seen = readOut
+        elif data.seen == readOut:  #prevent same action from repeat recording
+            pass
+        else:
+            actionDataUpdate(readOut, data)
+            drawAction(canvas,data,currEvent)
+            data.seen = readOut
+
+def actionDataUpdate(readOut,data):
+    try:
+        (action,player,quantity) = readOut
+    except:
+        (action,player) = readOut
+    cutStack = ['POST','CALL','TIE','BET','RAISE']
+    padStack = ['WIN','REFUND']
+    if action=='WIN':
+        data.numHands+=1
+    elif action=='TIE': 
+        data.numHands+=0.5
+    if action in cutStack:
+        data.stackSizes[player-1] -= quantity
+        data.potSize += quantity
+    elif action in padStack:
+        data.stackSizes[player-1] += quantity
+        data.potSize -= quantity 
 
 
 def drawAction(canvas,data,event):
@@ -172,7 +185,7 @@ def drawAction(canvas,data,event):
 def drawPot(canvas,data):
     (x0,y0,x1,y1) = (data.width/2-data.potBoxSize,100-data.potBoxSize/2,data.width/2+data.potBoxSize,100+data.potBoxSize/2)
     canvas.create_rectangle(x0,60,x1,110,fill = 'floralwhite')
-    canvas.create_text(data.width/2, 80, text = 'POT: %d' % data.potSize, font = 'msserif 12')
+    canvas.create_text(data.width/2, 80, text = 'POT: %d' % max(data.potSize,0), font = 'msserif 12')
     canvas.create_text(data.width/2,95, text = 'HANDS PLAYED: %d' % data.numHands, font = 'msserif 12')
 
 
@@ -193,11 +206,11 @@ def drawBoardCards(canvas,data):
         count+=1
 
     boardState = ''
-    if len(data.board)==3:
+    if data.board.count('back')==2:
         boardState = 'FLOP'
-    elif len(data.board)==4:
+    elif data.board.count('back')==1:
         boardState = 'TURN'
-    elif len(data.board) == 5:
+    elif data.board.count('back')== 0:
         boardState = 'RIVER'
     if data.board.count('back')==5:
         boardState = 'PREFLOP'
@@ -236,7 +249,6 @@ def drawPlayers(canvas,data):
         print('stacks',player, data.stackSizes)
         canvas.create_text(player[0],player[1]+15, text = '%d' % max(data.stackSizes[playerCount],0), font = 'msserif 12 bold')
         currPlayer =  list(map(getRankSuit, data.playerCards[playerCount]))
-        print(currPlayer,playerCount,data.playerCards)
         if playerCount==0:
             initX = player[0]+d+50
             initY = player[1]

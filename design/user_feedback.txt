@@ -1,0 +1,16 @@
+USER FEEDBACK - 
+
+1. Change Playback Lag input from integer to “developer” and “spectator modes”
+
+2. I was having trouble with bots spending more than their stack (resulting in negative stack size). I thought it was an issue on my end, but a user suggested that it was an issue with the engine. He was right. 
+
+3. Make diagrams to explain EvBasic and AfExploit (especially)
+
+
+
+MY RESPONSES - 
+
+1. Agreed. Done. 
+2. Wrote a “player integrity” function that disallows raising/betting/calling more than the available stack.
+3. Works in progress. 
+
