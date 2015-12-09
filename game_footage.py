@@ -1,6 +1,7 @@
 
 from tkinter import *
 from settings_handler import *
+from db import *
 
 import pickle
 
@@ -114,9 +115,9 @@ def redrawAll(canvas, data):
         pass
     else:
         currEvent = data.allHistories[data.readoutCount]
-        print('currEvent',currEvent)
+        db('currEvent',currEvent)
         readOut = parseEvent(data,currEvent)
-        print('readout',readOut)
+        db('readout',readOut)
         if readOut!=None:
             readoutParse(readOut,data,canvas,currEvent)
 
@@ -185,8 +186,8 @@ def drawAction(canvas,data,event):
 def drawPot(canvas,data):
     (x0,y0,x1,y1) = (data.width/2-data.potBoxSize,100-data.potBoxSize/2,data.width/2+data.potBoxSize,100+data.potBoxSize/2)
     canvas.create_rectangle(x0,60,x1,110,fill = 'floralwhite')
-    canvas.create_text(data.width/2, 80, text = 'POT: %d' % max(data.potSize,0), font = 'msserif 12')
-    canvas.create_text(data.width/2,95, text = 'HANDS PLAYED: %d' % data.numHands, font = 'msserif 12')
+    canvas.create_text(data.width/2, 80, text = 'POT: %d' % max(data.potSize,0), font = 'msserif 12 bold')
+    canvas.create_text(data.width/2,95, text = 'HANDS PLAYED: %d' % data.numHands, font = 'msserif 12 bold')
 
 
 

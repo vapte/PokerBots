@@ -14,6 +14,7 @@ from afexploit import *
 from settings_handler import * 
 from game_footage import *
 from startup import *
+from db import *
 
 def startBot(num,args,botType):  #bot number, args
         num = int(num)
@@ -57,6 +58,7 @@ def killPickles():
         else:
             writeFile('filename.pickle', 'blank', True)
 
+
 if __name__ == '__main__':
 
     killPickles()
@@ -68,7 +70,10 @@ if __name__ == '__main__':
     time.sleep(1)
 
     botTuple = readFile('filename1.pickle', True)
-    assert(len(botTuple)==3)
+    
+    if len(botTuple)!=3:
+        print("\n\nNo settings confirmed!\n\n\n")
+        assert(len(botTuple!=3))
 
     processes = initThreads(botTuple,{'host':'localhost','port':3000})
 
@@ -83,8 +88,6 @@ if __name__ == '__main__':
 
     #read and parse output log
     if processesDead:
-        botTupleNew = readFile('filename1.pickle',True)
-        startingStack = readFile('filename2.pickle',True)
         allHistoriesNew = []
         for i in list(range(3,6)):
             currList = readFile('filename%d.pickle' % i ,True)
@@ -106,7 +109,7 @@ if __name__ == '__main__':
 
 
 
-        print(allHistoriesNew)
+        db(allHistoriesNew)
         
         writeFile('filename8.pickle',allHistoriesNew,True)
       

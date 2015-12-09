@@ -7,6 +7,7 @@ import multiprocessing
 import time
 import tkinter 
 import pickle
+from db import *
 
 
 #Skeleton code for Player obtained from MIT PokerBots course website 
@@ -57,7 +58,7 @@ class Player(object):
             if not data: # If data is None, connection has closed.
                 break
             packetValues = data.split(' ')
-            print(self.name, data,'\n\n')
+            db(self.name, data,'\n\n')
             word = packetValues[0]
             if word=='NEWHAND': 
                 self.newHandUpdate(packetValues)
@@ -75,8 +76,6 @@ class Player(object):
                 self.allStats()
         # Clean up the socket.
         inputSocket.close()
-        if self.name=='player1':
-            print('hi\n\n',self.allHistories,'\n\n')
         self.export()
 
         
@@ -97,7 +96,7 @@ class Player(object):
         self.oppUpdate()
         varsBotCopy = copy.deepcopy(self.__dict__)
         #varsBotCopy.pop('histories')
-        print('SNAPSHOT',self.name, varsBotCopy,'\n\n')
+        db('SNAPSHOT',self.name, varsBotCopy,'\n\n')
 
     def gameStateUpdate(self,packetValues):
         #gameState, self.flop
@@ -240,7 +239,6 @@ class Player(object):
                 currOpp.statUpdate()
                 varsOppCopy = copy.deepcopy(vars(currOpp))
                 varsOppCopy.pop('histories')
-                #print(currOpp.name, '\n', varsOppCopy,'\n\n')
 
     #top level function for computing all stats
     def statUpdate(self):
@@ -355,14 +353,14 @@ class Player(object):
         #repeats in board, potsize, and playerinfo are fine
         self.allHistories.append((self.board,time.time()))
         self.allHistories.append((['pot',self.potSize],time.time()))
-        print('historyUpdate check', self.name, self.hole)
+        db('historyUpdate check', self.name, self.hole)
         self.allHistories.append(([self.name,self.hole,self.stack],time.time()))
         if self.name=='player1':
             for value in packetValues:
                 if ':' in value and 'player' in value:
                     self.allHistories.append((value,time.time()))  #dont want repeats in events
         
-        print(self.allHistories,'\n\n')
+        db(self.allHistories,'\n\n')
 
     '''
     AF benchmark values: 

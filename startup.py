@@ -8,6 +8,7 @@ import os
 import pickle
 
 from settings_handler import *
+from db import *
 
 def init(data):
     data.numButtons = 12
@@ -25,7 +26,10 @@ def init(data):
     loadBackground(data)
     data.splash = True    #true = splash screen, false = setting screen
     data.exported = False
-    data.maxHandsAllowed = 50
+    if not isDb():
+        data.maxHandsAllowed = 1000
+    else:
+        data.maxHandsAllowed = 50
     initInputParameters(data)
 
 def initInputParameters(data):
@@ -92,7 +96,6 @@ def mousePressedInput(event, data):
     for button in data.buttons:
         (x0,y0) = button['position']
         b = data.buttonSize
-        #(x1,y1) = (x0+b,y0+b)
         if rectanglesOverlap(event.x,event.y,1,1,x0,y0,b,b):
             button['numPresses']+=1
             if button['id'] == 'handsup':
