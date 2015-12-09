@@ -27,7 +27,7 @@ def init(data):
     loadBackground(data)
     data.splash = True    #true = splash screen, false = setting screen
     data.exported = False
-    data.maxHandsAllowed = 100
+    data.maxHandsAllowed = 50
     initInputParameters(data)
 
 def initInputParameters(data):
