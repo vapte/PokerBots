@@ -87,7 +87,6 @@ class Player(object):
         Player.writeFile('filename%d.pickle' % fileIndex ,self.allHistories,True)
 
 
-
     def allStats(self):
         self.statUpdate()
         #opponent attributes update
@@ -121,14 +120,12 @@ class Player(object):
         self.actions = packetValues[-4:-1]
         if self.actions[0].isdigit():
             self.actions.pop(0)
-
         #update potSize, board, stacksizes
         self.potSize = int(packetValues[1])
         numCards = int(packetValues[2])
         if numCards > 0:
             self.board = packetValues[3:3+numCards]
         self.stackSizes = packetValues[3+numCards:6+numCards] 
-
 
         #compute pot odds
         for action in self.actions:
@@ -138,9 +135,6 @@ class Player(object):
             self.potOdds = callSize/self.potSize
         except:
             self.potOdds = 0.333    #1/3 of the pot for 3 players
-
-
-
         #run logic and send message
         rawBotResponse = self.botLogic()
         if rawBotResponse!=None:
@@ -148,6 +142,7 @@ class Player(object):
         else:
             response = Player.botResponse()
         inputSocket.send(response)
+
 
     def newHandUpdate(self, packetValues):
         self.boardReset()
@@ -277,33 +272,36 @@ class Player(object):
             #enumRaises = [0]+[callSize]+enumRaises  fold,call,raise
             #we shift 0->callSize-1 because statistics
             enumRaises = [callSize-1]+[callSize]+enumRaises
-
         except:
             pass
-
         try:
             if len(enumRaises)>1: #not just callSize-1
-                expectedActions = dict()
-                for opponent in self.opponents:
-                    currOpp = self.opponents[opponent]
-                    randomAction  = 0 
-                    samples = 1000
-                    for i in range(samples):
-                        #scale chosen by inspection
-                        randomAction +=int(abs(logistic(currOpp.AF*maxRaise,1)))
-                    randomAction /= samples
-                    expectedActions[currOpp.name] = Player.closestInt(enumRaises,randomAction)
-                for oppAction in expectedActions:
-                    if expectedActions[oppAction]==callSize-1:
-                        continue
-                    else:
-                        impliedPot+=expectedActions[oppAction]
-                self.impliedPotOdds = callSize/impliedPot
+                self.computeImpliedPotOdds()
+                
             else:
                 pass
         except:
             #no CALL or RAISE in histories
             pass
+
+
+    def computeImpliedPotOdds(self):
+        expectedActions = dict()
+        for opponent in self.opponents:
+            currOpp = self.opponents[opponent]
+            randomAction  = 0 
+            samples = 1000
+            for i in range(samples):
+                #scale chosen by inspection
+                randomAction +=int(abs(logistic(currOpp.AF*maxRaise,1)))
+            randomAction /= samples
+            expectedActions[currOpp.name] = Player.closestInt(enumRaises,randomAction)
+        for oppAction in expectedActions:
+            if expectedActions[oppAction]==callSize-1:
+                continue
+            else:
+                impliedPot+=expectedActions[oppAction]
+        self.impliedPotOdds = callSize/impliedPot
 
     @staticmethod
     def closestInt(L,num):
@@ -350,6 +348,10 @@ class Player(object):
                     if value[0] in Player.values and value[1] in Player.suits:
                         river.append(value)
             self.allHistories.append((river,time.time()))
+            self.allHistoriesUpdate(packetValues)
+        
+
+    def allHistoriesUpdate(self,packetValues):
         #repeats in board, potsize, and playerinfo are fine
         self.allHistories.append((self.board,time.time()))
         self.allHistories.append((['pot',self.potSize],time.time()))
