@@ -39,34 +39,24 @@ def initInputParameters(data):
     data.pace = 1
 
 def initButtons(data):
-    #player1 up/down, player2 up/down, player 3 up/down, big blind, # hands, playback pace
+    #player1 up/down, player2 up/down, player 3 up/down, big blind, hands, 
+    #playback pace
     for i in range(data.numButtons):  #careful with aliasing here. 
         (col,m,f,row) = (data.column, data.margin, data.fieldWidth,data.row)
-        if i==0:
-            x = {'id':'player1up', 'position':(col+m, row)}
-        elif i==1:
-            x = {'id':'player1down','position' :(col+m+f, row)}
-        elif i==2:
-            x = {'id': 'player2up', 'position':(col+m, row*2)}
-        elif i==3:
-            x = {'id': 'player2down', 'position':(col+m+f,row*2)}
-        elif i==4:
-            x = {'id':'player3up','position':(col+m,row*3)}
-        elif i==5:
-            x = {'id': 'player3down','position': (col+m+f,row*3)}
-        elif i==6:
-            x = {'id': 'blindup','position': (col+m, row*4)}
-        elif i==7:
-            x = {'id': 'blinddown','position':(col+m+f, row*4)}
-        elif i==8:
-            x = {'id': 'handsup', 'position':(col+m,row*5)}
-        elif i==9:
+        if i==0: x = {'id':'player1up', 'position':(col+m, row)}
+        elif i==1: x = {'id':'player1down','position' :(col+m+f, row)}
+        elif i==2: x = {'id': 'player2up', 'position':(col+m, row*2)}
+        elif i==3: x = {'id': 'player2down', 'position':(col+m+f,row*2)}
+        elif i==4: x = {'id':'player3up','position':(col+m,row*3)}
+        elif i==5: x = {'id': 'player3down','position': (col+m+f,row*3)}
+        elif i==6: x = {'id': 'blindup','position': (col+m, row*4)}
+        elif i==7: x = {'id': 'blinddown','position':(col+m+f, row*4)}
+        elif i==8: x = {'id': 'handsup', 'position':(col+m,row*5)}
+        elif i==9: 
             x = {'id':'handsdown','position':(col+m+f, row*5)}
             data.handButton['position'] = (col+m+f+45,row*5+6)
-        elif i==10:
-            x = {'id':'paceup','position':(col+m, row*6)}
-        elif i==11:
-            x = {'id':'pacedown','position':(col+m+f, row*6)}
+        elif i==10: x = {'id':'paceup','position':(col+m, row*6)}
+        elif i==11: x = {'id':'pacedown','position':(col+m+f, row*6)}
         #init numPresses generally
         x['numPresses'] = 0
         data.buttons.append(x)
@@ -85,10 +75,12 @@ def mousePressedSplash(event, data):
 def redrawAllSplash(canvas, data):
     splashText = "Welcome to the PokerBots Suite\n Click anywhere to continue"
     canvas.create_image(data.width/2, data.height/2, image = data.background)
-    canvas.create_text(data.width/2, data.height/3, text = splashText, fill = 'white', font = "msserif 20")
+    canvas.create_text(data.width/2, data.height/3, text = splashText, 
+        fill = 'white', font = "msserif 20")
      #I should probably put my name on this 
     t = "Created by Vineet Apte"
-    canvas.create_text(data.width-77,data.height-5, text = t, fill = 'white',  font = 'msserif 14 bold')
+    canvas.create_text(data.width-77,data.height-5, text = t, 
+        fill = 'white',  font = 'msserif 14 bold')
 
 ### Input Screen (data.splash == False):
 
@@ -181,7 +173,8 @@ def drawSelections(canvas,data):
                 currText = "Spectator"
             else:
                 currText = "Developer"
-        canvas.create_text(data.column+75,i*data.row+7, text = currText, fill = 'white',  font = 'msserif 14 bold')
+        canvas.create_text(data.column+75,i*data.row+7, text = currText, 
+            fill = 'white',  font = 'msserif 14 bold')
 
 
 
@@ -203,15 +196,17 @@ def redrawAllInput(canvas,data):
     drawButtons(canvas,data)
     drawTags(canvas, data)
     drawSelections(canvas, data)
-
     #close when done message
-    canvas.create_text(data.width/2, data.height-100, text = "Close when done", fill = 'white', font = 'msserif 18 bold')
-
+    canvas.create_text(data.width/2, data.height-100, text = "Close when done", 
+        fill = 'white', font = 'msserif 18 bold')
     #reset
     if data.exported:
-        canvas.create_rectangle(data.width-77-70,25,data.width-77+100-30,40,fill = 'red')
+        canvas.create_rectangle(data.width-77-70,25,data.width-77+100-30,40,
+            fill = 'red')
     data.exported = False
-    canvas.create_text(data.width-77,25, text = "Press 'r' to reset\nPress 'c' to confirm", fill = 'white',  font = 'msserif 14 bold')
+    canvas.create_text(data.width-77,25, 
+        text = "Press 'r' to reset\nPress 'c' to confirm", fill = 'white',  
+        font = 'msserif 14 bold')
 
 def drawTags(canvas,data): 
     for i in range(1,data.numRows+1):
@@ -228,7 +223,8 @@ def drawTags(canvas,data):
             currText = "Hands to Play:"
         elif i==6:
             currText = "Playback Lag:"
-        canvas.create_text(100,i*data.row+7, text = currText, fill = 'white', font = 'msserif 14 bold')
+        canvas.create_text(100,i*data.row+7, text = currText, fill = 'white',
+         font = 'msserif 14 bold')
 
 def drawButtons(canvas,data):
     b = data.buttonSize
@@ -244,7 +240,8 @@ def drawButtons(canvas,data):
             if button['id']=='handsdown': #draw hand 10x button
                 (x,y)=  data.handButton['position']
                 canvas.create_rectangle(x-b,y-b,x+b,y+b,fill= 'red',width= 0)  
-                canvas.create_text(x,y,text = '10X', fill = 'white',font = 'msserif 12 bold')
+                canvas.create_text(x,y,text = '10X', fill = 'white',
+                    font = 'msserif 12 bold')
         elif 'up' in button['id']:
             #draw up button
             v1 = (x0+b/2, y0+k)

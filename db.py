@@ -1,6 +1,6 @@
 
 # To easily turn on/off db output
-dbOn = True
+dbOn = False
 def db(*args):
     if (dbOn): print(*args)
 def isDb():

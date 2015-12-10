@@ -90,13 +90,15 @@ def redrawAll(canvas, data):
     canvas.create_rectangle(10,10,data.width-10,data.height-10,fill = 'green4')
 
     #gametext
-    canvas.create_text(20,30,text = 'Players: %s' % ', '.join(data.botTuple),anchor = 'sw', font = 'msserif 12')
+    canvas.create_text(20,30,text = 'Players: %s' % ', '.join(data.botTuple),
+        anchor = 'sw', font = 'msserif 12')
 
     #players
     drawPlayers(canvas,data)
 
     #board
-    (x0,y0,x1,y1) = (data.width/2-data.boardSize,data.height/2-172,data.width/2+data.boardSize,data.height/2-72)
+    (w,b,h) = (data.width,data.boardSize,data.height)
+    (x0,y0,x1,y1) = (w/2-b,h/2-172,w/2+b,h/2-72)
     canvas.create_rectangle(x0,y0,x1,y1,fill=  'red4')
 
     #boardCards
@@ -108,7 +110,8 @@ def redrawAll(canvas, data):
     #readout
     if data.gameOver:
         canvas.create_text(data.width/2, 40, text = 'Game Over', font = 'msserif 12 bold')
-    if data.readoutCount!=None and data.readoutCount>len(data.allHistories)-1 and not data.gameOver:
+    n = data.readoutCount!=None 
+    if n and data.readoutCount>len(data.allHistories)-1 and not data.gameOver:
         canvas.create_text(data.width/2, 40, text = 'Game Over', font = 'msserif 12 bold')
         data.gameOver = True
     if data.readoutCount==None or data.readoutCount>len(data.allHistories)-1:
@@ -177,17 +180,23 @@ def drawAction(canvas,data,event):
     actionY-=8
     try:
         quantity = int(eventList[1])    #some actions have no quantity
-        canvas.create_text(actionX,actionY, text = "%s:%d" % (action,quantity), font = 'msserif 18 bold')
+        canvas.create_text(actionX,actionY, text = "%s:%d" % (action,quantity), 
+            font = 'msserif 18 bold')
     except:
-        canvas.create_text(actionX,actionY, text = "%s" % action, font = 'msserif 18 bold')
+        canvas.create_text(actionX,actionY, text = "%s" % action, 
+            font = 'msserif 18 bold')
 
 
 
 def drawPot(canvas,data):
-    (x0,y0,x1,y1) = (data.width/2-data.potBoxSize,100-data.potBoxSize/2,data.width/2+data.potBoxSize,100+data.potBoxSize/2)
+    (x0,y0,x1,y1) = (data.width/2-data.potBoxSize,
+        100-data.potBoxSize/2,data.width/2+data.potBoxSize,
+        100+data.potBoxSize/2)
     canvas.create_rectangle(x0,60,x1,110,fill = 'floralwhite')
-    canvas.create_text(data.width/2, 80, text = 'POT: %d' % max(data.potSize,0), font = 'msserif 12 bold')
-    canvas.create_text(data.width/2,95, text = 'HANDS PLAYED: %d' % data.numHands, font = 'msserif 12 bold')
+    canvas.create_text(data.width/2, 80, text = 'POT: %d' % max(data.potSize,0), 
+        font = 'msserif 12 bold')
+    canvas.create_text(data.width/2,95, 
+        text = 'HANDS PLAYED: %d' % data.numHands, font = 'msserif 12 bold')
 
 
 
@@ -197,24 +206,22 @@ def drawBoardCards(canvas,data):
     count = 0 
     while len(data.board)<5:
         data.board.append('back')
-
     for card in data.board:
         if card!='back':
             (rank,suit) = getRankSuit(card)
-            canvas.create_image(initX+count*data.cardOffset,y0,image = getPlayingCardImage(data,rank,suit),anchor='nw')
+            canvas.create_image(initX+count*data.cardOffset,y0,
+                image = getPlayingCardImage(data,rank,suit),anchor='nw')
         else:
-            canvas.create_image(initX+count*data.cardOffset,y0,image = getSpecialPlayingCardImage(data,'back'),anchor = 'nw')
+            canvas.create_image(initX+count*data.cardOffset,y0,
+                image = getSpecialPlayingCardImage(data,'back'),anchor = 'nw')
         count+=1
     boardState = ''
-    if data.board.count('back')==2:
-        boardState = 'FLOP'
-    elif data.board.count('back')==1:
-        boardState = 'TURN'
-    elif data.board.count('back')== 0:
-        boardState = 'RIVER'
-    if data.board.count('back')==5:
-        boardState = 'PREFLOP'
-    canvas.create_text(initX+(count+1)*data.cardOffset, data.height/2-130, text = boardState, font = 'msserif 14 bold')
+    if data.board.count('back')==2: boardState = 'FLOP'
+    elif data.board.count('back')==1: boardState = 'TURN'
+    elif data.board.count('back')== 0: boardState = 'RIVER'
+    if data.board.count('back')==5: boardState = 'PREFLOP'
+    canvas.create_text(initX+(count+1)*data.cardOffset, data.height/2-130, 
+        text = boardState, font = 'msserif 14 bold')
 
 
 
@@ -242,34 +249,42 @@ def getRankSuit(card):
 def drawPlayers(canvas,data):
     playerCount = 0
     for player in data.playerPositions:
+        #draw player box, type, stack
+        drawBoxTypeStack(canvas, data, player,playerCount)
         d = data.playerSize
         (x0,y0,x1,y1) = (player[0]-d,player[1]-25,player[0]+d,player[1]+25)
-        #draw player box, type, stack
-        canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
-        canvas.create_text(player[0],player[1], text = '%s' % data.botTuple[playerCount].upper(), font = 'msserif 12 bold')
-        canvas.create_text(player[0],player[1]+15, text = '%d' % max(data.stackSizes[playerCount],0), font = 'msserif 12 bold')
-        currPlayer =  list(map(getRankSuit, data.playerCards[playerCount]))
         #draw hole cards
+        currPlayer =  list(map(getRankSuit, data.playerCards[playerCount]))
         if playerCount==0:
-            initX = player[0]+d+50
-            initY = player[1]
+            initX,initY = player[0]+d+50, player[1]
         elif playerCount==1:
-            initX = player[0]-data.cardOffset/2-5
-            initY = player[1]-data.cardOffset
+            initX,initY =player[0]-data.cardOffset/2-5,player[1]-data.cardOffset
         elif playerCount==2:
-            initX = player[0]-d-50-data.cardOffset
-            initY = player[1]
+            initX,initY = player[0]-d-50-data.cardOffset, player[1]
         for i in range(2):
             if type(currPlayer[i])==tuple:
                 rank = currPlayer[i][0]
                 suit = currPlayer[i][1]
-                canvas.create_image(initX+data.cardOffset*i,initY,image = getPlayingCardImage(data,rank,suit))
+                canvas.create_image(initX+data.cardOffset*i,initY,
+                    image = getPlayingCardImage(data,rank,suit))
             else:
-                canvas.create_image(initX+data.cardOffset*i,initY,image = getSpecialPlayingCardImage(data,'back'))
+                canvas.create_image(initX+data.cardOffset*i,initY,
+                    image = getSpecialPlayingCardImage(data,'back'))
         playerCount+=1
 
+def drawBoxTypeStack(canvas,data, player, playerCount):
+    d = data.playerSize
+    (x0,y0,x1,y1) = (player[0]-d,player[1]-25,player[0]+d,player[1]+25)
+    canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
+    canvas.create_text(player[0],player[1], 
+        text = '%s' % data.botTuple[playerCount].upper(), 
+        font = 'msserif 12 bold')
+    canvas.create_text(player[0],player[1]+15, 
+        text = '%d' % max(data.stackSizes[playerCount],0),
+         font = 'msserif 12 bold')
 
-#loadPlayingCardImages, getPlayingCardImage, getSpecialPlayingCardImage from 15-112 graphics course notes
+#loadPlayingCardImages, getPlayingCardImage, getSpecialPlayingCardImage
+# from 15-112 graphics course notes
 #playing-card-gifs and all its contents from 15-112 graphics course notes
 
 def loadPlayingCardImages(data):
