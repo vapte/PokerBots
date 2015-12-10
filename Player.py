@@ -16,6 +16,7 @@ from game_footage import *
 from startup import *
 from db import *
 
+#connects bot to socket, makes bot instance
 def startBot(num,args,botType):  #bot number, args
         num = int(num)
         # Create a socket connection to the engine.
@@ -34,6 +35,7 @@ def startBot(num,args,botType):  #bot number, args
             bot = AfExploit('player%d' % numPlusOne)
             bot.run(s)
 
+#initiates threads
 def initThreads(botTuple,args):
         botList = list(botTuple)
         botTuple = sorted(botList, key = lambda x: (x not in ['random','checkfold']))
@@ -51,6 +53,7 @@ def initThreads(botTuple,args):
             time.sleep(0.1)
         return processes
 
+#resets all pickle objects
 def killPickles():
     for i in range(8):
         if i!=0:
@@ -77,6 +80,7 @@ if __name__ == '__main__':
 
     processes = initThreads(botTuple,{'host':'localhost','port':3000})
 
+    #check if all processes are dead
     processesDead = False
     while not processesDead:
         eachProcess = 0
@@ -86,7 +90,7 @@ if __name__ == '__main__':
         if eachProcess==0:
             processesDead = True
 
-    #read and parse output log
+    #read and parse output log (allHistoriesNew), save to pickle object
     if processesDead:
         allHistoriesNew = []
         for i in list(range(3,6)):
@@ -106,15 +110,10 @@ if __name__ == '__main__':
                 allHistoriesNew.append(item[0])
             if type(item)==list and type(item[-1])==str and extra.count(item)>1:
                 extraBoards.append(item)
-
-
-
         db(allHistoriesNew)
-        
         writeFile('filename8.pickle',allHistoriesNew,True)
-      
-    runFootage()
     runJar.terminate()
+    runFootage()
     
 
 

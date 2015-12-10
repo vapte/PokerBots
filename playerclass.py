@@ -79,13 +79,12 @@ class Player(object):
         self.export()
 
         
-
+    #EXPORT allHistories to text file
     def export(self):
-        #EXPORT allHistories to text file
         fileIndex = int(self.name[-1])+2
         Player.writeFile('filename%d.pickle' % fileIndex ,self.allHistories,True)
 
-
+    #update stats and attributes for players and opponents
     def allStats(self):
         self.statUpdate()
         #opponent attributes update
@@ -98,6 +97,7 @@ class Player(object):
         #varsBotCopy.pop('histories')
         db('SNAPSHOT',self.name, varsBotCopy,'\n\n')
 
+    #update game state based on packet values
     def gameStateUpdate(self,packetValues):
         #gameState, self.flop
         for event in packetValues:
@@ -112,37 +112,31 @@ class Player(object):
             elif 'RIVER' in event:
                 self.gameState = 'river'
 
+    #gets and sends action through socket, updates game attributes
     def getActionUpdate(self,packetValues,inputSocket):
         self.historyUpdate(packetValues)
-
         #get player actions
         self.actions = packetValues[-4:-1]
-        if self.actions[0].isdigit():
-            self.actions.pop(0)
+        if self.actions[0].isdigit(): self.actions.pop(0)
         #update potSize, board, stacksizes
         self.potSize = int(packetValues[1])
         numCards = int(packetValues[2])
-        if numCards > 0:
-            self.board = packetValues[3:3+numCards]
+        if numCards > 0: self.board = packetValues[3:3+numCards]
         self.stackSizes = packetValues[3+numCards:6+numCards] 
-
         #compute pot odds
         for action in self.actions:
-            if "CALL" in action:
-                callSize = int(action.split(':')[1])
+            if "CALL" in action: callSize = int(action.split(':')[1])
         try:
             self.potOdds = callSize/self.potSize
         except:
-            self.potOdds = 0.333    #1/3 of the pot for 3 players
+            self.potOdds = 1/len(self.playerNames)    #1/3 of the pot for 3 players
         #run logic and send message
         rawBotResponse = self.botLogic()
-        if rawBotResponse!=None:
-            response = Player.botResponse(rawBotResponse)
-        else:
-            response = Player.botResponse()
+        if rawBotResponse!=None: response = Player.botResponse(rawBotResponse)
+        else: response = Player.botResponse()
         inputSocket.send(response)
 
-
+    #intiializes histories on first hand, resets board
     def newHandUpdate(self, packetValues):
         self.boardReset()
         self.hole = [packetValues[3],packetValues[4]]
@@ -162,7 +156,8 @@ class Player(object):
         self.numHands+=1
         self.gameState = 'preflop'
 
-    def botLogic(self): #top level function for bot logic
+    #top level function for bot logic
+    def botLogic(self): 
         pass
 
     #override in subclasses 
@@ -170,6 +165,7 @@ class Player(object):
     #actions = 'check','fold','bet','raise','call'
     #quantity is needed for all (0 if check or fold)
 
+    #makes sure players have integrity
     def checkReturnVal(self,shouldReturn, actionsDict):
         #sometimes the engine let's players spend more than they have...
         if shouldReturn[0] in ['call','bet','raise']:
@@ -183,11 +179,11 @@ class Player(object):
         else:
             return shouldReturn
 
-    def actionsParse(self): #parses self.actions
+    #parses self.actions
+    def actionsParse(self): 
         check = fold = False
         actionsDict = dict()
         minRaise = maxRaise = minBet = maxBet = callSize = None
-
         for value in self.actions:
             if 'RAISE' in value:
                 minRaise = int(value.split(':')[1])
@@ -197,11 +193,8 @@ class Player(object):
                 maxBet = int(value.split(':')[2])
             elif 'CALL' in value:
                 callSize = int(value.split(':')[1])
-            elif 'CHECK' in value:
-                check = True
-            elif 'FOLD' in value:
-                fold = True
-
+            elif 'CHECK' in value: check = True
+            elif 'FOLD' in value: fold = True
         if minBet!=None and maxBet!=None: 
             actionsDict['bet']=True
             actionsDict['betVals'] = list(range(minBet,maxBet+1))
@@ -211,15 +204,13 @@ class Player(object):
         if callSize!=None:
             actionsDict['callVals'] = callSize
             actionsDict['call'] = True
-        if check:
-            actionsDict['check'] = True
-        if fold:
-            actionsDict['fold'] = True
-
+        if check: actionsDict['check'] = True
+        if fold: actionsDict['fold'] = True
         return actionsDict
 
+    #formats output of botLogic
     @classmethod
-    def botResponse(self, logicTuple = ('check',0)):  #formats output of botLogic
+    def botResponse(self, logicTuple = ('check',0)):  
         possibleActions = ['check','fold','bet','raise','call']
         responseType = logicTuple[0]
         quantity = logicTuple[1]
@@ -253,10 +244,8 @@ class Player(object):
         
         self.blindsLeft  = int(self.stack/self.blind)
 
-    #stat/history computation functions (must work for opponents with only histories as input)
 
     #implied  pot odds
-
     def getImpliedPotOdds(self):
         impliedPot = self.potSize
         for action in self.actions:
@@ -275,14 +264,13 @@ class Player(object):
         try:
             if len(enumRaises)>1: #not just callSize-1
                 self.computeImpliedPotOdds()
-                
             else:
                 pass
         except:
             #no CALL or RAISE in histories
             pass
 
-
+    #calculate impliedPotOdds, numpy used here
     def computeImpliedPotOdds(self):
         expectedActions = dict()
         for opponent in self.opponents:
@@ -301,6 +289,7 @@ class Player(object):
                 impliedPot+=expectedActions[oppAction]
         self.impliedPotOdds = callSize/impliedPot
 
+    #finds element of list that is closest to given integer
     @staticmethod
     def closestInt(L,num):
         minDiff = currDiff = None
@@ -313,6 +302,7 @@ class Player(object):
                 minElem = L[i]
         return minElem
 
+    #calculates win rate
     def getWinRate(self):
         wins = 0
         for event in self.histories[self.name]:
@@ -320,15 +310,18 @@ class Player(object):
                 wins+=1
         self.winRate = wins/self.numHands
 
+    #calulates expected value
     def getExpectedValue(self):
         if len(self.hole+self.board)<=6:
             outProb = Player.monteCarloTest(self.hole+self.board, True)
             self.EV =  outProb*self.potOdds
             self.impliedEV  = outProb*self.impliedPotOdds
 
+    #resets board to back of cards
     def boardReset(self):
         self.allHistories.append((['back']*5,time.time()))        
 
+    #updates histories for player, adds to allHistories
     def historyUpdate(self, packetValues, handOver=False):
         if not handOver:
             for value in packetValues:
@@ -348,7 +341,7 @@ class Player(object):
             self.allHistories.append((river,time.time()))
             self.allHistoriesUpdate(packetValues)
         
-
+    #updates allHistories
     def allHistoriesUpdate(self,packetValues):
         #repeats in board, potsize, and playerinfo are fine
         self.allHistories.append((self.board,time.time()))
@@ -359,7 +352,6 @@ class Player(object):
             for value in packetValues:
                 if ':' in value and 'player' in value:
                     self.allHistories.append((value,time.time()))  #dont want repeats in events
-        
         db(self.allHistories,'\n\n')
 
     '''
@@ -370,6 +362,7 @@ AF Value       Category
 1<AF<1.5       Neutral
 AF>1.5        Aggressive
     '''
+    #computes aggression factor
     def getAggressionFactor(self):
         #set both to 1 b/c divide by zero
         downs = 1 #calls or folds
@@ -387,9 +380,8 @@ AF>1.5        Aggressive
         elif self.AF>=1.5:
             self.AFtype = 'aggressive'
 
-
-    #class/static methods
-   
+    #withPickle parameter on readFile and writeFile writes to pickle object
+    #instead of text file
 
     @staticmethod
     def readFile(path, withPickle = False):
@@ -417,11 +409,9 @@ AF>1.5        Aggressive
         config = Player.readFile(path+os.sep+'config.txt')
         return int(config.split('\n')[0][-1])
 
-
+    #call this function post-flop and on turn to compute best hand
     @classmethod
     def bestHand(Player,cards):
-        #call this function post-flop and on turn to compute best hand
- 
         #get unordered 5-tuples from allCards
         hands = list(it.combinations(cards,5)) #list of tuples
         best = 0    #power of best hand 
@@ -431,10 +421,10 @@ AF>1.5        Aggressive
                 best=result[1]
         return best
 
+    #runs Monte Carlo sim to get average best hand if cards are added
+    #to community
     @classmethod
     def monteCarloTest(Player,allCards,returnProb = False):
-        #runs Monte Carlo sim to get average best hand if cards are added
-        #to community
         simNum,simCount,cumePower = 100,0,0
         adjustedFullDeck = copy.copy(Player.fullDeck) 
         assert(len(allCards)<=6) 
@@ -469,17 +459,16 @@ AF>1.5        Aggressive
         else:
             return cumePower/simNum
     
+    #computes hand odds ratio
     @classmethod
     def powerRatio(Player,allCards):
         currBest = Player.bestHand(allCards)
         predictedBest = Player.monteCarloTest(allCards)
-        #my own definition of pot odds
         return predictedBest/currBest
-
-
+        
+    #returns hand type, as well as power index
     @classmethod
     def checkHandType(Player,hand):
-        #returns hand type, as well as power index
         def highFreq(handStr):
             uniques = list(set(handStr))
             maxFreq = 0
@@ -517,8 +506,6 @@ AF>1.5        Aggressive
         else:
             handType =  'highcard'
         return (handType, Player.handOrder.index(handType)+1)
-
-
 
 #Player will have a list of Opponent instances
 class Opponent(Player):

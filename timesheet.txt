@@ -25,4 +25,14 @@ result: AfExploit beats EvBasic 99% of the time
 
 12/6 - 6 hours - graphics debugging, polished game footage
 
+12/7 - 1 hours - Added 10x button to user input UI, encountered pacing bug, implemented hand maximum
+
+12/8 - 3 hours - UML diagram, changed event graphics (flash entire player box with color and text, instead of just text), revised AfExploit
+
+12/9 - 2 hours - made video, wrote debug mode , updated handEval
+
+- TP 3 Deliverable - 
+
+
+
 

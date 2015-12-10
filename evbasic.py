@@ -1,12 +1,14 @@
 #evbasic
 
 from playerclass import *
+from db import *
 
 class EvBasic(Player):
     def __init__(self,name):
         super().__init__(name)
         self.type = 'evbasic'
 
+    #bot control function
     def botLogic(self):
         super().botLogic()
         shouldReturn  = None
@@ -27,5 +29,4 @@ class EvBasic(Player):
                     shouldReturn =  ('fold',0)
             else:
                 shouldReturn =  ('fold',0)
-        print('shouldReturn', shouldReturn, self.stack, self.checkReturnVal(shouldReturn,actionsDict))
         return self.checkReturnVal(shouldReturn, actionsDict)

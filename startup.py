@@ -104,7 +104,7 @@ def mousePressedInput(event, data):
             data.numHands=data.maxHandsAllowed
     buttonUpdate(data)
 
-
+#updates input screen buttons
 def buttonUpdate(data):
     for button in data.buttons:
         curr = button['numPresses']
@@ -131,8 +131,6 @@ def buttonUpdate(data):
             data.pace -= curr
             if data.pace<=0: data.pace= 1
             if data.pace>10: data.pace = 10
-       
-
 
 #from my submission of hw1:
 def rectanglesOverlap(left1, top1, width1, h1, left2, top2, width2, h2):
@@ -155,6 +153,7 @@ def rectanglesOverlap(left1, top1, width1, h1, left2, top2, width2, h2):
     else:
         return False
 
+#draw user selections
 def drawSelections(canvas,data):
     for i in range(1,data.numRows+1):
         currText = ''
