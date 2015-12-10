@@ -42,8 +42,7 @@ def setBotTypes(bot1 = None,bot2 = None,bot3 = None): #max 3 bots allowed
     inputTypes = ['CHECKFOLD', 'RANDOM', 'SOCKET']
     botTuple,inputList = (bot1,bot2,bot3), list()
     for bot in botTuple:
-        if bot==None: 
-            bot = 'checkfold'
+        if bot==None: bot = 'checkfold'
         bot = bot.lower()
         if bot not in availBotTypes: #turn all bad bots in to checkfold bots
             bot = 'checkfold'
@@ -61,8 +60,7 @@ def setBotTypes(bot1 = None,bot2 = None,bot3 = None): #max 3 bots allowed
     bot1Line = 'PLAYER_1_TYPE = %s' % inputList[0]
     bot2Line = 'PLAYER_2_TYPE = %s' % inputList[1]
     bot3Line = 'PLAYER_3_TYPE = %s' % inputList[2]
-    config[bot1Index] = bot1Line
-    config[bot2Index] = bot2Line
+    config[bot1Index] , config[bot2Index] = bot1Line, bot2Line
     config[bot3Index] = bot3Line
     newConfig = '\n'.join(config)    
     writeFile(fullPath,newConfig)

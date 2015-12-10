@@ -199,7 +199,7 @@ def redrawAllInput(canvas,data):
         fill = 'white', font = 'msserif 18 bold')
     #reset
     if data.exported:
-        canvas.create_rectangle(data.width-77-70,25,data.width-77+100-30,40,
+        canvas.create_rectangle(data.width-147,25,data.width-3,40,
             fill = 'red')
     data.exported = False
     canvas.create_text(data.width-77,25, 

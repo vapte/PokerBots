@@ -108,7 +108,7 @@ if __name__ == '__main__':
         extraBoards = []
         for i in range(1,len(extra)):
             item = extra[i]
-            if item[0] !=extra[i-1][0] and item[0]!=[] and item not in extraBoards:
+            if item[0]!=extra[i-1][0]and item[0]!=[]and item not in extraBoards:
                 allHistoriesNew.append(item[0])
             if type(item)==list and type(item[-1])==str and extra.count(item)>1:
                 extraBoards.append(item)

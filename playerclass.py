@@ -24,18 +24,13 @@ class Player(object):
     assert(len(fullDeck)==52)
 
     def __init__(self,name):    #must set name to name in config.txt
-        self.hole = []
-        self.board = []
+        self.hole = self.board =  self.actions = self.playerNames = []
         self.potSize = 0
-        self.actions = []
-        self.playerNames = []
         self.histories = dict()
-        self.stackSizes = []
+        self.stackSizes = self.allHistories = [] 
         self.potOdds = 0
         self.blind = Player.getBlind()
-        self.blindsLeft = 0
-        self.EV = 0
-        self.impliedEV = 0
+        self.blindsLeft = self.EV = self.impliedEV = 0
         self.AF = 0       
         self.AFtype = None
         self.name = name
@@ -47,8 +42,7 @@ class Player(object):
         self.flop = 0
         self.gameState = None
         self.impliedPotOdds = 0
-        self.allHistories = []
-
+         
     def run(self, inputSocket):
         # Get a file-object for reading packets from the socket.
         # Using this ensures that you get exactly one packet per read.
@@ -78,7 +72,6 @@ class Player(object):
         inputSocket.close()
         self.export()
 
-        
     #EXPORT allHistories to text file
     def export(self):
         fileIndex = int(self.name[-1])+2
@@ -241,9 +234,7 @@ class Player(object):
             self.stack = int(self.stackSizes[self.playerNames.index(self.name)])
         except:
             pass
-        
         self.blindsLeft  = int(self.stack/self.blind)
-
 
     #implied  pot odds
     def getImpliedPotOdds(self):
@@ -280,7 +271,6 @@ class Player(object):
             #no CALL or RAISE in historie
         except: pass
 
-        
     #finds element of list that is closest to given integer
     @staticmethod
     def closestInt(L,num):
@@ -345,7 +335,7 @@ class Player(object):
         if self.name=='player1':
             for value in packetValues:
                 if ':' in value and 'player' in value:
-                    self.allHistories.append((value,time.time()))  #dont want repeats in events
+                    self.allHistories.append((value,time.time()))  #no repeats 
         db(self.allHistories,'\n\n')
 
     '''
@@ -421,14 +411,10 @@ AF>1.5        Aggressive
     def monteCarloTest(Player,allCards,returnProb = False):
         simNum,simCount,cumePower = 100,0,0
         adjustedFullDeck = copy.copy(Player.fullDeck) 
-        assert(len(allCards)<=6) 
-        if returnProb:
-            beatCount = 0
-            currBest = Player.bestHand(allCards)
+        if returnProb: beatCount,currBest = 0,Player.bestHand(allCards)
         #removing hole cards
-        for card in adjustedFullDeck:
-            if card in allCards:
-                adjustedFullDeck.remove(card)   #remove hole/board cards
+        for card in adjustedFullDeck: #remove hole/board cards
+            if card in allCards: adjustedFullDeck.remove(card)
         initAdjustedFullDeck = copy.copy(adjustedFullDeck)
         while simCount<=simNum:
             adjustedFullDeck = copy.copy(initAdjustedFullDeck)
@@ -444,14 +430,11 @@ AF>1.5        Aggressive
                     if len(allCards)==2: #flop
                         nextCard3 = random.choice(adjustedFullDeck)
                         currCards+=[nextCard3]
-            if Player.bestHand(currCards)>currBest: #if newhand > curr best hand
-                beatCount+=1
+            if Player.bestHand(currCards)>currBest: beatCount+=1
             cumePower+=Player.bestHand(currCards)
             simCount+=1
-        if returnProb:
-            return beatCount/simNum #probabilty of getting a better hand than currBest
-        else:
-            return cumePower/simNum
+        if returnProb: return beatCount/simNum #probabilty of better hand
+        else:return cumePower/simNum
     
     #computes hand odds ratio
     @classmethod

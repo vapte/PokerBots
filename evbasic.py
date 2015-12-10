@@ -21,7 +21,7 @@ class EvBasic(Player):
                 if self.EV>0.2:
                     specRaise = maxRaiseIndex//2
                 try:
-                    shouldReturn = ('raise',actionsDict['raiseVals'][specRaise])    #test value
+                    shouldReturn = ('raise',actionsDict['raiseVals'][specRaise])    
                 except:
                     #sometime we don't set a raise value
                     if self.EV>0.1:

@@ -34,7 +34,7 @@ def init(data):
     data.cardOffset = 85
     data.boardSize = 230
     data.timerCount = 0
-    data.potSize = 0
+    data.potSize = numHands(data.allHistories)*data.blind
     data.readoutCount = 0
     data.gameOver = False
     data.potBoxSize = 70
@@ -42,7 +42,12 @@ def init(data):
     data.seen = None
     data.pace = readFile('filename7.pickle',True)
    
-
+def numHands(allHistories):
+    handCount = 0
+    for event in allHistories:
+        if 'WIN' or 'TIE' in event:
+            handCount+=1
+    return handCount
 
 def mousePressed(event, data):
     pass
@@ -187,7 +192,7 @@ def drawPot(canvas,data):
         100-data.potBoxSize/2,data.width/2+data.potBoxSize,
         100+data.potBoxSize/2)
     canvas.create_rectangle(x0,60,x1,110,fill = 'floralwhite')
-    canvas.create_text(data.width/2, 80, text = 'POT: %d' % data.potSize, 
+    canvas.create_text(data.width/2, 80, text = 'POT: %d' % max(data.potSize,0), 
         font = 'msserif 12 bold')
     canvas.create_text(data.width/2,95, 
         text = 'HANDS PLAYED: %d' % data.numHands, font = 'msserif 12 bold')
