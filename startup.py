@@ -33,9 +33,11 @@ def init(data):
     initInputParameters(data)
 
 def initInputParameters(data):
-    data.player1type = data.player2type = data.player3type = 0
+    data.player1type = 0
+    data.player2type = 2
+    data.player3type = 1
     data.blind = 1
-    data.numHands = 1
+    data.numHands = 10
     data.pace = 1
 
 def initButtons(data):
@@ -175,9 +177,6 @@ def drawSelections(canvas,data):
         canvas.create_text(data.column+75,i*data.row+7, text = currText, 
             fill = 'white',  font = 'msserif 14 bold')
 
-
-
-
 def keyPressedInput(event,data):
     if event.keysym == 'r':
         initInputParameters(data)
@@ -207,6 +206,7 @@ def redrawAllInput(canvas,data):
         text = "Press 'r' to reset\nPress 'c' to confirm", fill = 'white',  
         font = 'msserif 14 bold')
 
+#draw names for each use chose n
 def drawTags(canvas,data): 
     for i in range(1,data.numRows+1):
         currText = ''

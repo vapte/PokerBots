@@ -127,7 +127,7 @@ class Player(object):
         for action in self.actions:
             if "CALL" in action: callSize = int(action.split(':')[1])
         try:
-            self.potOdds = callSize/self.potSize
+            self.potOdds = self.potSize/(callSize+self.potSize)
         except:
             self.potOdds = 1/len(self.playerNames)    #1/3 of the pot for 3 players
         #run logic and send message
@@ -233,10 +233,10 @@ class Player(object):
 
     #top level function for computing all stats
     def statUpdate(self):
-        self.getAggressionFactor()
-        self.getExpectedValue()
         self.getWinRate()
+        self.getAggressionFactor()
         self.getImpliedPotOdds()
+        self.getExpectedValue()
         try:
             self.stack = int(self.stackSizes[self.playerNames.index(self.name)])
         except:
@@ -247,7 +247,6 @@ class Player(object):
 
     #implied  pot odds
     def getImpliedPotOdds(self):
-        impliedPot = self.potSize
         for action in self.actions:
             if "CALL" in action:
                 callSize = int(action.split(':')[1])
@@ -263,32 +262,25 @@ class Player(object):
             pass
         try:
             if len(enumRaises)>1: #not just callSize-1
-                self.computeImpliedPotOdds()
-            else:
-                pass
-        except:
-            #no CALL or RAISE in histories
-            pass
+                expectedActions, impliedPot = dict(), self.potSize
+                for opponent in self.opponents:
+                    currOpp = self.opponents[opponent]
+                    randomAction , samples = 0 , 1000
+                    for i in range(samples):
+                        #scale chosen by inspection
+                        randomAction +=int(abs(logistic(currOpp.AF*maxRaise,1)))
+                    randomAction /= samples
+                    p = Player.closestInt(enumRaises,randomAction)
+                    expectedActions[currOpp.name] = p
+                for oppAction in expectedActions:
+                    if expectedActions[oppAction]==callSize-1:continue
+                    else: impliedPot+=expectedActions[oppAction]
+                self.impliedPotOdds = impliedPot/(callSize+impliedPot)
+            else:pass
+            #no CALL or RAISE in historie
+        except: pass
 
-    #calculate impliedPotOdds, numpy used here
-    def computeImpliedPotOdds(self):
-        expectedActions = dict()
-        for opponent in self.opponents:
-            currOpp = self.opponents[opponent]
-            randomAction  = 0 
-            samples = 1000
-            for i in range(samples):
-                #scale chosen by inspection
-                randomAction +=int(abs(logistic(currOpp.AF*maxRaise,1)))
-            randomAction /= samples
-            expectedActions[currOpp.name] = Player.closestInt(enumRaises,randomAction)
-        for oppAction in expectedActions:
-            if expectedActions[oppAction]==callSize-1:
-                continue
-            else:
-                impliedPot+=expectedActions[oppAction]
-        self.impliedPotOdds = callSize/impliedPot
-
+        
     #finds element of list that is closest to given integer
     @staticmethod
     def closestInt(L,num):
@@ -316,6 +308,8 @@ class Player(object):
             outProb = Player.monteCarloTest(self.hole+self.board, True)
             self.EV =  outProb*self.potOdds
             self.impliedEV  = outProb*self.impliedPotOdds
+            db(outProb,'ev',self.EV,'implied',self.impliedEV,self.potOdds,
+                self.impliedPotOdds,'\n\n')
 
     #resets board to back of cards
     def boardReset(self):
@@ -469,27 +463,13 @@ AF>1.5        Aggressive
     #returns hand type, as well as power index
     @classmethod
     def checkHandType(Player,hand):
-        def highFreq(handStr):
-            uniques = list(set(handStr))
-            maxFreq = 0
-            for i in uniques:
-                if handStr.count(i)>maxFreq:
-                    maxFreq=handStr.count(i)
-            return maxFreq
-        def twoPair(hand,handStrVals):
-            valList = list(set(handStrVals))
-            counts = []
-            for i in valList:
-                counts+=[handStrVals.count(i)]
-            if sorted(counts)==[1,2,2]:
-                return True
         assert(len(hand)==5)    #texas hold'em hands have 5 cards
         handStr = ''.join(hand)
         handStrVals = ''.join(sorted([x[:-1] for x in hand])) #just values
         handStrSuits = ''.join([x[-1] for x in hand]) #just suits
         if handStrVals in Player.valuesStr and len(set(handStrSuits))==1:
             handType = 'straightflush' 
-        elif highFreq(handStrVals)==4:
+        elif Player.highFreq(handStrVals)==4:
             handType = '4ofakind'
         elif len(set(handStrVals))==2:
             handType = 'fullhouse'
@@ -497,15 +477,34 @@ AF>1.5        Aggressive
             handType = 'flush'  #doesn't conflict with straight flush b/c elif
         elif handStrVals in Player.valuesStr:
             handType = 'straight'
-        elif highFreq(handStrVals)==3:
+        elif Player.highFreq(handStrVals)==3:
             handType = '3ofakind'
-        elif twoPair(hand,handStrVals):
+        elif Player.twoPair(hand,handStrVals):
             handType = '2pair'
-        elif highFreq(handStrVals)==2:
+        elif Player.highFreq(handStrVals)==2:
             handType =  '1pair'
         else:
             handType =  'highcard'
         return (handType, Player.handOrder.index(handType)+1)
+
+    @classmethod
+    def highFreq(Player, handStr):
+            uniques = list(set(handStr))
+            maxFreq = 0
+            for i in uniques:
+                if handStr.count(i)>maxFreq:
+                    maxFreq=handStr.count(i)
+            return maxFreq
+
+    @classmethod
+    def twoPair(Player, hand,handStrVals):
+        valList = list(set(handStrVals))
+        counts = []
+        for i in valList:
+            counts+=[handStrVals.count(i)]
+        if sorted(counts)==[1,2,2]:
+            return True
+
 
 #Player will have a list of Opponent instances
 class Opponent(Player):

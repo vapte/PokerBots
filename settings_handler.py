@@ -1,5 +1,6 @@
 import os
 import pickle
+from db import *
 
 
 def setBlind(blind):

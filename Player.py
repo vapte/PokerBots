@@ -75,8 +75,10 @@ if __name__ == '__main__':
     botTuple = readFile('filename1.pickle', True)
     
     if len(botTuple)!=3:
-        print("\n\nNo settings confirmed!\n\n\n")
+        stars = '***********************'
+        print("\n\n"+stars+"\nNo settings confirmed!\n"+stars+"\n\n\n")
         assert(len(botTuple!=3))
+
 
     processes = initThreads(botTuple,{'host':'localhost','port':3000})
 

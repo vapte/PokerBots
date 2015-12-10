@@ -41,10 +41,7 @@ def init(data):
     data.numHands = 0 
     data.seen = None
     data.pace = readFile('filename7.pickle',True)
-    if data.pace==1:
-        devSpeed = 300 #special timerDelay for dev
-    else:
-        devSpeed = 550
+   
 
 
 def mousePressed(event, data):
@@ -88,34 +85,20 @@ def redrawAll(canvas, data):
     #table
     canvas.create_rectangle(5,5,data.width-5,data.height-5,fill = 'orange4')
     canvas.create_rectangle(10,10,data.width-10,data.height-10,fill = 'green4')
-
     #gametext
     canvas.create_text(20,30,text = 'Players: %s' % ', '.join(data.botTuple),
         anchor = 'sw', font = 'msserif 12')
-
-    #players
-    drawPlayers(canvas,data)
-
-    #board
-    (w,b,h) = (data.width,data.boardSize,data.height)
-    (x0,y0,x1,y1) = (w/2-b,h/2-172,w/2+b,h/2-72)
-    canvas.create_rectangle(x0,y0,x1,y1,fill=  'red4')
-
-    #boardCards
-    drawBoardCards(canvas,data)
-
-    #drawPot
-    drawPot(canvas,data)
-
+    drawAllActive(canvas, data)
     #readout
     if data.gameOver:
-        canvas.create_text(data.width/2, 40, text = 'Game Over', font = 'msserif 12 bold')
+        canvas.create_text(data.width/2, 40, text = 'Game Over', 
+            fill = 'white', font = 'msserif 12 bold')
     n = data.readoutCount!=None 
     if n and data.readoutCount>len(data.allHistories)-1 and not data.gameOver:
-        canvas.create_text(data.width/2, 40, text = 'Game Over', font = 'msserif 12 bold')
+        canvas.create_text(data.width/2, 40, text = 'Game Over',
+         fill = 'white', font = 'msserif 12 bold')
         data.gameOver = True
-    if data.readoutCount==None or data.readoutCount>len(data.allHistories)-1:
-        pass
+    if not n or data.readoutCount>len(data.allHistories)-1: pass
     else:
         currEvent = data.allHistories[data.readoutCount]
         db('currEvent',currEvent)
@@ -124,7 +107,19 @@ def redrawAll(canvas, data):
         if readOut!=None:
             readoutParse(readOut,data,canvas,currEvent)
 
+#draws all entities that change during gameplay
+def drawAllActive(canvas,data):
+    #players
+    drawPlayers(canvas,data)
+    #board
+    (w,b,h) = (data.width,data.boardSize,data.height)
+    canvas.create_rectangle(w/2-b,h/2-172,w/2+b,h/2-72,fill=  'red4')
+    #boardCards
+    drawBoardCards(canvas,data)
+    #drawPot
+    drawPot(canvas,data)
 
+#draws based on readout command
 def readoutParse(readOut,data,canvas,currEvent):
     if readOut=='board':
         drawBoardCards(canvas,data)
@@ -134,7 +129,7 @@ def readoutParse(readOut,data,canvas,currEvent):
         assert(len(readOut[2])==2)  #player always has 2 hole cards
         data.playerCards[readOut[1]-1] = readOut[2] #index offset 
         drawPlayers(canvas,data)
-    elif type(readOut)==tuple:   #action that adds to pot, takes from player stack
+    elif type(readOut)==tuple:   #action that adds to pot, removes player stack
         if data.seen == None:
             data.seen = readOut
         elif data.seen == readOut:  #prevent same action from repeat recording
@@ -144,6 +139,7 @@ def readoutParse(readOut,data,canvas,currEvent):
             drawAction(canvas,data,currEvent)
             data.seen = readOut
 
+#update data based on action type/quantity
 def actionDataUpdate(readOut,data):
     try:
         (action,player,quantity) = readOut
@@ -162,9 +158,9 @@ def actionDataUpdate(readOut,data):
         data.stackSizes[player-1] += quantity
         data.potSize -= quantity 
 
-
+#draw the action box
 def drawAction(canvas,data,event):
-    (actionX,actionY) = data.playerPositions[int(event[-1])-1]  #-1 for list indexing
+    (actionX,actionY) = data.playerPositions[int(event[-1])-1]  #-1 for list 
     d = data.playerSize
     (x0,y0,x1,y1) = (actionX-d,actionY-25,actionX+d,actionY+25)
     eventList = event.split(':')
@@ -176,7 +172,6 @@ def drawAction(canvas,data,event):
         canvas.create_rectangle(x0,y0,x1,y1, fill = 'red')
     else:   #actions that don't affect the pot (directly)
         canvas.create_rectangle(x0,y0,x1,y1, fill = 'floralwhite')
-
     actionY-=8
     try:
         quantity = int(eventList[1])    #some actions have no quantity
@@ -186,20 +181,18 @@ def drawAction(canvas,data,event):
         canvas.create_text(actionX,actionY, text = "%s" % action, 
             font = 'msserif 18 bold')
 
-
-
+#draws the pot box with hands played
 def drawPot(canvas,data):
     (x0,y0,x1,y1) = (data.width/2-data.potBoxSize,
         100-data.potBoxSize/2,data.width/2+data.potBoxSize,
         100+data.potBoxSize/2)
     canvas.create_rectangle(x0,60,x1,110,fill = 'floralwhite')
-    canvas.create_text(data.width/2, 80, text = 'POT: %d' % max(data.potSize,0), 
+    canvas.create_text(data.width/2, 80, text = 'POT: %d' % data.potSize, 
         font = 'msserif 12 bold')
     canvas.create_text(data.width/2,95, 
         text = 'HANDS PLAYED: %d' % data.numHands, font = 'msserif 12 bold')
 
-
-
+#draws cards on the board
 def drawBoardCards(canvas,data):
     initX = data.width/2-data.boardSize+25
     y0 = data.height/2-150-20
@@ -223,10 +216,8 @@ def drawBoardCards(canvas,data):
     canvas.create_text(initX+(count+1)*data.cardOffset, data.height/2-130, 
         text = boardState, font = 'msserif 14 bold')
 
-
-
+#return (rank,suit) tuple from string pair representation of cards
 def getRankSuit(card):
-    #return (rank,suit) tuple from string pair representation of cards
     if card == 'back':
         return 'back'
     rank = card[0]
@@ -272,6 +263,7 @@ def drawPlayers(canvas,data):
                     image = getSpecialPlayingCardImage(data,'back'))
         playerCount+=1
 
+#draw player box, type, stack
 def drawBoxTypeStack(canvas,data, player, playerCount):
     d = data.playerSize
     (x0,y0,x1,y1) = (player[0]-d,player[1]-25,player[0]+d,player[1]+25)
