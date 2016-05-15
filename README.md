@@ -1,4 +1,4 @@
-15-112 Term Project: PokerBots Suite
+PokerBots:
 
 This project is a suite for designing and testing poker artificial intelligence (AI) machines using the MIT PokerBots Engine. The engine runs a game of Pot Limit Texas Hold’Em with up to 3 players, each of which send/receive packets from the engine (except for ‘random’ and ‘checkfold’ bots which are run within the engine). 
 
@@ -18,9 +18,8 @@ The primary script, Player.py, executes the following in order:
 
 (bot processes self-terminate)
 
-Prerequisites:
 
-To run this project, you will need the following modules:
+Necessary modules: 
 
 numpy,
 socket,
@@ -35,12 +34,8 @@ copy
 
 Installation:
 
-All modules listed except for numpy are part of the Python 3.4 Standard Library. The numpy module can be installed by entering 
-
-‘python -m pip install numpy’ 
-
-in the command line (“pip” is a package installation utility that comes standard with python 3.4). 
+All modules listed except for numpy are part of the Python 3.4 Standard Library. Run ‘python -m pip install numpy’ to install numpy
 
 Running Player.py:
 
-Run ‘python Player.py’ in the command line 
+Run ‘python Player.py’ 
