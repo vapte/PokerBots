@@ -19,23 +19,30 @@ The primary script, Player.py, executes the following in order:
 (bot processes self-terminate)
 
 
-Necessary modules: 
+Requirements: 
+'''
+numpy
+python 3+
+'''
 
-numpy,
-socket,
-os,
-multiprocessing,
-time,
-pickle,
-tkinter,
-itertools,
-random,
-copy
+Running the simulator:
+'''
+python Player.py
+'''
 
-Installation:
+Writing your own bot:
+'''python
 
-All modules listed except for numpy are part of the Python 3.4 Standard Library. Run ‘python -m pip install numpy’ to install numpy
+from playerclass import *
+from db import *
 
-Running Player.py:
+class YourBot(Player):
+    def __init__(self,name):
+        super().__init__(name)
+        self.type = 'yourbot'
 
-Run ‘python Player.py’ 
+    #bot control function
+    def botLogic(self):
+    	...
+'''
+
