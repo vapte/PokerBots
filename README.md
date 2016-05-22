@@ -20,18 +20,20 @@ The primary script, Player.py, executes the following in order:
 
 
 Requirements: 
-'''
+```
 numpy
 python 3+
-'''
+```
 
 Running the simulator:
-'''
+```
 python Player.py
-'''
+```
 
 Writing your own bot:
-'''python
+
+```python
+#yourbot.py
 
 from playerclass import *
 from db import *
@@ -44,5 +46,5 @@ class YourBot(Player):
     #bot control function
     def botLogic(self):
     	...
-'''
+```
 
