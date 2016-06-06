@@ -45,6 +45,8 @@ Running Player.py:
 
 Run ‘python Player.py’ in the command line 
 
+###License 
+MIT
 
 
 
