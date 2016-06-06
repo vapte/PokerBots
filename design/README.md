@@ -1,4 +1,4 @@
-READMDE - PokerBots Suite
+# PokerBots Suite
 
 This project is a suite for designing and testing poker artificial intelligence (AI) programs using the MIT PokerBots Engine. The engine runs a game of Pot Limit Texas Hold’Em with up to 3 players, each of which send/receive packets from the engine (except for ‘random’ and ‘checkfold’ bots which are run within the engine). 
 
